@@ -1641,7 +1641,7 @@ void ThreadOpenAddedConnections2(void* parg)
         return;
     }
 
-    while (true)
+    for (unsigned int i = 0; true; i++)
     {
         list<string> lAddresses(0);
         {
@@ -1681,7 +1681,7 @@ void ThreadOpenAddedConnections2(void* parg)
         BOOST_FOREACH(vector<CService>& vserv, lservAddressesToAdd)
         {
             CSemaphoreGrant grant(*semOutbound);
-            OpenNetworkConnection(CAddress(*(vserv.begin())), &grant);
+            OpenNetworkConnection(CAddress(vserv[i % vserv.size()]), &grant);
             MilliSleep(500);
             if (fShutdown)
                 return;
