@@ -958,7 +958,7 @@ void ThreadSocketHandler2(void* parg)
                     TRY_LOCK(pnode->cs_vSend, lockSend);
                     if (lockSend) {
                         // do not read, if draining write queue
-                        if (!pnode->vSendMsg.empty())
+                        if (!pnode->vSend.empty())
                             FD_SET(pnode->hSocket, &fdsetSend);
                         else
                             FD_SET(pnode->hSocket, &fdsetRecv);

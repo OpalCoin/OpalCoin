@@ -551,14 +551,12 @@ public:
             printf("(%d bytes)\n", nSize);
         }
 
-        std::deque<CSerializeData>::iterator it = vSendMsg.insert(vSendMsg.end(), CSerializeData());
-        ssSend.GetAndClear(*it);
-        nSendSize += (*it).size();
-
         // If write queue empty, attempt "optimistic write"
-        if (it == vSendMsg.begin())
+        if (nHeaderStart == 0)
             SocketSendData(this);
 
+        nHeaderStart = -1;
+        nMessageStart = -1;
         LEAVE_CRITICAL_SECTION(cs_vSend);
     }
 
