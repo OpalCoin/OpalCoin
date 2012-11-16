@@ -3452,6 +3452,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 // requires LOCK(cs_vRecvMsg)
 bool ProcessMessages(CNode* pfrom)
 {
+    if (pfrom->vRecvMsg.empty())
+        return true;
     //if (fDebug)
     //    printf("ProcessMessages(%zu messages)\n", pfrom->vRecvMsg.size());
 
@@ -3465,8 +3467,9 @@ bool ProcessMessages(CNode* pfrom)
     //
     bool fOk = true;
 
-    std::deque<CNetMessage>::iterator it = pfrom->vRecvMsg.begin();
-    while (!pfrom->fDisconnect && it != pfrom->vRecvMsg.end()) {
+    unsigned int nMsgPos = 0;
+    for (; nMsgPos < pfrom->vRecvMsg.size(); nMsgPos++)
+    {
         // Don't bother if send buffer is too full to respond anyway
         if (pfrom->nSendSize >= SendBufferSize())
             break;
@@ -3483,14 +3486,21 @@ bool ProcessMessages(CNode* pfrom)
         if (!msg.complete())
             break;
 
-        // at this point, any failure means we can delete the current message
-        it++;
+        // get next message; end, if an incomplete message is found
+        CNetMessage& msg = pfrom->vRecvMsg[nMsgPos];
+
+        //if (fDebug)
+        //    printf("ProcessMessages(message %u msgsz, %zu bytes, complete:%s)\n",
+        //            msg.hdr.nMessageSize, msg.vRecv.size(),
+        //            msg.complete() ? "Y" : "N");
+
+        if (!msg.complete())
+            break;
 
         // Scan for message start
         if (memcmp(msg.hdr.pchMessageStart, pchMessageStart, sizeof(pchMessageStart)) != 0) {
             printf("\n\nPROCESSMESSAGE: INVALID MESSAGESTART\n\n");
-            fOk = false;
-            break;
+            return false;
         }
 
         // Read header
@@ -3523,7 +3533,7 @@ bool ProcessMessages(CNode* pfrom)
         {
             {
                 LOCK(cs_main);
-                fRet = ProcessMessage(pfrom, strCommand, vRecv, msg.nTime);
+                fRet = ProcessMessage(pfrom, strCommand, vRecv);
             }
             if (fShutdown)
                 break;
@@ -3555,11 +3565,11 @@ bool ProcessMessages(CNode* pfrom)
             printf("ProcessMessage(%s, %u bytes) FAILED\n", strCommand.c_str(), nMessageSize);
     }
 
-    // In case the connection got shut down, its receive buffer was wiped
-    if (!pfrom->fDisconnect)
-        pfrom->vRecvMsg.erase(pfrom->vRecvMsg.begin(), it);
-
-    return fOk;
+    // remove processed messages; one incomplete message may remain
+    if (nMsgPos > 0)
+        pfrom->vRecvMsg.erase(pfrom->vRecvMsg.begin(),
+                              pfrom->vRecvMsg.begin() + nMsgPos);
+    return true;
 }
 
 
