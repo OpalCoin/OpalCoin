@@ -257,6 +257,44 @@ public:
 
 
 
+class CNetMessage {
+public:
+    bool in_data;                   // parsing header (false) or data (true)
+
+    CDataStream hdrbuf;             // partially received header
+    CMessageHeader hdr;             // complete header
+    unsigned int nHdrPos;
+
+    CDataStream vRecv;              // received message data
+    unsigned int nDataPos;
+
+    CNetMessage(int nTypeIn, int nVersionIn) : hdrbuf(nTypeIn, nVersionIn), vRecv(nTypeIn, nVersionIn) {
+        hdrbuf.resize(24);
+        in_data = false;
+        nHdrPos = 0;
+        nDataPos = 0;
+    }
+
+    bool complete() const
+    {
+        if (!in_data)
+            return false;
+        return (hdr.nMessageSize == nDataPos);
+    }
+
+    void SetVersion(int nVersionIn)
+    {
+        hdrbuf.SetVersion(nVersionIn);
+        vRecv.SetVersion(nVersionIn);
+    }
+
+    int readHeader(const char *pch, unsigned int nBytes);
+    int readData(const char *pch, unsigned int nBytes);
+};
+
+
+
+
 
 /** Information about a peer */
 class CNode
@@ -265,6 +303,7 @@ public:
     // socket
     uint64_t nServices;
     SOCKET hSocket;
+<<<<<<< HEAD
     CDataStream ssSend;
     size_t nSendSize; // total size of all vSendMsg entries
     size_t nSendOffset; // offset inside the first vSendMsg already sent
@@ -272,6 +311,12 @@ public:
     CCriticalSection cs_vSend;
 
     std::deque<CNetMessage> vRecvMsg;
+=======
+    CDataStream vSend;
+    CCriticalSection cs_vSend;
+
+    std::vector<CNetMessage> vRecvMsg;
+>>>>>>> fa9b4ac... P2P: parse network datastream into header/data components in socket thread
     CCriticalSection cs_vRecvMsg;
     int nRecvVersion;
 
@@ -324,6 +369,7 @@ public:
     std::vector<CInv> vInventoryToSend;
     CCriticalSection cs_inventory;
     std::multimap<int64_t, CInv> mapAskFor;
+<<<<<<< HEAD
 	SecMsgNode smsgData;
 
     // Ping time measurement:
@@ -347,6 +393,10 @@ public:
     bool fPingQueued;
 
     CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, INIT_PROTO_VERSION), setAddrKnown(5000)
+=======
+
+    CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : vSend(SER_NETWORK, MIN_PROTO_VERSION)
+>>>>>>> fa9b4ac... P2P: parse network datastream into header/data components in socket thread
     {
         nServices = 0;
         hSocket = hSocketIn;
@@ -402,6 +452,26 @@ public:
     {
         assert(nRefCount >= 0);
         return nRefCount;
+    }
+
+    // requires LOCK(cs_vRecvMsg)
+    unsigned int GetTotalRecvSize()
+    {
+        unsigned int total = 0;
+        for (unsigned int i = 0; i < vRecvMsg.size(); i++)
+            total += vRecvMsg[i].vRecv.size();
+        return total;
+    }
+
+    // requires LOCK(cs_vRecvMsg)
+    bool ReceiveMsgBytes(const char *pch, unsigned int nBytes);
+
+    // requires LOCK(cs_vRecvMsg)
+    void SetRecvVersion(int nVersionIn)
+    {
+        nRecvVersion = nVersionIn;
+        for (unsigned int i = 0; i < vRecvMsg.size(); i++)
+            vRecvMsg[i].SetVersion(nVersionIn);
     }
 
     CNode* AddRef()
