@@ -90,7 +90,7 @@ void Shutdown()
     StopNode();
     bitdb.Flush(true);
     boost::filesystem::remove(GetPidFile());
-    UnregisterWallet(pwalletMain);
+    UnregisterAllWallets();
     delete pwalletMain;
 }
 
