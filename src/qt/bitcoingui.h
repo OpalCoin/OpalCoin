@@ -138,6 +138,8 @@ private:
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
+    /** Keep track of previous number of blocks, to detect progress */
+    int prevBlocks;
 
     bool chatInit;
     QWebFrame * chatFrame;
