@@ -66,24 +66,16 @@ void Shutdown(void* parg)
     static bool fTaken;
 
     // Make this thread recognisable as the shutdown thread
-    RenameThread("Opalcoin-shutoff");
-
-    bool fFirstThread = false;
-    {
-        TRY_LOCK(cs_Shutdown, lockShutdown);
-        if (lockShutdown)
-        {
-            fFirstThread = !fTaken;
-            fTaken = true;
-        }
-    }
-    static bool fExit;
-    if (fFirstThread)
+    RenameThread("opalcoin-shutoff");
+    nTransactionsUpdated++;
+    StopRPCThreads();
+    bitdb.Flush(false);
+    StopNode();
     {
         fShutdown = true;
         SecureMsgShutdown();
         nTransactionsUpdated++;
-//        CTxDB().Close();
+        StopRPCThreads();
         bitdb.Flush(false);
         StopNode();
         bitdb.Flush(true);
@@ -92,19 +84,11 @@ void Shutdown(void* parg)
         delete pwalletMain;
         NewThread(ExitTimeout, NULL);
         MilliSleep(50);
-        printf("Opalcoin exited\n\n");
-        fExit = true;
+        printf("OpalCoin exited\n\n");
 #ifndef QT_GUI
         // ensure non-UI client gets exited here, but let Bitcoin-Qt reach 'return 0;' in bitcoin.cpp
         exit(0);
 #endif
-    }
-    else
-    {
-        while (!fExit)
-            MilliSleep(500);
-        MilliSleep(100);
-        ExitThread(0);
     }
 }
 
@@ -304,6 +288,7 @@ std::string HelpMessage()
         "  -rpcport=<port>        " + _("Listen for JSON-RPC connections on <port> (default: 51990 or testnet: 51991)") + "\n" +
         "  -rpcallowip=<ip>       " + _("Allow JSON-RPC connections from specified IP address") + "\n" +
         "  -rpcconnect=<ip>       " + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n" +
+        "  -rpcthreads=<n>        " + _("Use this mean threads to service RPC calls (default: 4)") + "\n" +
         "  -blocknotify=<cmd>     " + _("Execute command when the best block changes (%s in cmd is replaced by block hash)") + "\n" +
         "  -walletnotify=<cmd>    " + _("Execute command when a wallet transaction changes (%s in cmd is replaced by TxID)") + "\n" +
         "  -confchange            " + _("Require a confirmations for change (default: 0)") + "\n" +
@@ -521,7 +506,7 @@ bool AppInit2(boost::thread_group& threadGroup)
     // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
     // Sanity check
     if (!InitSanityCheck())
-        return InitError(_("Initialization sanity check failed. BlackCoin is shutting down."));
+        return InitError(_("Initialization sanity check failed. OpalCoin is shutting down."));
 
     std::string strDataDir = GetDataDir().string();
     std::string strWalletFileName = GetArg("-wallet", "wallet.dat");
@@ -674,9 +659,6 @@ bool AppInit2(boost::thread_group& threadGroup)
     fNoListen = !GetBoolArg("-listen", true);
     fDiscover = GetBoolArg("-discover", true);
     fNameLookup = GetBoolArg("-dns", true);
-#ifdef USE_UPNP
-    fUseUPnP = GetBoolArg("-upnp", USE_UPNP);
-#endif
 
     bool fBound = false;
     if (!fNoListen)
@@ -939,11 +921,11 @@ bool AppInit2(boost::thread_group& threadGroup)
     printf("mapWallet.size() = %"PRIszu"\n",       pwalletMain->mapWallet.size());
     printf("mapAddressBook.size() = %"PRIszu"\n",  pwalletMain->mapAddressBook.size());
 
-    if (!NewThread(StartNode, NULL))
+    if (!NewThread(StartNode, (void*)&threadGroup))
         InitError(_("Error: could not start node"));
 
     if (fServer)
-        NewThread(ThreadRPCServer, NULL);
+        StartRPCThreads();
 
     // ********************************************************* Step 12: finished
 
