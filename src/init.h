@@ -14,7 +14,7 @@ namespace boost {
 extern CWallet* pwalletMain;
 extern std::string strWalletFileName;
 void StartShutdown();
-void Shutdown(void* parg);
+void Shutdown();
 bool AppInit2(boost::thread_group& threadGroup);
 std::string HelpMessage();
 
