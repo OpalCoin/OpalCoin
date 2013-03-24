@@ -303,7 +303,10 @@ public:
     // socket
     uint64_t nServices;
     SOCKET hSocket;
-    CDataStream vSend;
+    CDataStream ssSend;
+    size_t nSendSize; // total size of all vSendMsg entries
+    size_t nSendOffset; // offset inside the first vSendMsg already sent
+    std::deque<CSerializeData> vSendMsg;
     CCriticalSection cs_vSend;
 
     std::deque<CNetMessage> vRecvMsg;
@@ -360,7 +363,7 @@ public:
     CCriticalSection cs_inventory;
     std::multimap<int64_t, CInv> mapAskFor;
 
-    CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : vSend(SER_NETWORK, MIN_PROTO_VERSION)
+    CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, MIN_PROTO_VERSION)
     {
         nServices = 0;
         hSocket = hSocketIn;
@@ -379,6 +382,8 @@ public:
         fSuccessfullyConnected = false;
         fDisconnect = false;
         nRefCount = 0;
+        nSendSize = 0;
+        nSendOffset = 0;
         hashContinue = 0;
         pindexLastGetBlocksBegin = 0;
         hashLastGetBlocksEnd = 0;
@@ -551,12 +556,14 @@ public:
             printf("(%d bytes)\n", nSize);
         }
 
+        std::deque<CSerializeData>::iterator it = vSendMsg.insert(vSendMsg.end(), CSerializeData());
+        ssSend.GetAndClear(*it);
+        nSendSize += (*it).size();
+
         // If write queue empty, attempt "optimistic write"
-        if (nHeaderStart == 0)
+        if (it == vSendMsg.begin())
             SocketSendData(this);
 
-        nHeaderStart = -1;
-        nMessageStart = -1;
         LEAVE_CRITICAL_SECTION(cs_vSend);
     }
 

@@ -766,31 +766,6 @@ int CNetMessage::readHeader(const char *pch, unsigned int nBytes)
 
 int CNetMessage::readData(const char *pch, unsigned int nBytes)
 {
-    unsigned int nRemaining = hdr.nMessageSize - nDataPos;
-    unsigned int nCopy = std::min(nRemaining, nBytes);
-
-    if (vRecv.size() < nDataPos + nCopy) {
-        // Allocate up to 256 KiB ahead, but never more than the total message size.
-        vRecv.resize(std::min(hdr.nMessageSize, nDataPos + nCopy + 256 * 1024));
-    }
-
-    memcpy(&vRecv[nDataPos], pch, nCopy);
-    nDataPos += nCopy;
-
-    return nCopy;
-}
-
-
-
-
-
-
-
-
-
-// requires LOCK(cs_vSend)
-void SocketSendData(CNode *pnode)
-{
     std::deque<CSerializeData>::iterator it = pnode->vSendMsg.begin();
 
     while (it != pnode->vSendMsg.end()) {
@@ -869,7 +844,7 @@ void ThreadSocketHandler2(void* parg)
             BOOST_FOREACH(CNode* pnode, vNodesCopy)
             {
                 if (pnode->fDisconnect ||
-                    (pnode->GetRefCount() <= 0 && pnode->vRecvMsg.empty() && pnode->vSend.empty()))
+                    (pnode->GetRefCount() <= 0 && pnode->vRecvMsg.empty() && pnode->nSendSize == 0 && pnode->ssSend.empty()))
                 {
                     // remove from vNodes
                     vNodes.erase(remove(vNodes.begin(), vNodes.end(), pnode), vNodes.end());
@@ -958,7 +933,7 @@ void ThreadSocketHandler2(void* parg)
                     TRY_LOCK(pnode->cs_vSend, lockSend);
                     if (lockSend) {
                         // do not read, if draining write queue
-                        if (!pnode->vSend.empty())
+                        if (!pnode->vSendMsg.empty())
                             FD_SET(pnode->hSocket, &fdsetSend);
                         else
                             FD_SET(pnode->hSocket, &fdsetRecv);
@@ -1123,8 +1098,14 @@ void ThreadSocketHandler2(void* parg)
             //
             // Inactivity checking
             //
+<<<<<<< HEAD
             int64_t nTime = GetTime();
             if (nTime - pnode->nTimeConnected > 60)
+=======
+            if (pnode->vSendMsg.empty())
+                pnode->nLastSendEmpty = GetTime();
+            if (GetTime() - pnode->nTimeConnected > 60)
+>>>>>>> 4d6235b... Use per-message send buffer, rather than per connection
             {
                 if (pnode->nLastRecv == 0 || pnode->nLastSend == 0)
                 {
