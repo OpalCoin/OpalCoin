@@ -3466,21 +3466,9 @@ bool ProcessMessages(CNode* pfrom)
     bool fOk = true;
 
     std::deque<CNetMessage>::iterator it = pfrom->vRecvMsg.begin();
-    while (it != pfrom->vRecvMsg.end()) {
+    while (!pfrom->fDisconnect && it != pfrom->vRecvMsg.end()) {
         // Don't bother if send buffer is too full to respond anyway
         if (pfrom->nSendSize >= SendBufferSize())
-            break;
-
-        // get next message
-        CNetMessage& msg = *it;
-
-        //if (fDebug)
-        //    printf("ProcessMessages(message %u msgsz, %zu bytes, complete:%s)\n",
-        //            msg.hdr.nMessageSize, msg.vRecv.size(),
-        //            msg.complete() ? "Y" : "N");
-
-        // end, if an incomplete message is found
-        if (!msg.complete())
             break;
 
         // get next message
@@ -3567,7 +3555,10 @@ bool ProcessMessages(CNode* pfrom)
             printf("ProcessMessage(%s, %u bytes) FAILED\n", strCommand.c_str(), nMessageSize);
     }
 
-    pfrom->vRecvMsg.erase(pfrom->vRecvMsg.begin(), it);
+    // In case the connection got shut down, its receive buffer was wiped
+    if (!pfrom->fDisconnect)
+        pfrom->vRecvMsg.erase(pfrom->vRecvMsg.begin(), it);
+
     return fOk;
 }
 
@@ -3580,19 +3571,9 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         if (pto->nVersion == 0)
             return true;
 
-        //
-        // Message: ping
-        //
-        bool pingSend = false;
-        if (pto->fPingQueued) {
-            // RPC ping request by user
-            pingSend = true;
-        }
-        if (pto->nPingNonceSent == 0 && pto->nPingUsecStart + PING_INTERVAL * 1000000 < GetTimeMicros()) {
-            // Ping automatically sent as a latency probe & keepalive.
-            pingSend = true;
-        }
-        if (pingSend) {
+        // Keep-alive ping. We send a nonce of zero because we don't use it anywhere
+        // right now.
+        if (pto->nLastSend && GetTime() - pto->nLastSend > 30 * 60 && pto->vSendMsg.empty()) {
             uint64_t nonce = 0;
             while (nonce == 0) {
                 RAND_bytes((unsigned char*)&nonce, sizeof(nonce));
