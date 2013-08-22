@@ -351,14 +351,14 @@ public:
     }
 
 private:
-    CNode(const CNode&);
-    void operator=(const CNode&);
-    
     // Network usage totals
     static CCriticalSection cs_totalBytesRecv;
     static CCriticalSection cs_totalBytesSent;
     static uint64_t nTotalBytesRecv;
     static uint64_t nTotalBytesSent;
+
+    CNode(const CNode&);
+    void operator=(const CNode&);
 public:
 
 
@@ -744,7 +744,6 @@ public:
     static bool IsBanned(CNetAddr ip);
     bool Misbehaving(int howmuch); // 1 == a little, 100 == a lot
     void copyStats(CNodeStats &stats);
-    
     // Network stats
     static void RecordBytesRecv(uint64_t bytes);
     static void RecordBytesSent(uint64_t bytes);
