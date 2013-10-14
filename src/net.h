@@ -316,12 +316,16 @@ public:
     std::vector<CInv> vInventoryToSend;
     CCriticalSection cs_inventory;
     std::multimap<int64_t, CInv> mapAskFor;
+<<<<<<< HEAD
 	
 	SecMsgNode smsgData;
 
 <<<<<<< HEAD
     CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, MIN_PROTO_VERSION)
 =======
+=======
+
+>>>>>>> 26c2a12... Ping automatically every 2 minutes (unconditionally)
     // Ping time measurement:
     // The pong reply we're expecting, or 0 if no pong expected.
     uint64_t nPingNonceSent;
