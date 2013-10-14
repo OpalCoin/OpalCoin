@@ -317,12 +317,16 @@ public:
     CCriticalSection cs_inventory;
     std::multimap<int64_t, CInv> mapAskFor;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	SecMsgNode smsgData;
 
 <<<<<<< HEAD
     CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, MIN_PROTO_VERSION)
 =======
+=======
+
+>>>>>>> 26c2a12... Ping automatically every 2 minutes (unconditionally)
 =======
 
 >>>>>>> 26c2a12... Ping automatically every 2 minutes (unconditionally)
