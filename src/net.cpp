@@ -1098,14 +1098,11 @@ void ThreadSocketHandler2(void* parg)
             //
             // Inactivity checking
             //
-<<<<<<< HEAD
-            int64_t nTime = GetTime();
-            if (nTime - pnode->nTimeConnected > 60)
-=======
             if (pnode->vSendMsg.empty())
                 pnode->nLastSendEmpty = GetTime();
             if (GetTime() - pnode->nTimeConnected > 60)
->>>>>>> 4d6235b... Use per-message send buffer, rather than per connection
+            int64_t nTime = GetTime();
+            if (nTime - pnode->nTimeConnected > 60)
             {
                 if (pnode->nLastRecv == 0 || pnode->nLastSend == 0)
                 {

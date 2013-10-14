@@ -214,11 +214,6 @@ public:
 
     int64_t nLastSend;
     int64_t nLastRecv;
-    
-    uint64_t nSendBytes;
-    uint64_t nRecvBytes;
-    
-    int64_t nLastSendEmpty;
     int64_t nTimeConnected;
     CAddress addr;
     std::string addrName;
@@ -262,10 +257,14 @@ public:
     CCriticalSection cs_inventory;
     std::multimap<int64_t, CInv> mapAskFor;
 
-    // Ping time measurement
+    // Ping time measurement:
+    // The pong reply we're expecting, or 0 if no pong expected.
     uint64_t nPingNonceSent;
+    // Time (in usec) the last ping was sent, or 0 if no ping was ever sent.
     int64_t nPingUsecStart;
+    // Last measured round-trip time.
     int64_t nPingUsecTime;
+    // Whether a ping is requested.
     bool fPingQueued;
 
     CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, INIT_PROTO_VERSION), setAddrKnown(5000)
