@@ -2817,20 +2817,6 @@ void CWallet::PrintWallet(const CBlock& block)
     printf("\n");
 }
 
-bool CWallet::GetTransaction(const uint256 &hashTx, CWalletTx& wtx)
-{
-    {
-        LOCK(cs_wallet);
-        map<uint256, CWalletTx>::iterator mi = mapWallet.find(hashTx);
-        if (mi != mapWallet.end())
-        {
-            wtx = (*mi).second;
-            return true;
-        }
-    }
-    return false;
-}
-
 bool CWallet::SetDefaultKey(const CPubKey &vchPubKey)
 {
     if (fFileBacked)
