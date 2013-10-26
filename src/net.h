@@ -260,23 +260,11 @@ public:
     CCriticalSection cs_inventory;
     std::multimap<int64_t, CInv> mapAskFor;
 
-    SecMsgNode smsgData;
-
-    // Ping time measurement:
-    // The pong reply we're expecting, or 0 if no pong expected.
-    uint64_t nPingNonceSent;
-    // Time (in usec) the last ping was sent, or 0 if no ping was ever sent.
-    int64_t nPingUsecStart;
-    // Last measured round-trip time.
-    int64_t nPingUsecTime;
-    // Whether a ping is requested.
-    bool fPingQueued;
-
-    CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, INIT_PROTO_VERSION), setAddrKnown(5000)
+    CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, INIT_PROTO_VERSION)
     {
         nServices = 0;
         hSocket = hSocketIn;
-        nRecvVersion = MIN_PROTO_VERSION;
+        nRecvVersion = INIT_PROTO_VERSION;
         nLastSend = 0;
         nLastRecv = 0;
         nTimeConnected = GetTime();
