@@ -253,7 +253,7 @@ void CWallet::SetBestChain(const CBlockLocator& loc)
 
 bool CWallet::SetMinVersion(enum WalletFeature nVersion, CWalletDB* pwalletdbIn, bool fExplicit)
 {
-    LOCK(cs_wallet); // nWalletVersion
+    AssertLockHeld(cs_wallet); // nWalletVersion
     if (nWalletVersion >= nVersion)
         return true;
 
@@ -280,7 +280,7 @@ bool CWallet::SetMinVersion(enum WalletFeature nVersion, CWalletDB* pwalletdbIn,
 
 bool CWallet::SetMaxVersion(int nVersion)
 {
-    LOCK(cs_wallet); // nWalletVersion, nWalletMaxVersion
+    AssertLockHeld(cs_wallet); // nWalletVersion, nWalletMaxVersion
     // cannot downgrade below current version
     if (nWalletVersion > nVersion)
         return false;
@@ -2729,6 +2729,7 @@ string CWallet::SendMoneyToDestination(const CTxDestination& address, int64_t nV
 
 DBErrors CWallet::LoadWallet(bool& fFirstRunRet)
 {
+    AssertLockHeld(cs_wallet); // setKeyPool
     if (!fFileBacked)
         return DB_LOAD_OK;
     fFirstRunRet = false;
