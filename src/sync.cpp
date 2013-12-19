@@ -125,4 +125,20 @@ void LeaveCritical()
     pop_lock();
 }
 
+std::string LocksHeld()
+{
+    std::string result;
+    BOOST_FOREACH(const PAIRTYPE(void*, CLockLocation)&i, *lockstack)
+        result += i.second.ToString() + std::string("\n");
+    return result;
+}
+
+void AssertLockHeldInternal(const char *pszName, const char* pszFile, int nLine, void *cs)
+{
+    BOOST_FOREACH(const PAIRTYPE(void*, CLockLocation)&i, *lockstack)
+        if (i.first == cs) return;
+    LogPrintf("Lock %s not held in %s:%i; locks held:\n%s", pszName, pszFile, nLine, LocksHeld().c_str());
+    assert(0);
+}
+
 #endif /* DEBUG_LOCKORDER */
