@@ -2729,7 +2729,6 @@ string CWallet::SendMoneyToDestination(const CTxDestination& address, int64_t nV
 
 DBErrors CWallet::LoadWallet(bool& fFirstRunRet)
 {
-    AssertLockHeld(cs_wallet); // setKeyPool
     if (!fFileBacked)
         return DB_LOAD_OK;
     fFirstRunRet = false;
