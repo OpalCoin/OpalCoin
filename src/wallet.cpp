@@ -253,7 +253,7 @@ void CWallet::SetBestChain(const CBlockLocator& loc)
 
 bool CWallet::SetMinVersion(enum WalletFeature nVersion, CWalletDB* pwalletdbIn, bool fExplicit)
 {
-    AssertLockHeld(cs_wallet); // nWalletVersion
+    LOCK(cs_wallet); // nWalletVersion
     if (nWalletVersion >= nVersion)
         return true;
 
@@ -280,7 +280,7 @@ bool CWallet::SetMinVersion(enum WalletFeature nVersion, CWalletDB* pwalletdbIn,
 
 bool CWallet::SetMaxVersion(int nVersion)
 {
-    AssertLockHeld(cs_wallet); // nWalletVersion, nWalletMaxVersion
+    LOCK(cs_wallet); // nWalletVersion, nWalletMaxVersion
     // cannot downgrade below current version
     if (nWalletVersion > nVersion)
         return false;
@@ -2757,24 +2757,15 @@ DBErrors CWallet::LoadWallet(bool& fFirstRunRet)
 
 bool CWallet::SetAddressBookName(const CTxDestination& address, const string& strName)
 {
-    bool fOwned;
-    ChangeType nMode;
+    bool fUpdated = false;
     {
         LOCK(cs_wallet); // mapAddressBook
         std::map<CTxDestination, std::string>::iterator mi = mapAddressBook.find(address);
-        nMode = (mi == mapAddressBook.end()) ? CT_NEW : CT_UPDATED;
-        fOwned = ::IsMine(*this, address);
-        
+        fUpdated = mi != mapAddressBook.end();
         mapAddressBook[address] = strName;
     }
-    
-    if (fOwned)
-    {
-        const CBitcoinAddress& caddress = address;
-        SecureMsgWalletKeyChanged(caddress.ToString(), strName, nMode);
-    }
-    NotifyAddressBookChanged(this, address, strName, fOwned, nMode);
-    
+    NotifyAddressBookChanged(this, address, strName, ::IsMine(*this, address),
+                             (fUpdated ? CT_UPDATED : CT_NEW) );
     if (!fFileBacked)
         return false;
     return CWalletDB(strWalletFile).WriteName(CBitcoinAddress(address).ToString(), strName);
@@ -2795,7 +2786,7 @@ bool CWallet::DelAddressBookName(const CTxDestination& address)
         const CBitcoinAddress& caddress = address;
         SecureMsgWalletKeyChanged(caddress.ToString(), sName, CT_DELETED);
     }
-    NotifyAddressBookChanged(this, address, "", fOwned, CT_DELETED);
+    NotifyAddressBookChanged(this, address, "", ::IsMine(*this, address), CT_DELETED);
 
     if (!fFileBacked)
         return false;
