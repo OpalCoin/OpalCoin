@@ -419,17 +419,6 @@ bool CKey::Verify(uint256 hash, const std::vector<unsigned char>& vchSig)
 	return ret;
 }
 
-bool CKey::VerifyCompact(uint256 hash, const std::vector<unsigned char>& vchSig)
-{
-    CKey key;
-    if (!key.SetCompactSignature(hash, vchSig))
-        return false;
-    if (GetPubKey() != key.GetPubKey())
-        return false;
-
-    return true;
-}
-
 bool CKey::IsValid()
 {
     if (!fSet)
