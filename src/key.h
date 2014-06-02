@@ -159,4 +159,7 @@ public:
     bool IsValid();
 };
 
+/** Check that required EC support is available at runtime */
+bool ECC_InitSanityCheck(void);
+
 #endif
