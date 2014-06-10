@@ -550,12 +550,6 @@ public:
     void SetDestination(const CTxDestination& address);
     void SetMultisig(int nRequired, const std::vector<CKey>& keys);
 
-
-    void PrintHex() const
-    {
-        printf("CScript(%s)\n", HexStr(begin(), end(), true).c_str());
-    }
-
     std::string ToString(bool fShort=false) const
     {
         std::string str;
@@ -577,11 +571,6 @@ public:
                 str += GetOpName(opcode);
         }
         return str;
-    }
-
-    void print() const
-    {
-        printf("%s\n", ToString().c_str());
     }
 
     CScriptID GetID() const
