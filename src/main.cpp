@@ -337,7 +337,7 @@ bool IsStandardTx(const CTransaction& tx)
             return false;
         if (!txin.scriptSig.IsPushOnly())
             return false;
-        if (fEnforceCanonical && !txin.scriptSig.HasCanonicalPushes()) {
+        if (!txin.scriptSig.HasCanonicalPushes()) {
             return false;
         }
     }
@@ -350,15 +350,10 @@ bool IsStandardTx(const CTransaction& tx)
         if (!::IsStandard(txout.scriptPubKey, whichType))
             return false;
         if (whichType == TX_NULL_DATA)
-        {
-           nDataOut++;
-        } else
-        {
-            if (txout.nValue == 0)
-                return false;
-            nTxnOut++;
-        }
-        if (fEnforceCanonical && !txout.scriptPubKey.HasCanonicalPushes()) {
+            nDataOut++;
+        if (txout.nValue == 0)
+            return false;
+        if (!txout.scriptPubKey.HasCanonicalPushes()) {
             return false;
         }
     }
