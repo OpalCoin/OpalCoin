@@ -164,6 +164,9 @@ void MessagePage::setModel(MessageModel *model)
     // Scroll to bottom
     connect(model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(incomingMessage()));
 
+    // Scroll to bottom
+    connect(model, SIGNAL(rowsInserted(QModelIndex,int,int)), this, SLOT(incomingMessage()));
+
     selectionChanged();
 }
 
