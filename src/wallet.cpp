@@ -190,7 +190,6 @@ bool CWallet::Unlock(const SecureString& strWalletPassphrase)
                 return false;
             break;
         }
-        
         UnlockStealthAddresses(vMasterKey);
         SecureMsgWalletUnlocked();
         return true;
