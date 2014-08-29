@@ -1,6 +1,6 @@
-##ONYX2
+##OPAL
 
-Opalcoin V2 is a relaunch of the original Opalcoin. We made some minor modifications to the codebase including a removed pre-mine and decreased Proof-of-Work period. 
+Opalcoin is a rebrand of the Onyxcoin V2/OnyxCoin. We made some minor modifications to the codebase including a removed pre-mine and decreased Proof-of-Work period. 
 
 * Opalcoin V2 - X13 CryptoCurrency
 * RPC Port: 51990
