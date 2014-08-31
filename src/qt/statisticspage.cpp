@@ -63,11 +63,11 @@ void StatisticsPage::updateStatistics()
     QString subsidy = "";
 	if(pindexBest->nHeight < 50)
     {
-		subsidy = "15 ONYX per block";
+		subsidy = "15 OPAL per block";
     }
     else if(pindexBest->nHeight < 15000)
     {
-		subsidy = "1000 ONYX per block";
+		subsidy = "1000 OPAL per block";
     }
     QString hardness = QString::number(pHardness, 'f', 6);
     QString hardness2 = QString::number(pHardness2, 'f', 6);
@@ -156,11 +156,11 @@ void StatisticsPage::updateStatistics()
 
     if(volume > volumePrevious)
     {
-        ui->volumeBox->setText("<b><font color=\"green\">" + qVolume + " ONYX" + "</font></b>");
+        ui->volumeBox->setText("<b><font color=\"green\">" + qVolume + " OPAL" + "</font></b>");
     } else if(volume < volumePrevious) {
-        ui->volumeBox->setText("<b><font color=\"red\">" + qVolume + " ONYX" + "</font></b>");
+        ui->volumeBox->setText("<b><font color=\"red\">" + qVolume + " OPAL" + "</font></b>");
     } else {
-        ui->volumeBox->setText(qVolume + " ONYX");
+        ui->volumeBox->setText(qVolume + " OPAL");
     }
     updatePrevious(nHeight, nMinWeight, nNetworkWeight, phase, subsidy, pHardness, pHardness2, pPawrate2, Qlpawrate, peers, volume);
 }

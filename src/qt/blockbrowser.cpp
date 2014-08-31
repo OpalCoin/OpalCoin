@@ -210,7 +210,7 @@ std::string getOutputs(std::string txid)
         str.append(lol7);
         str.append(": ");
         str.append(amount);
-        str.append(" ONYX");
+        str.append(" OPAL");
         str.append("\n");
     }
 
@@ -254,7 +254,7 @@ std::string getInputs(std::string txid)
         str.append(lol6);
         str.append(": ");
         str.append(amount);
-        str.append("ONYX");
+        str.append("OPAL");
         str.append("\n");
     }
 
@@ -406,11 +406,11 @@ void BlockBrowser::updateExplorer(bool block)
         QString QOutputs = QString::fromUtf8(outputs.c_str());
         QString QInputs = QString::fromUtf8(inputs.c_str());
         QString QFees = QString::number(fees, 'f', 6);
-        ui->valueBox->setText(QValue + " ONYX");
+        ui->valueBox->setText(QValue + " OPAL");
         ui->txID->setText(QID);
         ui->outputBox->setText(QOutputs);
         ui->inputBox->setText(QInputs);
-        ui->feesBox->setText(QFees + " ONYX");
+        ui->feesBox->setText(QFees + " OPAL");
     }
 }
 
