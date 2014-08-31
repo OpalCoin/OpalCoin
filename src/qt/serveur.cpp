@@ -60,7 +60,7 @@ void Serveur::connected()
 
 void Serveur::joins()
 {
-    join("#theopalcoin");
+    join("#opalcoin");
 }
 
 void Serveur::readServeur()
