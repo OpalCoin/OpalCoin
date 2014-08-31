@@ -2485,7 +2485,7 @@ bool LoadBlockIndex(bool fAllowNew)
         if (!fAllowNew)
             return false;
 
-        const char* pszTimestamp = "OpalCoin v2.0";
+        const char* pszTimestamp = "OpalCoin";
         CTransaction txNew;
         txNew.nTime = 1407013385;
         txNew.vin.resize(1);
