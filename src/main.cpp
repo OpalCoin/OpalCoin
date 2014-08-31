@@ -2485,7 +2485,7 @@ bool LoadBlockIndex(bool fAllowNew)
         if (!fAllowNew)
             return false;
 
-        const char* pszTimestamp = "OpalCoin";
+        const char* pszTimestamp = "OnyxCoin v2.0";
         CTransaction txNew;
         txNew.nTime = 1407013385;
         txNew.vin.resize(1);
@@ -2527,7 +2527,7 @@ bool LoadBlockIndex(bool fAllowNew)
 
         //// debug print
         assert(block.hashMerkleRoot == uint256("0xe9780fc083c91d40c86a25ab5609a71e01c0e4520a27cfb31be831da8c44ecfb"));
-        block.print();
+        //block.print();
         assert(block.GetHash() == (!fTestNet ? hashGenesisBlock : hashGenesisBlockTestNet));
         assert(block.CheckBlock());
 
