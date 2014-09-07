@@ -3705,7 +3705,7 @@ int SecureMsgSend(std::string& addressFrom, std::string& addressTo, std::string&
         } else
         {
             // -- save sent message to db
-            std::string sPrefix("nm");
+            std::string sPrefix("om");
             unsigned char chKey[18];
             memcpy(&chKey[0],  sPrefix.data(),           2);
             memcpy(&chKey[2],  &smsgForOutbox.timestamp, 8);
