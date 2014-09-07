@@ -101,7 +101,6 @@ public:
 /** Thread types */
 enum threadId
 {
-    THREAD_STAKE_MINER,
     THREAD_MAX
 };
 
