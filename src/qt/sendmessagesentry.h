@@ -1,203 +1,55 @@
-#include "ui_sendmessagesentry.h"
-#include "guiutil.h"
-#include "addressbookpage.h"
-#include "walletmodel.h"
-#include "messagemodel.h"
-#include "optionsmodel.h"
-#include "addresstablemodel.h"
+#ifndef SENDMESSAGESENTRY_H
+#define SENDMESSAGESENTRY_H
 
-#include "smessage.h"
+#include <QFrame>
 
-#include <QApplication>
-#include <QClipboard>
-
-SendMessagesEntry::SendMessagesEntry(QWidget *parent) :
-    QFrame(parent),
-    ui(new Ui::SendMessagesEntry),
-    model(0)
-{
-    ui->setupUi(this);
-
-#ifdef Q_OS_MAC
-    ui->sendToLayout->setSpacing(4);
-#endif
-#if QT_VERSION >= 0x040700
-    /* Do not move this to the XML file, Qt before 4.7 will choke on it */
-    ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
-    ui->sendTo->setPlaceholderText(tr("Enter a ShadowCoin address (e.g. SXywGBZBowrppUwwNUo1GCRDTibzJi7g2M)"));
-    ui->publicKey->setPlaceholderText(tr("Enter the public key for the address above, it is not in the blockchain"));
-    ui->messageText->setErrorText(tr("You cannot send a blank message!"));
-#endif
-    setFocusPolicy(Qt::TabFocus);
-    setFocusProxy(ui->sendTo);
-
-    GUIUtil::setupAddressWidget(ui->sendTo, this);
+namespace Ui {
+    class SendMessagesEntry;
 }
+class MessageModel;
+class SendMessagesRecipient;
 
-SendMessagesEntry::~SendMessagesEntry()
+/** A single entry in the dialog for sending messages. */
+class SendMessagesEntry : public QFrame
 {
-    delete ui;
-}
+    Q_OBJECT
 
-void SendMessagesEntry::on_pasteButton_clicked()
-{
-    // Paste text from clipboard into recipient field
-    ui->sendTo->setText(QApplication::clipboard()->text());
-}
+public:
+    explicit SendMessagesEntry(QWidget *parent = 0);
+    ~SendMessagesEntry();
 
-void SendMessagesEntry::on_addressBookButton_clicked()
-{
-    if(!model)
-        return;
+    void setModel(MessageModel *model);
+    void loadRow(int row);
+    bool validate();
+    SendMessagesRecipient getValue();
 
-    AddressBookPage dlg(AddressBookPage::ForSending, AddressBookPage::SendingTab, this);
+    /** Return whether the entry is still empty and unedited */
+    bool isClear();
 
-    dlg.setModel(model->getWalletModel()->getAddressTableModel());
+    void setValue(const SendMessagesRecipient &value);
 
-    if(dlg.exec())
-    {
+    /** Set up the tab chain manually, as Qt messes up the tab chain by default in some cases (issue https://bugreports.qt-project.org/browse/QTBUG-10907).
+     */
+    QWidget *setupTabChain(QWidget *prev);
 
-        ui->sendTo->setText(dlg.getReturnValue());
+    void setFocus();
 
-        if(ui->publicKey->text() == "")
-            ui->publicKey->setFocus();
-        else
-            ui->messageText->setFocus();
-    }
-}
+public slots:
+    void setRemoveEnabled(bool enabled);
+    void clear();
+    
+signals:
+    void removeEntry(SendMessagesEntry *entry);
 
-void SendMessagesEntry::on_sendTo_textChanged(const QString &address)
-{
-    if(!model)
-        return;
+private slots:
+    void on_deleteButton_clicked();
+    void on_addressBookButton_clicked();
+    void on_pasteButton_clicked();
+    void on_sendTo_textChanged(const QString &address);
 
-    QString pubkey;
-    QString sendTo = address;
+private:
+    Ui::SendMessagesEntry *ui;
+    MessageModel *model;
+};
 
-    if(model->getAddressOrPubkey(sendTo, pubkey))
-    {
-
-        ui->publicKey->setText(pubkey);
-    }
-    else
-    {
-        ui->publicKey->show();
-        ui->publicKeyLabel->show();
-    }
-
-    // Fill in label from address book, if address has an associated label
-    QString associatedLabel = model->getWalletModel()->getAddressTableModel()->labelForAddress(address);
-
-    if(!associatedLabel.isEmpty())
-        ui->addAsLabel->setText(associatedLabel);
-}
-
-void SendMessagesEntry::setModel(MessageModel *model)
-{
-
-    this->model = model;
-
-    //clear();
-}
-
-void SendMessagesEntry::loadRow(int row)
-{
-    if(model->data(model->index(row, model->Type, QModelIndex()), Qt::DisplayRole).toString() == MessageModel::Received)
-        ui->sendTo->setText(model->data(model->index(row, model->FromAddress, QModelIndex()), Qt::DisplayRole).toString());
-    else
-        ui->sendTo->setText(model->data(model->index(row, model->ToAddress, QModelIndex()), Qt::DisplayRole).toString());
-}
-
-void SendMessagesEntry::setRemoveEnabled(bool enabled)
-{
-    ui->deleteButton->setEnabled(enabled);
-}
-
-void SendMessagesEntry::clear()
-{
-    ui->sendTo->clear();
-    ui->addAsLabel->clear();
-    ui->messageText->clear();
-    ui->sendTo->setFocus();
-}
-
-void SendMessagesEntry::on_deleteButton_clicked()
-{
-    emit removeEntry(this);
-}
-
-
-bool SendMessagesEntry::validate()
-{
-    // Check input validity
-    bool retval = true;
-
-    if(ui->messageText->toPlainText() == "")
-    {
-        ui->messageText->setValid(false);
-
-        retval = false;
-    }
-
-    if(!ui->sendTo->hasAcceptableInput() || (!model->getWalletModel()->validateAddress(ui->sendTo->text())))
-    {
-        ui->sendTo->setValid(false);
-
-        retval = false;
-    }
-
-    if(ui->publicKey->text() == "")
-    {
-        ui->publicKey->setValid(false);
-        ui->publicKey->show();
-
-        retval = false;
-    }
-
-    return retval;
-}
-
-SendMessagesRecipient SendMessagesEntry::getValue()
-{
-    SendMessagesRecipient rv;
-
-    rv.address = ui->sendTo->text();
-    rv.label = ui->addAsLabel->text();
-    rv.pubkey = ui->publicKey->text();
-    rv.message = ui->messageText->toPlainText();
-
-    return rv;
-}
-
-
-QWidget *SendMessagesEntry::setupTabChain(QWidget *prev)
-{
-    QWidget::setTabOrder(prev, ui->sendTo);
-    QWidget::setTabOrder(ui->sendTo, ui->addressBookButton);
-    QWidget::setTabOrder(ui->addressBookButton, ui->pasteButton);
-    QWidget::setTabOrder(ui->pasteButton, ui->deleteButton);
-    QWidget::setTabOrder(ui->deleteButton, ui->addAsLabel);
-    QWidget::setTabOrder(ui->addAsLabel, ui->publicKey);
-    QWidget::setTabOrder(ui->publicKey, ui->messageText);
-
-    return ui->messageText;
-
-}
-
-void SendMessagesEntry::setValue(const SendMessagesRecipient &value)
-{
-    ui->sendTo->setText(value.address);
-    ui->addAsLabel->setText(value.label);
-    ui->publicKey->setText(value.pubkey);
-    ui->messageText->setPlainText(value.message);
-}
-
-bool SendMessagesEntry::isClear()
-{
-    return ui->sendTo->text().isEmpty();
-}
-
-void SendMessagesEntry::setFocus()
-{
-    ui->sendTo->setFocus();
-}
+#endif // SENDMESSAGESENTRY_H
