@@ -1,10 +1,11 @@
 TEMPLATE = app
 TARGET = opalcoin-qt
-VERSION = 1.0.0
+VERSION = 1.0.1337
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
+CONFIG += static
 QT += core gui network widgets
 QMAKE_CXXFLAGS = -fpermissive
 
@@ -22,6 +23,7 @@ LIBPNG_LIB_PATH=C:/deps/libpng-1.6.9/.libs
 MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.3
 QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.3/.libs
+PTHREAD_LIB_PATH=c:/MinGW/lib
 }
 
 # for boost 1.37, add -mt to the boost libraries
@@ -51,7 +53,7 @@ contains(RELEASE, 1) {
 
 !win32 {
 # for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
-QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
+QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1f
 QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
 # We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
 # This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
@@ -67,6 +69,9 @@ contains(USE_QRCODE, 1) {
     message(Building with QRCode support)
     DEFINES += USE_QRCODE
     LIBS += -lqrencode
+    LIBS += $$join(PTHREAD_LIB_PATH,,-L,) -lpthread
+
+
 }
 
 # use: qmake "USE_UPNP=1" ( enabled by default; default)
