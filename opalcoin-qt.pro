@@ -1,7 +1,7 @@
 TEMPLATE = app
 TARGET = opalcoin-qt
 VERSION = 1.0.1337
-INCLUDEPATH += src src/json src/qt
+INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
@@ -291,6 +291,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/messagemodel.h \
     src/qt/sendmessagesdialog.h \
     src/qt/sendmessagesentry.h \
+    src/qt/plugins/mrichtexteditor/mrichtextedit.h \
+    src/qt/qvalidatedtextedit.h \
     src/txdb-leveldb.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
@@ -363,7 +365,9 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/messagepage.cpp \
     src/qt/messagemodel.cpp \
     src/qt/sendmessagesdialog.cpp \
-    src/qt/sendmessagesentry.cpp \
+    src/qt/sendmessagesentry.cpp \	
+    src/qt/qvalidatedtextedit.cpp \
+    src/qt/plugins/mrichtexteditor/mrichtextedit.cpp \
     src/noui.cpp \
     src/kernel.cpp \
     src/scrypt-arm.S \
@@ -391,8 +395,9 @@ FORMS += \
 	src/qt/forms/blockbrowser.ui \
 	src/qt/forms/chatwindow.ui \
     src/qt/forms/messagepage.ui \ 
-   src/qt/forms/sendmessagesentry.ui \
+    src/qt/forms/sendmessagesentry.ui \
     src/qt/forms/sendmessagesdialog.ui \
+    src/qt/plugins/mrichtexteditor/mrichtextedit.ui
     src/qt/forms/optionsdialog.ui
 
 contains(USE_QRCODE, 1) {
