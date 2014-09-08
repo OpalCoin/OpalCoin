@@ -7,9 +7,15 @@ CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
 QT += core gui network widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
 QMAKE_CXXFLAGS = -fpermissive
 
-windows {
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT += widgets
+    DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
+}
+
 BOOST_LIB_SUFFIX=-mgw46-mt-s-1_53
 BOOST_INCLUDE_PATH=C:/deps/boost_1_53_0
 BOOST_LIB_PATH=C:/deps/boost_1_53_0/stage/lib
@@ -23,7 +29,6 @@ LIBPNG_LIB_PATH=C:/deps/libpng-1.6.9/.libs
 MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.3
 QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.3/.libs
-PTHREAD_LIB_PATH=c:/MinGW/lib
 }
 
 # for boost 1.37, add -mt to the boost libraries
@@ -91,7 +96,10 @@ contains(USE_UPNP, -) {
     win32:LIBS += -liphlpapi
 }
 
-# use: qmake "USE_DBUS=1"
+# use: qmake "USE_DBUS=1" or qmake "USE_DBUS=0"
+linux:count(USE_DBUS, 0) {
+    USE_DBUS=1
+}
 contains(USE_DBUS, 1) {
     message(Building with DBUS (Freedesktop notifications) support)
     DEFINES += USE_DBUS
@@ -391,14 +399,15 @@ FORMS += \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
-	src/qt/forms/statisticspage.ui \
-	src/qt/forms/blockbrowser.ui \
-	src/qt/forms/chatwindow.ui \
-    src/qt/forms/messagepage.ui \ 
+    src/qt/forms/optionsdialog.ui \
+    src/qt/forms/messagepage.ui \
+    src/qt/forms/statisticspage.ui \
+    src/qt/forms/blockbrowser.ui \
+    src/qt/forms/chatwindow.ui \
     src/qt/forms/sendmessagesentry.ui \
     src/qt/forms/sendmessagesdialog.ui \
-    src/qt/plugins/mrichtexteditor/mrichtextedit.ui \
-    src/qt/forms/optionsdialog.ui
+    src/qt/plugins/mrichtexteditor/mrichtextedit.ui
+
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
