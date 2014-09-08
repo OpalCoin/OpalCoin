@@ -397,7 +397,7 @@ FORMS += \
     src/qt/forms/messagepage.ui \ 
     src/qt/forms/sendmessagesentry.ui \
     src/qt/forms/sendmessagesdialog.ui \
-    src/qt/plugins/mrichtexteditor/mrichtextedit.ui
+    src/qt/plugins/mrichtexteditor/mrichtextedit.ui \
     src/qt/forms/optionsdialog.ui
 
 contains(USE_QRCODE, 1) {
