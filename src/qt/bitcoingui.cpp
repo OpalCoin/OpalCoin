@@ -393,7 +393,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(statisticsAction);
     toolbar->addAction(blockAction);
     toolbar->addAction(chatAction);
-    mainToolbar->addAction(messageAction);
+    toolbar->addAction(messageAction);
 
     QToolBar *toolbar2 = addToolBar(tr("Actions toolbar"));
     toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
