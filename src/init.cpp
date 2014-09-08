@@ -82,6 +82,9 @@ void Shutdown(void* parg)
     if (fFirstThread)
     {
         fShutdown = true;
+
+        SecureMsgShutdown();
+
         nTransactionsUpdated++;
 //        CTxDB().Close();
         bitdb.Flush(false);
