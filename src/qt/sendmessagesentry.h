@@ -1,4 +1,3 @@
-#include "sendmessagesentry.h"
 #include "ui_sendmessagesentry.h"
 #include "guiutil.h"
 #include "addressbookpage.h"
