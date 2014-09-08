@@ -477,6 +477,7 @@ void BitcoinGUI::incomingMessage(const QModelIndex & parent, int start, int end)
 {
     if(!messageModel)
         return;
+
     MessageModel *mm = messageModel;
 
     if (mm->index(start, MessageModel::TypeInt, parent).data().toInt() == MessageTableEntry::Received)
