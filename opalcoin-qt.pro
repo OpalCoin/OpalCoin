@@ -206,6 +206,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/serialize.h \
     src/strlcpy.h \
     src/main.h \
+    src/smessage.h \
     src/miner.h \
     src/net.h \
     src/key.h \
@@ -302,6 +303,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
+    src/smessage.cpp \
     src/util.cpp \
     src/netbase.cpp \
     src/key.cpp \
