@@ -16,18 +16,18 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
 }
 
-          BOOST_INCLUDE_PATH=/opt/local/include/boost
-          BOOST_LIB_PATH=/opt/local/lib
-          BDB_INCLUDE_PATH=/opt/local/include/db48
-          BDB_LIB_PATH=/opt/local/lib/db48
-          OPENSSL_INCLUDE_PATH=/opt/local/include/openssl
-          OPENSSL_LIB_PATH=/opt/local/lib
+BOOST_INCLUDE_PATH=/opt/local/include/boost
+BOOST_LIB_PATH=/opt/local/lib
+BDB_INCLUDE_PATH=/opt/local/include/db48
+BDB_LIB_PATH=/opt/local/lib/db48
+OPENSSL_INCLUDE_PATH=/opt/local/include/openssl
+OPENSSL_LIB_PATH=/opt/local/lib
 
-          MINIUPNPC_INCLUDE_PATH=/opt/local/include/miniupnpc
-          MINIUPNPC_LIB_PATH=/opt/local/lib
+MINIUPNPC_INCLUDE_PATH=/opt/local/include/miniupnpc
+MINIUPNPC_LIB_PATH=/opt/local/lib
 
-          QRENCODE_INCLUDE_PATH=/opt/local/include
-          QRENCODE_LIB_PATH=/opt/local/lib
+QRENCODE_INCLUDE_PATH=/opt/local/include
+QRENCODE_LIB_PATH=/opt/local/lib
 
 
 # for boost 1.37, add -mt to the boost libraries
@@ -81,7 +81,6 @@ contains(USE_QRCODE, 1) {
 # use: qmake "USE_UPNP=1" ( enabled by default; default)
 #  or: qmake "USE_UPNP=0" (disabled by default)
 #  or: qmake "USE_UPNP=-" (not supported)
-# miniupnpc (http://miniupnp.free.fr/files/) must be installed for support
 contains(USE_UPNP, -) {
     message(Building without UPNP support)
 } else {
@@ -92,7 +91,6 @@ contains(USE_UPNP, -) {
     DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
     INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
     LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
-    win32:LIBS += -liphlpapi
 }
 
 # use: qmake "USE_DBUS=1" or qmake "USE_DBUS=0"
