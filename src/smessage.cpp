@@ -613,8 +613,6 @@ void ThreadSecureMsg(void* parg)
             {
                 if (it->first < cutoffTime)
                 {
-                    if (fDebugSmsg)
-                        printf("Removing bucket %"PRId64" \n", it->first);
                     std::string fileName = boost::lexical_cast<std::string>(it->first) + "_01.dat";
                     fs::path fullPath = GetDataDir() / "smsgStore" / fileName;
                     if (fs::exists(fullPath))
@@ -3670,10 +3668,7 @@ int SecureMsgDecrypt(bool fTestOnly, std::string& address, unsigned char *pHeade
     };
     
     if (memcmp(MAC, psmsg->mac, 32) != 0)
-    {
-        if (fDebugSmsg)
-            printf("MAC does not match.\n"); // expected if message is not to address on node
-        
+    {        
         return 1;
     };
     
@@ -3804,9 +3799,6 @@ int SecureMsgDecrypt(bool fTestOnly, std::string& address, unsigned char *pHeade
         
         msg.sFromAddress = coinAddrFrom.ToString();
     };
-    
-    if (fDebugSmsg)
-        printf("Decrypted message for %s.\n", address.c_str());
     
     return 0;
 };
