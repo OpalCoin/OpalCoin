@@ -10,7 +10,6 @@
 #include "util.h"
 #include "ui_interface.h"
 #include "checkpoints.h"
-#include "smessage.h"
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/convenience.hpp>
@@ -82,9 +81,6 @@ void Shutdown(void* parg)
     if (fFirstThread)
     {
         fShutdown = true;
-
-        SecureMsgShutdown();
-
         nTransactionsUpdated++;
 //        CTxDB().Close();
         bitdb.Flush(false);
@@ -317,11 +313,6 @@ std::string HelpMessage()
         "  -rpcsslprivatekeyfile=<file.pem>         " + _("Server private key (default: server.pem)") + "\n" +
         "  -rpcsslciphers=<ciphers>                 " + _("Acceptable ciphers (default: TLSv1+HIGH:!SSLv2:!aNULL:!eNULL:!AH:!3DES:@STRENGTH)") + "\n";
 
-        "\n" + _("Secure messaging options:") + "\n" +
-        "  -nosmsg                                  " + _("Disable secure messaging.") + "\n" +
-        "  -debugsmsg                               " + _("Log extra debug messages.") + "\n" +
-        "  -smsgscanchain                           " + _("Scan the block chain for public key addresses on startup.") + "\n";
-
     return strUsage;
 }
 
@@ -437,13 +428,9 @@ bool AppInit2()
 
     // -debug implies fDebug*
     if (fDebug)
-    {
-        fDebugNet  = true;
-    } else
-    {
-        fDebugNet  = GetBoolArg("-debugnet");
-    }
-    fNoSmsg = GetBoolArg("-nosmsg");
+        fDebugNet = true;
+    else
+        fDebugNet = GetBoolArg("-debugnet");
 
     bitdb.SetDetach(GetBoolArg("-detachdb", false));
 
@@ -889,10 +876,6 @@ bool AppInit2()
     printf("Loaded %i addresses from peers.dat  %"PRId64"ms\n",
            addrman.size(), GetTimeMillis() - nStart);
 
-    // ********************************************************* Step 10.1: startup secure messaging
-    
-    SecureMsgStart(fNoSmsg, GetBoolArg("-smsgscanchain"));
-    
     // ********************************************************* Step 11: start node
 
     if (!CheckDiskSpace())

@@ -126,11 +126,6 @@ void CKey::SetCompressedPubKey()
     fCompressedPubKey = true;
 }
 
-EC_KEY* CKey::GetECKey()
-{
-    return pkey;
-}
-
 void CKey::Reset()
 {
     fCompressedPubKey = false;
