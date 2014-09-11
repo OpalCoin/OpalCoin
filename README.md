@@ -1,6 +1,6 @@
 ##OPAL
 
-Opal is a re-brand, and entire re-release of OnyxCoin V2. The first OnyxCoin (V1) was, unfortunately, a scam. The original developer had coded a hidden premine and sold these coins when Onyx initially hit an exchange – the coin effectively died at this point. Shortly after this another developer decided to try and resurrect OnyxCoin by launching a new version of the coin (named OnyxCoin V2, surprisingly!) after making some changes to the PoW schedule, and removing the hidden premine. 
+Opal is a re-brand, and entire re-release of OnyxCoin V2.
 
 Opal – X13 CryptoCurrency
 * RPC Port: 51990
