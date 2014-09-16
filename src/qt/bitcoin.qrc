@@ -48,7 +48,6 @@
         <file alias="twitter">res/icons/twitter.png</file>
         <file alias="face">res/icons/face.png</file>
         <file alias="social">res/icons/social.png</file>
-        <file alias="message">res/icons/message.png</file>
 	<file alias="opacity">res/icons/opacity.png</file>
         <file alias="block">res/icons/block.png</file>
         <file alias="statistics">res/icons/stats.png</file>
