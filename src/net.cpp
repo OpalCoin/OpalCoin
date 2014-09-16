@@ -530,12 +530,9 @@ void CNode::CloseSocketDisconnect()
         printf("disconnecting node %s\n", addrName.c_str());
         closesocket(hSocket);
         hSocket = INVALID_SOCKET;
-<<<<<<< HEAD
-=======
         vRecvMsg.clear();
     }
 }
->>>>>>> fa9b4ac... P2P: parse network datastream into header/data components in socket thread
 
         // in case this fails, we'll empty the recv buffer when the CNode is deleted
         TRY_LOCK(cs_vRecvMsg, lockRecv);
@@ -647,17 +644,11 @@ bool CNode::ReceiveMsgBytes(const char *pch, unsigned int nBytes)
     while (nBytes > 0) {
 
         // get current incomplete message, or create a new one
-<<<<<<< HEAD
-        if (vRecvMsg.empty() ||
-=======
         if (vRecvMsg.size() == 0 ||
->>>>>>> fa9b4ac... P2P: parse network datastream into header/data components in socket thread
             vRecvMsg.back().complete())
             vRecvMsg.push_back(CNetMessage(SER_NETWORK, nRecvVersion));
 
         CNetMessage& msg = vRecvMsg.back();
-<<<<<<< HEAD
-=======
 
         // absorb network data
         int handled;
@@ -874,11 +865,7 @@ void ThreadSocketHandler2(void* parg)
             BOOST_FOREACH(CNode* pnode, vNodesCopy)
             {
                 if (pnode->fDisconnect ||
-<<<<<<< HEAD
-                    (pnode->GetRefCount() <= 0 && pnode->vRecvMsg.empty() && pnode->nSendSize == 0 && pnode->ssSend.empty()))
-=======
                     (pnode->GetRefCount() <= 0 && pnode->vRecvMsg.empty() && pnode->vSend.empty()))
->>>>>>> fa9b4ac... P2P: parse network datastream into header/data components in socket thread
                 {
                     // remove from vNodes
                     vNodes.erase(remove(vNodes.begin(), vNodes.end(), pnode), vNodes.end());
