@@ -303,20 +303,10 @@ public:
     // socket
     uint64_t nServices;
     SOCKET hSocket;
-<<<<<<< HEAD
-    CDataStream ssSend;
-    size_t nSendSize; // total size of all vSendMsg entries
-    size_t nSendOffset; // offset inside the first vSendMsg already sent
-    std::deque<CSerializeData> vSendMsg;
-    CCriticalSection cs_vSend;
-
-    std::deque<CNetMessage> vRecvMsg;
-=======
     CDataStream vSend;
     CCriticalSection cs_vSend;
 
     std::vector<CNetMessage> vRecvMsg;
->>>>>>> fa9b4ac... P2P: parse network datastream into header/data components in socket thread
     CCriticalSection cs_vRecvMsg;
     int nRecvVersion;
 
@@ -369,34 +359,8 @@ public:
     std::vector<CInv> vInventoryToSend;
     CCriticalSection cs_inventory;
     std::multimap<int64_t, CInv> mapAskFor;
-<<<<<<< HEAD
-	SecMsgNode smsgData;
-
-    // Ping time measurement:
-    // The pong reply we're expecting, or 0 if no pong expected.
-    uint64_t nPingNonceSent;
-    // Time (in usec) the last ping was sent, or 0 if no ping was ever sent.
-    int64_t nPingUsecStart;
-    // Last measured round-trip time.
-    int64_t nPingUsecTime;
-    // Whether a ping is requested.
-    bool fPingQueued;
-
-    // Ping time measurement:
-    // The pong reply we're expecting, or 0 if no pong expected.
-    uint64_t nPingNonceSent;
-    // Time (in usec) the last ping was sent, or 0 if no ping was ever sent.
-    int64_t nPingUsecStart;
-    // Last measured round-trip time.
-    int64_t nPingUsecTime;
-    // Whether a ping is requested.
-    bool fPingQueued;
-
-    CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, INIT_PROTO_VERSION), setAddrKnown(5000)
-=======
 
     CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : vSend(SER_NETWORK, MIN_PROTO_VERSION)
->>>>>>> fa9b4ac... P2P: parse network datastream into header/data components in socket thread
     {
         nServices = 0;
         hSocket = hSocketIn;
