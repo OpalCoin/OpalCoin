@@ -61,6 +61,8 @@
 #include <QDragEnterEvent>
 #include <QUrl>
 #include <QStyle>
+#include <QTextStream>
+#include <QTextDocument>
 
 #include <iostream>
 
