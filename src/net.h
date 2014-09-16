@@ -141,6 +141,8 @@ public:
     uint64_t nServices;
     int64_t nLastSend;
     int64_t nLastRecv;
+    uint64_t nSendBytes;
+    uint64_t nRecvBytes;
     int64_t nTimeConnected;
     std::string addrName;
     int nVersion;
@@ -276,6 +278,11 @@ public:
 
     int64_t nLastSend;
     int64_t nLastRecv;
+    
+    uint64_t nSendBytes;
+    uint64_t nRecvBytes;
+    
+    int64_t nLastSendEmpty;
     int64_t nTimeConnected;
     CAddress addr;
     std::string addrName;
@@ -341,7 +348,6 @@ public:
     bool fPingQueued;
 
     CNode(SOCKET hSocketIn, CAddress addrIn, std::string addrNameIn = "", bool fInboundIn=false) : ssSend(SER_NETWORK, INIT_PROTO_VERSION), setAddrKnown(5000)
->>>>>>> 26c2a12... Ping automatically every 2 minutes (unconditionally)
     {
         nServices = 0;
         hSocket = hSocketIn;
