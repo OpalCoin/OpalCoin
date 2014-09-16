@@ -666,6 +666,9 @@ bool CNode::ReceiveMsgBytes(const char *pch, unsigned int nBytes)
 
         pch += handled;
         nBytes -= handled;
+
+        if (msg.complete())
+            msg.nTime = GetTimeMicros();
     }
 
     return true;
@@ -1098,9 +1101,6 @@ void ThreadSocketHandler2(void* parg)
             //
             // Inactivity checking
             //
-            if (pnode->vSendMsg.empty())
-                pnode->nLastSendEmpty = GetTime();
-            if (GetTime() - pnode->nTimeConnected > 60)
             int64_t nTime = GetTime();
             if (nTime - pnode->nTimeConnected > 60)
             {
