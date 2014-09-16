@@ -464,25 +464,13 @@ public:
         ssSend.GetAndClear(*it);
         nSendSize += (*it).size();
 
+
         // If write queue empty, attempt "optimistic write"
         if (it == vSendMsg.begin())
             SocketSendData(this);
 
         LEAVE_CRITICAL_SECTION(cs_vSend);
     }
-
-    void EndMessageAbortIfEmpty()
-    {
-        if (nHeaderStart < 0)
-            return;
-        int nSize = vSend.size() - nMessageStart;
-        if (nSize > 0)
-            EndMessage();
-        else
-            AbortMessage();
-    }
-
-
 
     void PushVersion();
 
