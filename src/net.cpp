@@ -46,9 +46,10 @@ struct LocalServiceInfo {
 //
 // Global state variables
 //
+bool fClient = false;
 bool fDiscover = true;
 bool fUseUPnP = false;
-uint64_t nLocalServices = NODE_NETWORK;
+uint64_t nLocalServices = (fClient ? 0 : NODE_NETWORK);
 static CCriticalSection cs_mapLocalHost;
 static map<CNetAddr, LocalServiceInfo> mapLocalHost;
 static bool vfReachable[NET_MAX] = {};
@@ -427,23 +428,6 @@ void AddressCurrentlyConnected(const CService& addr)
     addrman.Connected(addr);
 }
 
-
-
-
-
-
-
-CNode* FindNode(const CNetAddr& ip)
-{
-    {
-        LOCK(cs_vNodes);
-        BOOST_FOREACH(CNode* pnode, vNodes)
-            if ((CNetAddr)pnode->addr == ip)
-                return (pnode);
-    }
-    return NULL;
-}
-
 CNode* FindNode(std::string addrName)
 {
     LOCK(cs_vNodes);
@@ -530,13 +514,6 @@ void CNode::CloseSocketDisconnect()
         printf("disconnecting node %s\n", addrName.c_str());
         closesocket(hSocket);
         hSocket = INVALID_SOCKET;
-
-        // in case this fails, we'll empty the recv buffer when the CNode is deleted
-        TRY_LOCK(cs_vRecvMsg, lockRecv);
-        if (lockRecv)
-            vRecvMsg.clear();
-    }
-}
 
         // in case this fails, we'll empty the recv buffer when the CNode is deleted
         TRY_LOCK(cs_vRecvMsg, lockRecv);
@@ -712,97 +689,6 @@ int CNetMessage::readData(const char *pch, unsigned int nBytes)
     nDataPos += nCopy;
 
     return nCopy;
-}
-
->>>>>>> fa9b4ac... P2P: parse network datastream into header/data components in socket thread
-
-        // absorb network data
-        int handled;
-        if (!msg.in_data)
-            handled = msg.readHeader(pch, nBytes);
-        else
-            handled = msg.readData(pch, nBytes);
-
-        if (handled < 0)
-                return false;
-
-        pch += handled;
-        nBytes -= handled;
-    }
-
-    return true;
-}
-
-int CNetMessage::readHeader(const char *pch, unsigned int nBytes)
-{
-    // copy data to temporary parsing buffer
-    unsigned int nRemaining = 24 - nHdrPos;
-    unsigned int nCopy = std::min(nRemaining, nBytes);
-
-    memcpy(&hdrbuf[nHdrPos], pch, nCopy);
-    nHdrPos += nCopy;
-
-    // if header incomplete, exit
-    if (nHdrPos < 24)
-        return nCopy;
-
-    // deserialize to CMessageHeader
-    try {
-        hdrbuf >> hdr;
-    }
-    catch (std::exception &e) {
-        return -1;
-    }
-
-    // reject messages larger than MAX_SIZE
-    if (hdr.nMessageSize > MAX_SIZE)
-            return -1;
-
-    // switch state to reading message data
-    in_data = true;
-
-    return nCopy;
-}
-
-int CNetMessage::readData(const char *pch, unsigned int nBytes)
-{
-    std::deque<CSerializeData>::iterator it = pnode->vSendMsg.begin();
-
-    while (it != pnode->vSendMsg.end()) {
-        const CSerializeData &data = *it;
-        assert(data.size() > pnode->nSendOffset);
-        int nBytes = send(pnode->hSocket, &data[pnode->nSendOffset], data.size() - pnode->nSendOffset, MSG_NOSIGNAL | MSG_DONTWAIT);
-        if (nBytes > 0) {
-            pnode->nLastSend = GetTime();
-            pnode->nSendOffset += nBytes;
-            if (pnode->nSendOffset == data.size()) {
-                pnode->nSendOffset = 0;
-                pnode->nSendSize -= data.size();
-                it++;
-            } else {
-                // could not send full message; stop sending more
-                break;
-            }
-        } else {
-            if (nBytes < 0) {
-                // error
-                int nErr = WSAGetLastError();
-                if (nErr != WSAEWOULDBLOCK && nErr != WSAEMSGSIZE && nErr != WSAEINTR && nErr != WSAEINPROGRESS)
-                {
-                    printf("socket send error %d\n", nErr);
-                    pnode->CloseSocketDisconnect();
-                }
-            }
-            // couldn't send anything at all
-            break;
-        }
-    }
-
-    if (it == pnode->vSendMsg.end()) {
-        assert(pnode->nSendOffset == 0);
-        assert(pnode->nSendSize == 0);
-    }
-    pnode->vSendMsg.erase(pnode->vSendMsg.begin(), it);
 }
 
 void ThreadSocketHandler(void* parg)

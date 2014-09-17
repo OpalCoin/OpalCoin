@@ -116,6 +116,7 @@ enum threadId
     THREAD_MAX
 };
 
+extern bool fClient;
 extern bool fDiscover;
 extern bool fUseUPnP;
 extern uint64_t nLocalServices;
@@ -166,12 +167,14 @@ public:
 
     CDataStream vRecv;              // received message data
     unsigned int nDataPos;
+    int64_t nTime;                  // time (in microseconds) of message receipt.
 
     CNetMessage(int nTypeIn, int nVersionIn) : hdrbuf(nTypeIn, nVersionIn), vRecv(nTypeIn, nVersionIn) {
         hdrbuf.resize(24);
         in_data = false;
         nHdrPos = 0;
         nDataPos = 0;
+        nTime = 0;
     }
 
     bool complete() const
@@ -214,6 +217,11 @@ public:
 
     int64_t nLastSend;
     int64_t nLastRecv;
+    
+    uint64_t nSendBytes;
+    uint64_t nRecvBytes;
+    
+    int64_t nLastSendEmpty;
     int64_t nTimeConnected;
     CAddress addr;
     std::string addrName;
