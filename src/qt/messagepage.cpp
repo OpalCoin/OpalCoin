@@ -38,7 +38,7 @@ void MessageViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     QTextDocument doc;
     QString align(index.data(MessageModel::TypeRole) == 1 ? "left" : "right");
-    QString html = "<p align=\"" + align + "\" style=\"color:white;\">" + index.data(MessageModel::HTMLRole).toString() + "</p>";
+    QString html = "<p align=\"" + align + "\" style=\"color:black;\">" + index.data(MessageModel::HTMLRole).toString() + "</p>";
     doc.setHtml(html);
 
     /// Painting item without text
