@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>793</width>
-    <height>413</height>
+    <height>375</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,26 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Minimum</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>50</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item alignment="Qt::AlignVCenter">
     <widget class="QLabel" name="labelExplanation">
-     <property name="styleSheet">
-      <string notr="true">color:#fff;</string>
-     </property>
      <property name="text">
       <string>These are your sent and received encrypted messages. Click on an item to read it.</string>
      </property>
@@ -112,9 +93,6 @@
           </item>
           <item>
            <widget class="QLabel" name="labelContact">
-            <property name="styleSheet">
-             <string notr="true">color:#fff</string>
-            </property>
             <property name="text">
              <string>Contact:</string>
             </property>
@@ -152,17 +130,17 @@
       </widget>
      </item>
      <item>
+      <widget class="MRichTextEdit" name="messageEdit" native="true">
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>100</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+     <item>
       <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QTextEdit" name="messageEdit">
-         <property name="minimumSize">
-          <size>
-           <width>30</width>
-           <height>0</height>
-          </size>
-         </property>
-        </widget>
-       </item>
        <item>
         <widget class="QPushButton" name="newButton">
          <property name="text">
@@ -177,7 +155,7 @@
        <item>
         <widget class="QPushButton" name="sendButton">
          <property name="toolTip">
-          <string>Send a message to the current conversation</string>
+          <string>Sign a message to prove you own a OpalCoin address</string>
          </property>
          <property name="text">
           <string>&amp;Send</string>
@@ -185,6 +163,34 @@
          <property name="icon">
           <iconset resource="../bitcoin.qrc">
            <normaloff>:/icons/send</normaloff>:/icons/send</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="copyFromAddressButton">
+         <property name="toolTip">
+          <string>Copy the currently selected address to the system clipboard</string>
+         </property>
+         <property name="text">
+          <string>&amp;Copy From Address</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../bitcoin.qrc">
+           <normaloff>:/icons/editcopy</normaloff>:/icons/editcopy</iconset>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="copyToAddressButton">
+         <property name="toolTip">
+          <string>Copy the currently selected address to the system clipboard</string>
+         </property>
+         <property name="text">
+          <string>Copy To &amp;Address</string>
+         </property>
+         <property name="icon">
+          <iconset resource="../bitcoin.qrc">
+           <normaloff>:/icons/editcopy</normaloff>:/icons/editcopy</iconset>
          </property>
         </widget>
        </item>
@@ -221,6 +227,14 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MRichTextEdit</class>
+   <extends>QWidget</extends>
+   <header>mrichtextedit.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../bitcoin.qrc"/>
  </resources>
