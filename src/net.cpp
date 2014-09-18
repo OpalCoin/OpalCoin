@@ -1291,6 +1291,7 @@ void MapPort()
 static const char *strDNSSeed[][2] = {
     {"opal-coin.com", "seed.opal-coin.com"}, //Main Opalcoin Seed Node
     {"opal-coin.com", "seeder1.opal-coin.com"}, //Main Opalcoin Seed Node
+    {"opal-coin.com", "seeder2.opal-coin.com"}, //Main Opalcoin Seed Node
 };
 
 void ThreadDNSAddressSeed(void* parg)
