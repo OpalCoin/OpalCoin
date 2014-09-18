@@ -1,28 +1,34 @@
 TEMPLATE = app
-TARGET = opalcoin-qt
-VERSION = 1.0.0
-INCLUDEPATH += src src/json src/qt
+TARGET = Opalcoin-Qt
+VERSION = 1.0.1337
+INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
+CONFIG += static
 QT += core gui network widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
 QMAKE_CXXFLAGS = -fpermissive
 
-windows {
-BOOST_LIB_SUFFIX=-mgw46-mt-s-1_53
-BOOST_INCLUDE_PATH=C:/deps/boost_1_53_0
-BOOST_LIB_PATH=C:/deps/boost_1_53_0/stage/lib
-BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
-BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
-OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1h/include
-OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1h
-MINIUPNPC_INCLUDE_PATH=C:/deps
-LIBPNG_INCLUDE_PATH=C:/deps/libpng-1.6.9
-LIBPNG_LIB_PATH=C:/deps/libpng-1.6.9/.libs
-MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
-QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.3
-QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.3/.libs
+greaterThan(QT_MAJOR_VERSION, 4) {
+    QT += widgets
+    DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
 }
+
+BOOST_INCLUDE_PATH=/opt/local/include/boost
+BOOST_LIB_PATH=/opt/local/lib
+BDB_INCLUDE_PATH=/opt/local/include/db48
+BDB_LIB_PATH=/opt/local/lib/db48
+OPENSSL_INCLUDE_PATH=/opt/local/include/openssl
+OPENSSL_LIB_PATH=/opt/local/lib
+
+MINIUPNPC_INCLUDE_PATH=/opt/local/include/miniupnpc
+MINIUPNPC_LIB_PATH=/opt/local/lib
+
+QRENCODE_INCLUDE_PATH=/opt/local/include
+QRENCODE_LIB_PATH=/opt/local/lib
+
 
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
@@ -67,12 +73,14 @@ contains(USE_QRCODE, 1) {
     message(Building with QRCode support)
     DEFINES += USE_QRCODE
     LIBS += -lqrencode
+    LIBS += $$join(PTHREAD_LIB_PATH,,-L,) -lpthread
+
+
 }
 
 # use: qmake "USE_UPNP=1" ( enabled by default; default)
 #  or: qmake "USE_UPNP=0" (disabled by default)
 #  or: qmake "USE_UPNP=-" (not supported)
-# miniupnpc (http://miniupnp.free.fr/files/) must be installed for support
 contains(USE_UPNP, -) {
     message(Building without UPNP support)
 } else {
@@ -83,10 +91,12 @@ contains(USE_UPNP, -) {
     DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
     INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
     LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
-    win32:LIBS += -liphlpapi
 }
 
-# use: qmake "USE_DBUS=1"
+# use: qmake "USE_DBUS=1" or qmake "USE_DBUS=0"
+linux:count(USE_DBUS, 0) {
+    USE_DBUS=1
+}
 contains(USE_DBUS, 1) {
     message(Building with DBUS (Freedesktop notifications) support)
     DEFINES += USE_DBUS
@@ -127,8 +137,8 @@ SOURCES += src/txdb-leveldb.cpp \
     src/shavite.c \
     src/simd.c \
     src/skein.c \
-	src/fugue.c \
-	src/hamsi.c 
+    src/fugue.c \
+    src/hamsi.c 
 
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
@@ -206,6 +216,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/serialize.h \
     src/strlcpy.h \
     src/main.h \
+    src/smessage.h \
     src/miner.h \
     src/net.h \
     src/key.h \
@@ -254,13 +265,13 @@ HEADERS += src/qt/bitcoingui.h \
     src/allocators.h \
     src/ui_interface.h \
     src/qt/rpcconsole.h \
-	src/qt/blockbrowser.h \
-	src/qt/statisticspage.h \
+    src/qt/blockbrowser.h \
+    src/qt/statisticspage.h \
     src/version.h \
     src/netbase.h \
     src/clientversion.h \
-	src/qt/chatwindow.h \
-	src/qt/serveur.h \
+    src/qt/chatwindow.h \
+    src/qt/serveur.h \
     src/bloom.h \
     src/checkqueue.h \
     src/hash.h \
@@ -277,10 +288,16 @@ HEADERS += src/qt/bitcoingui.h \
     src/sph_shavite.h \
     src/sph_simd.h \
     src/sph_skein.h \
-	src/sph_fugue.h \
-	src/sph_hamsi.h \
+    src/sph_fugue.h \
+    src/sph_hamsi.h \
     src/sph_types.h \
     src/threadsafety.h \
+    src/qt/messagepage.h \
+    src/qt/messagemodel.h \
+    src/qt/sendmessagesdialog.h \
+    src/qt/sendmessagesentry.h \
+    src/qt/plugins/mrichtexteditor/mrichtextedit.h \
+    src/qt/qvalidatedtextedit.h \
     src/txdb-leveldb.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
@@ -295,13 +312,14 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
-	src/qt/chatwindow.cpp \
-	src/qt/statisticspage.cpp \
-	src/qt/blockbrowser.cpp \
-	src/qt/serveur.cpp \
+    src/qt/chatwindow.cpp \
+    src/qt/statisticspage.cpp \
+    src/qt/blockbrowser.cpp \
+    src/qt/serveur.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
+    src/smessage.cpp \
     src/util.cpp \
     src/netbase.cpp \
     src/key.cpp \
@@ -336,6 +354,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/rpcwallet.cpp \
     src/rpcblockchain.cpp \
     src/rpcrawtransaction.cpp \
+    src/rpcsmessage.cpp \
     src/qt/overviewpage.cpp \
     src/qt/csvmodelwriter.cpp \
     src/crypter.cpp \
@@ -348,6 +367,12 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/notificator.cpp \
     src/qt/qtipcserver.cpp \
     src/qt/rpcconsole.cpp \
+    src/qt/messagepage.cpp \
+    src/qt/messagemodel.cpp \
+    src/qt/sendmessagesdialog.cpp \
+    src/qt/sendmessagesentry.cpp \	
+    src/qt/qvalidatedtextedit.cpp \
+    src/qt/plugins/mrichtexteditor/mrichtextedit.cpp \
     src/noui.cpp \
     src/kernel.cpp \
     src/scrypt-arm.S \
@@ -371,10 +396,15 @@ FORMS += \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
-	src/qt/forms/statisticspage.ui \
-	src/qt/forms/blockbrowser.ui \
-	src/qt/forms/chatwindow.ui \
-    src/qt/forms/optionsdialog.ui
+    src/qt/forms/optionsdialog.ui \
+    src/qt/forms/messagepage.ui \
+    src/qt/forms/statisticspage.ui \
+    src/qt/forms/blockbrowser.ui \
+    src/qt/forms/chatwindow.ui \
+    src/qt/forms/sendmessagesentry.ui \
+    src/qt/forms/sendmessagesdialog.ui \
+    src/qt/plugins/mrichtexteditor/mrichtextedit.ui
+
 
 contains(USE_QRCODE, 1) {
 HEADERS += src/qt/qrcodedialog.h
@@ -459,7 +489,7 @@ macx:OBJECTIVE_SOURCES += src/qt/macdockiconhandler.mm
 macx:LIBS += -framework Foundation -framework ApplicationServices -framework AppKit
 macx:DEFINES += MAC_OSX MSG_NOSIGNAL=0
 macx:ICON = src/qt/res/icons/opalcoin.icns
-macx:TARGET = "opalcoin-Qt"
+macx:TARGET = "Opalcoin-Qt"
 macx:QMAKE_CFLAGS_THREAD += -pthread
 macx:QMAKE_LFLAGS_THREAD += -pthread
 macx:QMAKE_CXXFLAGS_THREAD += -pthread
