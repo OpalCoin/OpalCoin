@@ -7,12 +7,14 @@
 class TransactionTableModel;
 class ClientModel;
 class WalletModel;
+class MessageModel;
 class TransactionView;
 class OverviewPage;
 class StatisticsPage;
 class BlockBrowser;
 class ChatWindow;
 class AddressBookPage;
+class MessagePage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
 class Notificator;
@@ -49,6 +51,7 @@ public:
         functionality.
     */
     void setWalletModel(WalletModel *walletModel);
+    void setMessageModel(MessageModel *messageModel);
 
 protected:
     void changeEvent(QEvent *e);
@@ -59,6 +62,7 @@ protected:
 private:
     ClientModel *clientModel;
     WalletModel *walletModel;
+    MessageModel *messageModel;
 
     QStackedWidget *centralWidget;
 
@@ -68,6 +72,7 @@ private:
 	ChatWindow *chatWindow;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
+    MessagePage *messagePage;
     AddressBookPage *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
@@ -81,9 +86,10 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
-	QAction *statisticsAction;
-	QAction *blockAction;
-	QAction *chatAction;
+    QAction *statisticsAction;
+    QAction *blockAction;
+    QAction *chatAction;
+    QAction *messageAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -160,6 +166,7 @@ private slots:
     void gotoReceiveCoinsPage();
     /** Switch to send coins page */
     void gotoSendCoinsPage();
+    void gotoMessagePage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
@@ -179,6 +186,9 @@ private slots:
         The new items are those between start and end inclusive, under the given parent item.
     */
     void incomingTransaction(const QModelIndex & parent, int start, int end);
+	
+    void incomingMessage(const QModelIndex & parent, int start, int end);
+	
     /** Encrypt the wallet */
     void encryptWallet(bool status);
     /** Backup the wallet */

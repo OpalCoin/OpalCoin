@@ -138,6 +138,8 @@ extern std::map<std::string, std::string> mapArgs;
 extern std::map<std::string, std::vector<std::string> > mapMultiArgs;
 extern bool fDebug;
 extern bool fDebugNet;
+extern bool fDebugSmsg;
+extern bool fNoSmsg;
 extern bool fPrintToConsole;
 extern bool fPrintToDebugger;
 extern bool fRequestShutdown;
@@ -346,6 +348,12 @@ inline int64_t GetTimeMillis()
 {
     return (boost::posix_time::ptime(boost::posix_time::microsec_clock::universal_time()) -
             boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_milliseconds();
+}
+
+inline int64_t GetTimeMicros()
+{
+    return (boost::posix_time::ptime(boost::posix_time::microsec_clock::universal_time()) -
+            boost::posix_time::ptime(boost::gregorian::date(1970,1,1))).total_microseconds();
 }
 
 inline std::string DateTimeStrFormat(const char* pszFormat, int64_t nTime)
