@@ -87,12 +87,6 @@
        <height>30</height>
       </size>
      </property>
-     <property name="inputMask">
-      <string/>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
     </widget>
     <widget class="QListView" name="userView">
      <property name="geometry">
