@@ -10,10 +10,9 @@
 #include "miner.h"
 #include "bitcoinrpc.h"
 
+
 using namespace json_spirit;
 using namespace std;
-
-extern unsigned int nTargetSpacing;
 
 Value getsubsidy(const Array& params, bool fHelp)
 {
@@ -21,20 +20,14 @@ Value getsubsidy(const Array& params, bool fHelp)
         throw runtime_error(
             "getsubsidy [nTarget]\n"
             "Returns proof-of-work subsidy value for the specified value of target.");
-
-    unsigned int nBits = 0;
-
-    if (params.size() != 0)
-    {
-        CBigNum bnTarget(uint256(params[0].get_str()));
-        nBits = bnTarget.GetCompact();
-    }
+    
+    int nShowHeight;
+    if (params.size() > 0)
+        nShowHeight = atoi(params[0].get_str());
     else
-    {
-        nBits = GetNextTargetRequired(pindexBest, false);
-    }
-
-    return (uint64_t)GetProofOfWorkReward(0);
+        nShowHeight = nBestHeight+1; // block currently being solved
+    
+    return (uint64_t)GetProofOfWorkReward(nShowHeight, 0);
 }
 
 Value getmininginfo(const Array& params, bool fHelp)
@@ -57,7 +50,7 @@ Value getmininginfo(const Array& params, bool fHelp)
     diff.push_back(Pair("search-interval",      (int)nLastCoinStakeSearchInterval));
     obj.push_back(Pair("difficulty",    diff));
 
-    obj.push_back(Pair("blockvalue",    (uint64_t)GetProofOfWorkReward(0)));
+    obj.push_back(Pair("blockvalue",    (uint64_t)GetProofOfWorkReward(nBestHeight+1, 0)));
     obj.push_back(Pair("netmhashps",     GetPoWMHashPS()));
     obj.push_back(Pair("netstakeweight", GetPoSKernelPS()));
     obj.push_back(Pair("errors",        GetWarnings("statusbar")));
@@ -117,10 +110,10 @@ Value getworkex(const Array& params, bool fHelp)
         );
 
     if (vNodes.empty())
-        throw JSONRPCError(-9, "Opalcoin is not connected!");
+        throw JSONRPCError(-9, "ShadowCoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(-10, "Opalcoin is downloading blocks...");
+        throw JSONRPCError(-10, "ShadowCoin is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
@@ -229,7 +222,7 @@ Value getworkex(const Array& params, bool fHelp)
         if(coinbase.size() == 0)
             pblock->vtx[0].vin[0].scriptSig = mapNewBlock[pdata->hashMerkleRoot].second;
         else
-            CDataStream(coinbase, SER_NETWORK, PROTOCOL_VERSION) >> pblock->vtx[0]; // FIXME - OPAL!
+            CDataStream(coinbase, SER_NETWORK, PROTOCOL_VERSION) >> pblock->vtx[0]; // FIXME - HACK!
 
         pblock->hashMerkleRoot = pblock->BuildMerkleTree();
 
@@ -251,10 +244,10 @@ Value getwork(const Array& params, bool fHelp)
             "If [data] is specified, tries to solve the block and returns true if it was successful.");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Opalcoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "ShadowCoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Opalcoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "ShadowCoin is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
@@ -395,10 +388,10 @@ Value getblocktemplate(const Array& params, bool fHelp)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
 
     if (vNodes.empty())
-        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "Opalcoin is not connected!");
+        throw JSONRPCError(RPC_CLIENT_NOT_CONNECTED, "ShadowCoin is not connected!");
 
     if (IsInitialBlockDownload())
-        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "Opalcoin is downloading blocks...");
+        throw JSONRPCError(RPC_CLIENT_IN_INITIAL_DOWNLOAD, "ShadowCoin is downloading blocks...");
 
     if (pindexBest->nHeight >= LAST_POW_BLOCK)
         throw JSONRPCError(RPC_MISC_ERROR, "No more PoW blocks");
