@@ -75,6 +75,7 @@ public:
     static const int RecommendedNumConfirmations = 10;
 
     TransactionRecord():
+    TransactionRecord():
             hash(), time(0), type(Other), address(""), narration(""), debit(0), credit(0), idx(0)
     {
     }

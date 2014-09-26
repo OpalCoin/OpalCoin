@@ -29,6 +29,8 @@ class COutput;
 class CCoinControl;
 
 typedef std::map<CKeyID, CStealthKeyMetadata> StealthKeyMetaMap;
+typedef std::map<std::string, std::string> mapValue_t;
+
 /** (client) version numbers for particular wallet features */
 enum WalletFeature
 {
