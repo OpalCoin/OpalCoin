@@ -61,6 +61,7 @@ extern CCriticalSection cs_main;
 extern std::map<uint256, CBlockIndex*> mapBlockIndex;
 extern std::set<std::pair<COutPoint, unsigned int> > setStakeSeen;
 extern CBlockIndex* pindexGenesisBlock;
+extern unsigned int nTargetSpacing;
 extern unsigned int nStakeMinAge;
 extern unsigned int nStakeMaxAge;
 extern unsigned int nNodeLifespan;
@@ -97,6 +98,7 @@ class CReserveKey;
 class CTxDB;
 class CTxIndex;
 
+
 void RegisterWallet(CWallet* pwalletIn);
 void UnregisterWallet(CWallet* pwalletIn);
 void SyncWithWallets(const CTransaction& tx, const CBlock* pblock = NULL, bool fUpdate = false, bool fConnect = true);
@@ -125,13 +127,6 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan);
 const CBlockIndex* GetLastBlockIndex(const CBlockIndex* pindex, bool fProofOfStake);
 void StakeMiner(CWallet *pwallet);
 void ResendWalletTransactions(bool fForce = false);
-
-
-
-
-
-
-
 
 
 
