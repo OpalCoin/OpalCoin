@@ -984,7 +984,6 @@ int64_t GetProofOfWorkReward(int64_t nFees)
     return nSubsidy + nFees;
 }
 
-const int DAILY_BLOCKCOUNT =  2880;
 // miner's coin stake reward based on coin age spent (coin-days)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 {
