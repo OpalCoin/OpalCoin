@@ -112,7 +112,7 @@ private:
 protected:
     CryptedKeyMap mapCryptedKeys;
     CKeyingMaterial vMasterKey;
-
+    
     bool SetCrypted();
 
     // will encrypt previously unencrypted keys
@@ -141,8 +141,6 @@ public:
         }
         return result;
     }
-
-    bool Lock();
 
     bool LockKeyStore();
 
