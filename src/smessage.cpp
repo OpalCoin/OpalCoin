@@ -588,7 +588,7 @@ bool SecMsgDB::EraseSmesg(unsigned char* chKey)
 void ThreadSecureMsg(void* parg)
 {
     // -- bucket management thread
-    RenameThread("opalcoin-smsg"); // Make this thread recognisable
+    RenameThread("shadowcoin-smsg"); // Make this thread recognisable
     
     uint32_t delay = 0;
     
@@ -699,7 +699,7 @@ void ThreadSecureMsg(void* parg)
 void ThreadSecureMsgPow(void* parg)
 {
     // -- proof of work thread
-    RenameThread("opalcoin-smsg-pow"); // Make this thread recognisable
+    RenameThread("shadowcoin-smsg-pow"); // Make this thread recognisable
     
     int rv;
     std::vector<unsigned char> vchKey;
@@ -3172,7 +3172,7 @@ int SecureMsgValidate(unsigned char *pHeader, unsigned char *pPayload, uint32_t 
     {
         if (sha256Hash[31] == 0
             && sha256Hash[30] == 0
-            && (~(sha256Hash[29]) & ((1<<0) | (1<<1) | (1<<2)) ))
+            && (~(sha256Hash[29]) & ((1<<0) || (1<<1) || (1<<2)) ))
         {
             if (fDebugSmsg)
                 printf("Hash Valid.\n");
@@ -3257,7 +3257,7 @@ int SecureMsgSetHash(unsigned char *pHeader, unsigned char *pPayload, uint32_t n
         
         if (sha256Hash[31] == 0
             && sha256Hash[30] == 0
-            && (~(sha256Hash[29]) & ((1<<0) | (1<<1) | (1<<2)) ))
+            && (~(sha256Hash[29]) & ((1<<0) || (1<<1) || (1<<2)) ))
         //    && sha256Hash[29] == 0)
         {
             found = true;
@@ -4022,4 +4022,3 @@ int SecureMsgDecrypt(bool fTestOnly, std::string& address, SecureMessage& smsg, 
 {
     return SecureMsgDecrypt(fTestOnly, address, &smsg.hash[0], smsg.pPayload, smsg.nPayload, msg);
 };
-
