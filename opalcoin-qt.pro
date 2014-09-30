@@ -3,10 +3,11 @@ TARGET = Opalcoin-Qt
 VERSION = 1.1.0
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
+QT  += core gui network
 CONFIG += no_include_pwd
 CONFIG += thread
-CONFIG += static
-QT += core gui network widgets
+CONFIG += openssl-linked
+CONFIG += openssl
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
 QMAKE_CXXFLAGS = -fpermissive
@@ -162,7 +163,8 @@ SOURCES += src/txdb-leveldb.cpp \
     src/simd.c \
     src/skein.c \
     src/fugue.c \
-    src/hamsi.c 
+    src/hamsi.c \
+    src/qt/tradingdialog.cpp
 
 !win32 {
     # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
@@ -323,7 +325,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/sendmessagesentry.h \
     src/qt/plugins/mrichtexteditor/mrichtextedit.h \
     src/qt/qvalidatedtextedit.h \
-    src/txdb-leveldb.h
+    src/txdb-leveldb.h \
+    src/qt/tradingdialog.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/transactiontablemodel.cpp \
@@ -423,6 +426,7 @@ FORMS += \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
     src/qt/forms/optionsdialog.ui \
+    src/qt/forms/tradingdialog.ui \
     src/qt/forms/messagepage.ui \
     src/qt/forms/statisticspage.ui \
     src/qt/forms/blockbrowser.ui \
@@ -464,7 +468,7 @@ OTHER_FILES += \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_550
+    windows:BOOST_LIB_SUFFIX = -mgw49-mt-s-1_550
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
