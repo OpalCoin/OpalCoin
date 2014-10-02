@@ -1811,7 +1811,7 @@ Value getnewstealthaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "getnewstealthaddress [label]\n"
-            "Returns a new OpalCoin stealth address for receiving payments anonymously.  ");
+            "Returns a new OpalCoin opaque address for receiving payments anonymously.  ");
     
     if (pwalletMain->IsLocked())
         throw runtime_error("Failed: Wallet must be unlocked.");
@@ -1823,7 +1823,7 @@ Value getnewstealthaddress(const Array& params, bool fHelp)
     CStealthAddress sxAddr;
     std::string sError;
     if (!pwalletMain->NewStealthAddress(sError, sLabel, sxAddr))
-        throw runtime_error(std::string("Could get new stealth address: ") + sError);
+        throw runtime_error(std::string("Could get new opaque address: ") + sError);
     
     if (!pwalletMain->AddStealthAddress(sxAddr))
         throw runtime_error("Could not save to wallet.");
@@ -1836,7 +1836,7 @@ Value liststealthaddresses(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "liststealthaddresses [show_secrets=0]\n"
-            "List owned stealth addresses.");
+            "List owned opaque addresses.");
     
     bool fShowSecrets = false;
     
@@ -1871,10 +1871,10 @@ Value liststealthaddresses(const Array& params, bool fHelp)
             objA.push_back(Pair("Address      ", it->Encoded()));
             objA.push_back(Pair("Scan Secret  ", HexStr(it->scan_secret.begin(), it->scan_secret.end())));
             objA.push_back(Pair("Spend Secret ", HexStr(it->spend_secret.begin(), it->spend_secret.end())));
-            result.push_back(Pair("Stealth Address", objA));
+            result.push_back(Pair("Opaque Address", objA));
         } else
         {
-            result.push_back(Pair("Stealth Address", it->Encoded() + " - " + it->label));
+            result.push_back(Pair("Opaque Address", it->Encoded() + " - " + it->label));
         };
     };
     
@@ -1886,7 +1886,7 @@ Value importstealthaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() < 2)
         throw runtime_error(
             "importstealthaddress <scan_secret> <spend_secret> [label]\n"
-            "Import an owned stealth addresses.");
+            "Import an owned opaque addresses.");
     
     std::string sScanSecret  = params[0].get_str();
     std::string sSpendSecret = params[1].get_str();
@@ -1965,7 +1965,7 @@ Value importstealthaddress(const Array& params, bool fHelp)
                 break;
             };
             
-            result.push_back(Pair("result", "Import failed - stealth address exists."));
+            result.push_back(Pair("result", "Import failed - opaque address exists."));
             return result;
         };
     };
@@ -2013,7 +2013,7 @@ Value sendtostealthaddress(const Array& params, bool fHelp)
     
     if (!sxAddr.SetEncoded(sEncoded))
     {
-        result.push_back(Pair("result", "Invalid OpalCoin stealth address."));
+        result.push_back(Pair("result", "Invalid OpalCoin opaque address."));
         return result;
     };
     
@@ -2206,7 +2206,7 @@ Value scanforstealthtxns(const Array& params, bool fHelp)
     if (fHelp || params.size() > 1)
         throw runtime_error(
             "scanforstealthtxns [fromHeight]\n"
-            "Scan blockchain for owned stealth transactions.");
+            "Scan blockchain for owned opaque transactions.");
     
     Object result;
     uint32_t nBlocks = 0;
@@ -2257,11 +2257,11 @@ Value scanforstealthtxns(const Array& params, bool fHelp)
     };
     
     printf("Scanned %u blocks, %u transactions\n", nBlocks, nTransactions);
-    printf("Found %u stealth transactions in blockchain.\n", pwalletMain->nStealth);
-    printf("Found %u new owned stealth transactions.\n", pwalletMain->nFoundStealth);
+    printf("Found %u opaque transactions in blockchain.\n", pwalletMain->nStealth);
+    printf("Found %u new owned opaque transactions.\n", pwalletMain->nFoundStealth);
     
     char cbuf[256];
-    snprintf(cbuf, sizeof(cbuf), "%u new stealth transactions.", pwalletMain->nFoundStealth);
+    snprintf(cbuf, sizeof(cbuf), "%u new opaque transactions.", pwalletMain->nFoundStealth);
     
     result.push_back(Pair("result", "Scan complete."));
     result.push_back(Pair("found", std::string(cbuf)));
