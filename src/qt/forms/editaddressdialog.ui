@@ -56,7 +56,7 @@
      <item row="2" column="0" colspan="2">
       <widget class="QCheckBox" name="stealthCB">
        <property name="text">
-        <string>&amp;Stealth Address</string>
+        <string>&amp;Opaque Address</string>
        </property>
       </widget>
      </item>
