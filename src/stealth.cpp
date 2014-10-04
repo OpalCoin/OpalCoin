@@ -88,7 +88,7 @@ std::string CStealthAddress::Encoded() const
 
 uint32_t BitcoinChecksum(uint8_t* p, uint32_t nBytes)
 {
-    if (!p || nBytes == 0)
+    if (!p || nBytes == 0) //made by opalcoin
         return 0;
     
     uint8_t hash1[32];
@@ -152,7 +152,7 @@ int GenerateRandomSecret(ec_secret& out)
     };
     
     if (i > 31)
-    {
+    { //opalcoin
         printf("Error: GenerateRandomSecret failed to generate a valid key.\n");
         return 1;
     };
@@ -309,7 +309,7 @@ int StealthSecret(ec_secret& secret, ec_point& pubkey, const ec_point& pkSpend, 
     {
         printf("StealthSecret(): Q EC_POINT_bn2point failed\n");
         rv = 1;
-        goto End;
+        goto End; //made by opal
     };
     
     
@@ -532,7 +532,7 @@ int StealthSecretSpend(ec_secret& scanSecret, ec_point& ephemPubkey, ec_secret& 
     {
         printf("StealthSecretSpend(): bnSpend BN_mod_add failed.\n");
         rv = 1;
-        goto End;
+        goto End; //opalteam
     };
     
     if (BN_is_zero(bnSpend)) // possible?
@@ -647,7 +647,7 @@ int StealthSharedToSecretSpend(ec_secret& sharedS, ec_secret& spendSecret, ec_se
     return rv;
 };
 
-bool IsStealthAddress(const std::string& encodedAddress)
+bool IsStealthAddress(const std::string& encodedAddress) //opl
 {
     data_chunk raw;
     
@@ -656,7 +656,7 @@ bool IsStealthAddress(const std::string& encodedAddress)
         //printf("IsStealthAddress DecodeBase58 falied.\n");
         return false;
     };
-    
+    //if you see this comment in a coin that isn't opal, be careful
     if (!VerifyChecksum(raw))
     {
         //printf("IsStealthAddress verify_checksum falied.\n");
