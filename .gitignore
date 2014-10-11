@@ -5,6 +5,7 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 
+.qmake.stash
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
