@@ -82,7 +82,7 @@ font-family:'Open Sans,sans-serif';</string>
        <string/>
       </property>
       <property name="pixmap">
-       <pixmap resource="../bitcoin.qrc">:/icons/coinbg</pixmap>
+       <pixmap resource="../bitcoin.qrc">:/icons/bitcoin</pixmap>
       </property>
       <property name="scaledContents">
        <bool>true</bool>

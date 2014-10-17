@@ -251,7 +251,7 @@
        <property name="sizeHint" stdset="0">
         <size>
          <width>20</width>
-         <height>40</height>
+         <height>20</height>
         </size>
        </property>
       </spacer>
@@ -270,7 +270,10 @@
        <property name="scaledContents">
         <bool>false</bool>
        </property>
-       <property name="margin">
+       <property name="leftMargin">
+        <number>50</number>
+       </property>
+       <property name="topMargin">
         <number>0</number>
        </property>
       </widget>
@@ -359,13 +362,6 @@
           </property>
           <property name="selectionMode">
            <enum>QAbstractItemView::NoSelection</enum>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="Line" name="line_2">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
           </property>
          </widget>
         </item>
