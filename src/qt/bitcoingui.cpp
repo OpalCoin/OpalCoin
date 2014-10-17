@@ -247,7 +247,7 @@ void BitcoinGUI::createActions()
     statisticsAction->setCheckable(true);
     tabGroup->addAction(statisticsAction);
 
-    chatAction = new QAction(QIcon(":/icons/social"), tr("&Social"), this);
+    chatAction = new QAction(QIcon(":/icons/social"), tr("&IRC"), this);
     chatAction->setToolTip(tr("View chat"));
     chatAction->setCheckable(true);
     tabGroup->addAction(chatAction);
@@ -332,8 +332,6 @@ void BitcoinGUI::createActions()
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
 
-    exportAction = new QAction(QIcon(":/icons/export"), tr("&Export..."), this);
-    exportAction->setToolTip(tr("Export the data in the current tab to a file"));
     openRPCConsoleAction = new QAction(QIcon(":/icons/debugwindow"), tr("&Debug window"), this);
     openRPCConsoleAction->setToolTip(tr("Open debugging and diagnostic console"));
 
@@ -364,7 +362,6 @@ void BitcoinGUI::createMenuBar()
     // Configure the menus
     QMenu *file = appMenuBar->addMenu(tr("&File"));
     file->addAction(backupWalletAction);
-    file->addAction(exportAction);
     file->addAction(signMessageAction);
     file->addAction(verifyMessageAction);
     file->addSeparator();
@@ -401,7 +398,6 @@ void BitcoinGUI::createToolBars()
 
     QToolBar *toolbar2 = addToolBar(tr("Actions toolbar"));
     toolbar2->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
-    toolbar2->addAction(exportAction);
 }
 
 void BitcoinGUI::setClientModel(ClientModel *clientModel)
@@ -805,9 +801,6 @@ void BitcoinGUI::gotoOverviewPage()
 {
     overviewAction->setChecked(true);
     centralWidget->setCurrentWidget(overviewPage);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
 void BitcoinGUI::gotoBlockBrowser()
@@ -815,8 +808,6 @@ void BitcoinGUI::gotoBlockBrowser()
     blockAction->setChecked(true);
     centralWidget->setCurrentWidget(blockBrowser);
 
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
 void BitcoinGUI::gotoStatisticsPage()
@@ -824,8 +815,6 @@ void BitcoinGUI::gotoStatisticsPage()
     statisticsAction->setChecked(true);
     centralWidget->setCurrentWidget(statisticsPage);
 
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
 void BitcoinGUI::gotoChatPage()
@@ -833,8 +822,6 @@ void BitcoinGUI::gotoChatPage()
     chatAction->setChecked(true);
     centralWidget->setCurrentWidget(chatWindow);
 
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
 void BitcoinGUI::gotoHistoryPage()
@@ -842,9 +829,6 @@ void BitcoinGUI::gotoHistoryPage()
     historyAction->setChecked(true);
     centralWidget->setCurrentWidget(transactionsPage);
 
-    exportAction->setEnabled(true);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-    connect(exportAction, SIGNAL(triggered()), transactionView, SLOT(exportClicked()));
 }
 
 void BitcoinGUI::gotoAddressBookPage()
@@ -852,9 +836,6 @@ void BitcoinGUI::gotoAddressBookPage()
     addressBookAction->setChecked(true);
     centralWidget->setCurrentWidget(addressBookPage);
 
-    exportAction->setEnabled(true);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-    connect(exportAction, SIGNAL(triggered()), addressBookPage, SLOT(exportClicked()));
 }
 
 void BitcoinGUI::gotoReceiveCoinsPage()
@@ -862,9 +843,6 @@ void BitcoinGUI::gotoReceiveCoinsPage()
     receiveCoinsAction->setChecked(true);
     centralWidget->setCurrentWidget(receiveCoinsPage);
 
-    exportAction->setEnabled(true);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-    connect(exportAction, SIGNAL(triggered()), receiveCoinsPage, SLOT(exportClicked()));
 }
 
 void BitcoinGUI::gotoSendCoinsPage()
@@ -872,8 +850,6 @@ void BitcoinGUI::gotoSendCoinsPage()
     sendCoinsAction->setChecked(true);
     centralWidget->setCurrentWidget(sendCoinsPage);
 
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
 void BitcoinGUI::gotoMessagePage()
@@ -881,9 +857,6 @@ void BitcoinGUI::gotoMessagePage()
     messageAction->setChecked(true);
     centralWidget->setCurrentWidget(messagePage);
 
-    exportAction->setEnabled(true);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-    connect(exportAction, SIGNAL(triggered()), messagePage, SLOT(exportClicked()));
 }
 
 
