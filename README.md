@@ -39,14 +39,7 @@ make libleveldb.a libmemenv.a
 
 CD back to src and try to build it again.
 
-If you get the following error trying to do the above,
-
-/bin/sh: 1: ./build_detect_platform: Permission denied
-Makefile:18: build_config.mk: No such file or directory
-
-chmod 755 src/leveldb/build_detect_platform
-
-and try it again.
+------------------------------------------
 
 http://www.opal-coin.com
 
