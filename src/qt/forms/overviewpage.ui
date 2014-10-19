@@ -256,28 +256,6 @@
        </property>
       </spacer>
      </item>
-     <item>
-      <widget class="QLabel" name="label_2">
-       <property name="autoFillBackground">
-        <bool>true</bool>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="pixmap">
-        <pixmap resource="../bitcoin.qrc">:/icons/coinbg</pixmap>
-       </property>
-       <property name="scaledContents">
-        <bool>false</bool>
-       </property>
-       <property name="leftMargin">
-        <number>50</number>
-       </property>
-       <property name="topMargin">
-        <number>0</number>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>
