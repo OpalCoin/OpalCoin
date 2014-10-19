@@ -3,22 +3,22 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About hackcoin</source>
-        <translation>Sobre hackcoin</translation>
+        <source>About opalcoin</source>
+        <translation>Sobre opalcoin</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;hackcoin&lt;/b&gt; version</source>
-        <translation>versió &lt;b&gt;hackcoin&lt;/b&gt;</translation>
+        <source>&lt;b&gt;opalcoin&lt;/b&gt; version</source>
+        <translation>versió &lt;b&gt;opalcoin&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The hackcoin developers</source>
+Copyright © 2014 The opalcoin developers</source>
         <translation>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The hackcoin developers</translation>
+Copyright © 2014 The opalcoin developers</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -60,8 +60,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your hackcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Aquestes són les teves adreces de hackcoin per rebre els pagaments. És possible que vulgueu donar una diferent a cada remitent per a poder realitzar un seguiment de qui li está pagant.</translation>
+        <source>These are your opalcoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Aquestes són les teves adreces de opalcoin per rebre els pagaments. És possible que vulgueu donar una diferent a cada remitent per a poder realitzar un seguiment de qui li está pagant.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -75,8 +75,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a hackcoin address</source>
-        <translation>Signar un missatge per demostrar que és propietari d&apos;una adreça hackcoin</translation>
+        <source>Sign a message to prove you own a opalcoin address</source>
+        <translation>Signar un missatge per demostrar que és propietari d&apos;una adreça opalcoin</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -90,8 +90,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified hackcoin address</source>
-        <translation>Comproveu el missatge per assegurar-se que es va signar amb una adreça hackcoin especificada.</translation>
+        <source>Verify a message to ensure it was signed with a specified opalcoin address</source>
+        <translation>Comproveu el missatge per assegurar-se que es va signar amb una adreça opalcoin especificada.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -258,8 +258,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-58"/>
-        <source>hackcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>hackcoin tancarà ara per acabar el procés de xifrat. Recordeu que l&apos;encriptació de la seva cartera no pot protegir completament les seves monedes de ser robades pel malware que pugui infectar al seu equip.</translation>
+        <source>opalcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>opalcoin tancarà ara per acabar el procés de xifrat. Recordeu que l&apos;encriptació de la seva cartera no pot protegir completament les seves monedes de ser robades pel malware que pugui infectar al seu equip.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -372,8 +372,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+6"/>
-        <source>Show information about hackcoin</source>
-        <translation>Mostra informació sobre hackcoin</translation>
+        <source>Show information about opalcoin</source>
+        <translation>Mostra informació sobre opalcoin</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -422,13 +422,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-64"/>
-        <source>Send coins to a hackcoin address</source>
-        <translation>Enviar monedes a una adreça hackcoin</translation>
+        <source>Send coins to a opalcoin address</source>
+        <translation>Enviar monedes a una adreça opalcoin</translation>
     </message>
     <message>
         <location line="+47"/>
-        <source>Modify configuration options for hackcoin</source>
-        <translation>Modificar les opcions de configuració per a hackcoin</translation>
+        <source>Modify configuration options for opalcoin</source>
+        <translation>Modificar les opcions de configuració per a opalcoin</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -467,8 +467,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-202"/>
-        <source>hackcoin</source>
-        <translation>hackcoin</translation>
+        <source>opalcoin</source>
+        <translation>opalcoin</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -477,8 +477,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+180"/>
-        <source>&amp;About hackcoin</source>
-        <translation>&amp;Sobre hackcoin</translation>
+        <source>&amp;About opalcoin</source>
+        <translation>&amp;Sobre opalcoin</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -534,13 +534,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>hackcoin client</source>
-        <translation>Client hackcoin</translation>
+        <source>opalcoin client</source>
+        <translation>Client opalcoin</translation>
     </message>
     <message numerus="yes">
         <location line="+75"/>
-        <source>%n active connection(s) to hackcoin network</source>
-        <translation><numerusform>%n conexió activa a la xarxa hackcoin</numerusform><numerusform>%n conexions actives a la xarxa hackcoin</numerusform></translation>
+        <source>%n active connection(s) to opalcoin network</source>
+        <translation><numerusform>%n conexió activa a la xarxa opalcoin</numerusform><numerusform>%n conexions actives a la xarxa opalcoin</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -579,13 +579,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-312"/>
-        <source>About hackcoin card</source>
-        <translation>Sobre la tarjeta hackcoin</translation>
+        <source>About opalcoin card</source>
+        <translation>Sobre la tarjeta opalcoin</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Show information about hackcoin card</source>
-        <translation>Mostra informació sobre la tarjeta hackcoin</translation>
+        <source>Show information about opalcoin card</source>
+        <translation>Mostra informació sobre la tarjeta opalcoin</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -660,8 +660,8 @@ Address: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid hackcoin address or malformed URI parameters.</source>
-        <translation>l&apos;URI no es pot analitzar! Això pot ser causat per una adreça hackcoin no vàlida o paràmetres URI malformats.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid opalcoin address or malformed URI parameters.</source>
+        <translation>l&apos;URI no es pot analitzar! Això pot ser causat per una adreça opalcoin no vàlida o paràmetres URI malformats.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -720,8 +720,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. hackcoin can no longer continue safely and will quit.</source>
-        <translation>S&apos;ha produït un error fatal. hackcoin ja no pot continuar de forma segura i es tancarà.</translation>
+        <source>A fatal error occurred. opalcoin can no longer continue safely and will quit.</source>
+        <translation>S&apos;ha produït un error fatal. opalcoin ja no pot continuar de forma segura i es tancarà.</translation>
     </message>
 </context>
 <context>
@@ -1054,8 +1054,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid hackcoin address.</source>
-        <translation>La direcció introduïda &quot;%1&quot; no és una adreça hackcoin vàlida.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid opalcoin address.</source>
+        <translation>La direcció introduïda &quot;%1&quot; no és una adreça opalcoin vàlida.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1073,8 +1073,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     <message>
         <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>hackcoin-Qt</source>
-        <translation>hackcoin-Qt</translation>
+        <source>opalcoin-Qt</source>
+        <translation>opalcoin-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1146,13 +1146,13 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start hackcoin after logging in to the system.</source>
-        <translation>Inicia automàticament hackcoin després d&apos;entrar en el sistema.</translation>
+        <source>Automatically start opalcoin after logging in to the system.</source>
+        <translation>Inicia automàticament opalcoin després d&apos;entrar en el sistema.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start hackcoin on system login</source>
-        <translation>&amp;Iniciar hackcoin amb l&apos;inici de sessió</translation>
+        <source>&amp;Start opalcoin on system login</source>
+        <translation>&amp;Iniciar opalcoin amb l&apos;inici de sessió</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1171,8 +1171,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the hackcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Obrir automàticament el port de client hackcoin en el router. Això només funciona quan el router és compatible amb UPnP i està habilitat.</translation>
+        <source>Automatically open the opalcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Obrir automàticament el port de client opalcoin en el router. Això només funciona quan el router és compatible amb UPnP i està habilitat.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1181,8 +1181,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the hackcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connecteu-vos a la xarxa hackcoin través d&apos;un proxy SOCKS (per exemple, quan es connecta a través de Tor).</translation>
+        <source>Connect to the opalcoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connecteu-vos a la xarxa opalcoin través d&apos;un proxy SOCKS (per exemple, quan es connecta a través de Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1256,8 +1256,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting hackcoin.</source>
-        <translation>L&apos;idioma de la interfície d&apos;usuari es pot configurar aquí. Aquesta configuració s&apos;aplicarà després de reiniciar hackcoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting opalcoin.</source>
+        <translation>L&apos;idioma de la interfície d&apos;usuari es pot configurar aquí. Aquesta configuració s&apos;aplicarà després de reiniciar opalcoin.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1271,8 +1271,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show hackcoin addresses in the transaction list or not.</source>
-        <translation>Per mostrar hackcoin adreces a la llista de transaccions o no.</translation>
+        <source>Whether to show opalcoin addresses in the transaction list or not.</source>
+        <translation>Per mostrar opalcoin adreces a la llista de transaccions o no.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1318,8 +1318,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting hackcoin.</source>
-        <translation>Aquesta configuració s&apos;aplicarà després de reiniciar hackcoin.</translation>
+        <source>This setting will take effect after restarting opalcoin.</source>
+        <translation>Aquesta configuració s&apos;aplicarà després de reiniciar opalcoin.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1337,8 +1337,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     <message>
         <location line="+33"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the hackcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>La informació mostrada pot estar fora de data. La seva cartera es sincronitza automàticament amb la xarxa hackcoin després d&apos;establir una connexió, però aquest procés no s&apos;ha completat encara.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the opalcoin network after a connection is established, but this process has not completed yet.</source>
+        <translation>La informació mostrada pot estar fora de data. La seva cartera es sincronitza automàticament amb la xarxa opalcoin després d&apos;establir una connexió, però aquest procés no s&apos;ha completat encara.</translation>
     </message>
     <message>
         <location line="-160"/>
@@ -1553,8 +1553,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the hackcoin-Qt help message to get a list with possible hackcoin command-line options.</source>
-        <translation>Mostra el missatge d&apos;ajuda de hackcoin-Qt per obtenir una llista amb les possibles opcions de línia d&apos;ordres hackcoin.</translation>
+        <source>Show the opalcoin-Qt help message to get a list with possible opalcoin command-line options.</source>
+        <translation>Mostra el missatge d&apos;ajuda de opalcoin-Qt per obtenir una llista amb les possibles opcions de línia d&apos;ordres opalcoin.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1573,13 +1573,13 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>hackcoin - Debug window</source>
-        <translation>hackcoin - Finestra Depuració</translation>
+        <source>opalcoin - Debug window</source>
+        <translation>opalcoin - Finestra Depuració</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>hackcoin Core</source>
-        <translation>Nucli hackcoin</translation>
+        <source>opalcoin Core</source>
+        <translation>Nucli opalcoin</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1588,8 +1588,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the hackcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Obriu el fitxer de registre de depuració hackcoin des del directori de dades actual. Això pot trigar uns segons en els arxius de registre de grans dimensions.</translation>
+        <source>Open the opalcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Obriu el fitxer de registre de depuració opalcoin des del directori de dades actual. Això pot trigar uns segons en els arxius de registre de grans dimensions.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1598,8 +1598,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the hackcoin RPC console.</source>
-        <translation>Benvingut a la consola RPC de hackcoin.</translation>
+        <source>Welcome to the opalcoin RPC console.</source>
+        <translation>Benvingut a la consola RPC de opalcoin.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1757,8 +1757,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a hackcoin address (e.g. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Introdueix una adreça hackcoin (p.ex. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a opalcoin address (e.g. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Introdueix una adreça opalcoin (p.ex. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1857,8 +1857,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+251"/>
-        <source>WARNING: Invalid hackcoin address</source>
-        <translation>ADVERTÈNCIA: Direcció hackcoin invàlida</translation>
+        <source>WARNING: Invalid opalcoin address</source>
+        <translation>ADVERTÈNCIA: Direcció opalcoin invàlida</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1901,8 +1901,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to send the payment to  (e.g. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>L&apos;adreça per a enviar el pagament (per exemple: hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to send the payment to  (e.g. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>L&apos;adreça per a enviar el pagament (per exemple: opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1931,8 +1931,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a hackcoin address (e.g. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Introdueix una adreça hackcoin (p.ex. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a opalcoin address (e.g. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Introdueix una adreça opalcoin (p.ex. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
 </context>
 <context>
@@ -1955,8 +1955,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+18"/>
-        <source>The address to sign the message with (e.g. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>L&apos;adreça per a signar el missatge (per exemple hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address to sign the message with (e.g. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>L&apos;adreça per a signar el missatge (per exemple opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1992,8 +1992,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this hackcoin address</source>
-        <translation>Signar un missatge per demostrar que és propietari d&apos;aquesta adreça hackcoin</translation>
+        <source>Sign the message to prove you own this opalcoin address</source>
+        <translation>Signar un missatge per demostrar que és propietari d&apos;aquesta adreça opalcoin</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2019,13 +2019,13 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>The address the message was signed with (e.g. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>La direcció que va ser signada amb un missatge (per exemple hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>The address the message was signed with (e.g. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>La direcció que va ser signada amb un missatge (per exemple opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified hackcoin address</source>
-        <translation>Comproveu el missatge per assegurar-se que es va signar amb l&apos;adreça hackcoin especificada.</translation>
+        <source>Verify the message to ensure it was signed with the specified opalcoin address</source>
+        <translation>Comproveu el missatge per assegurar-se que es va signar amb l&apos;adreça opalcoin especificada.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2035,8 +2035,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a hackcoin address (e.g. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
-        <translation>Introdueix una adreça hackcoin (p.ex. hackcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
+        <source>Enter a opalcoin address (e.g. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</source>
+        <translation>Introdueix una adreça opalcoin (p.ex. opalcoinfwYhBmGXcFP2Po1NpRUEiK8km2)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2045,8 +2045,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter hackcoin signature</source>
-        <translation>Introduïu la signatura hackcoin</translation>
+        <source>Enter opalcoin signature</source>
+        <translation>Introduïu la signatura opalcoin</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2616,8 +2616,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
-        <source>hackcoin version</source>
-        <translation>versió hackcoin</translation>
+        <source>opalcoin version</source>
+        <translation>versió opalcoin</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2626,8 +2626,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Send command to -server or hackcoind</source>
-        <translation>Enviar comandes a -server o hackcoind</translation>
+        <source>Send command to -server or opalcoind</source>
+        <translation>Enviar comandes a -server o opalcoind</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2646,13 +2646,13 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+2"/>
-        <source>Specify configuration file (default: hackcoin.conf)</source>
-        <translation>Especifiqueu el fitxer de configuració (per defecte: hackcoin.conf)</translation>
+        <source>Specify configuration file (default: opalcoin.conf)</source>
+        <translation>Especifiqueu el fitxer de configuració (per defecte: opalcoin.conf)</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Specify pid file (default: hackcoind.pid)</source>
-        <translation>Especificar arxiu pid (per defecte: hackcoind.pid)</translation>
+        <source>Specify pid file (default: opalcoind.pid)</source>
+        <translation>Especificar arxiu pid (per defecte: opalcoind.pid)</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -2801,8 +2801,8 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
     </message>
     <message>
         <location line="+61"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong hackcoin will not work properly.</source>
-        <translation>Avís: Comproveu que la data i hora de l&apos;equip siguin correctes! Si el seu rellotge és erroni hackcoin no funcionarà correctament.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong opalcoin will not work properly.</source>
+        <translation>Avís: Comproveu que la data i hora de l&apos;equip siguin correctes! Si el seu rellotge és erroni opalcoin no funcionarà correctament.</translation>
     </message>
     <message>
         <location line="-31"/>
@@ -2991,24 +2991,24 @@ En aquest cas es requereix una comisió d&apos;almenys 2%.</translation>
         <source>%s, you must set a rpcpassword in the configuration file:
  %s
 It is recommended you use the following random password:
-rpcuser=hackcoinrpc
+rpcuser=opalcoinrpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;hackcoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;opalcoin Alert&quot; admin@foo.com
 </source>
         <translation>%s, ha d&apos;establir un rpcpassword al fitxer de configuració:
 %s
 Es recomana utilitzar la següent contrasenya aleatòria:
-rpcuser=hackcoinrpc
+rpcuser=opalcoinrpc
 rpcpassword=%s
 (No cal recordar aquesta contrasenya)
 El nom d&apos;usuari i contrasenya NO HA DE SER el mateix.
 Si no hi ha l&apos;arxiu, s&apos;ha de crear amb els permisos de només lectura per al propietari.
 També es recomana establir alertnotify per a que se li notifiquin els problemes;
-per exemple: alertnotify=echo %%s | mail -s &quot;hackcoin Alert&quot; admin@foo.com
+per exemple: alertnotify=echo %%s | mail -s &quot;opalcoin Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -3134,13 +3134,13 @@ Executar una ordre quan es rep un avís rellevant (%s en cmd es substitueix per 
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  hackcoin is probably already running.</source>
-        <translation>No es pot obtenir un bloqueig en el directori de dades %s. hackcoin probablement ja estigui en funcionament.</translation>
+        <source>Cannot obtain a lock on data directory %s.  opalcoin is probably already running.</source>
+        <translation>No es pot obtenir un bloqueig en el directori de dades %s. opalcoin probablement ja estigui en funcionament.</translation>
     </message>
     <message>
         <location line="-98"/>
-        <source>hackcoin</source>
-        <translation>hackcoin</translation>
+        <source>opalcoin</source>
+        <translation>opalcoin</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3174,13 +3174,13 @@ Executar una ordre quan es rep un avís rellevant (%s en cmd es substitueix per 
     </message>
     <message>
         <location line="+4"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of hackcoin</source>
-        <translation>Error en carregar wallet.dat: La cartera requereix la versió més recent de hackcoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of opalcoin</source>
+        <translation>Error en carregar wallet.dat: La cartera requereix la versió més recent de opalcoin</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart hackcoin to complete</source>
-        <translation>La cartera necessita ser reescrita: reiniciar hackcoin per completar</translation>
+        <source>Wallet needed to be rewritten: restart opalcoin to complete</source>
+        <translation>La cartera necessita ser reescrita: reiniciar opalcoin per completar</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3249,8 +3249,8 @@ Executar una ordre quan es rep un avís rellevant (%s en cmd es substitueix per 
     </message>
     <message>
         <location line="+122"/>
-        <source>Unable to bind to %s on this computer. hackcoin is probably already running.</source>
-        <translation>No es pot enllaçar a %s en aquest equip. hackcoin probablement ja estigui en funcionament.</translation>
+        <source>Unable to bind to %s on this computer. opalcoin is probably already running.</source>
+        <translation>No es pot enllaçar a %s en aquest equip. opalcoin probablement ja estigui en funcionament.</translation>
     </message>
     <message>
         <location line="-97"/>
