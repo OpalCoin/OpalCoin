@@ -12,10 +12,3 @@ branches:
   only:
     - master
     - OpalEx
-  
-notifications:
-  irc:
-    channels:
-      - "chat.freenode.net#opal-dev"
-    template:
-      - "%{repository}/%{branch} (%{commit} - %{author}): %{message}"
