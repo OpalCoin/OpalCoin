@@ -6,6 +6,7 @@
 #include "walletdb.h"
 #include "guiutil.h"
 
+
 OptionsModel::OptionsModel(QObject *parent) :
     QAbstractListModel(parent)
 {
