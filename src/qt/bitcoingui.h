@@ -80,7 +80,9 @@ private:
     WalletModel *walletModel;
     MessageModel *messageModel;
 
-    QStackedWidget *centralWidget;
+    QToolBar *toolbar;
+
+    QStackedWidget *centralStackedWidget;
 
     OverviewPage *overviewPage;
 	StatisticsPage *statisticsPage;
@@ -206,7 +208,7 @@ private slots:
     void incomingMessage(const QModelIndex & parent, int start, int end);
 	
     /** Encrypt the wallet */
-    void encryptWallet(bool status);
+    void encryptWallet();
     /** Backup the wallet */
     void backupWallet();
     /** Change encrypted wallet passphrase */
