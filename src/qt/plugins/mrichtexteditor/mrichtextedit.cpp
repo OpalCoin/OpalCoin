@@ -1,3 +1,4 @@
+
 /*
 ** Copyright (C) 2013 Jiří Procházka (Hobrasoft)
 ** Contact: http://www.hobrasoft.cz/
@@ -51,21 +52,7 @@ MRichTextEdit::MRichTextEdit(QWidget *parent) : QWidget(parent) {
     m_fontsize_h3 = 14;
     m_fontsize_h4 = 12;
 
-    fontChanged(f_textedit->font());
     bgColorChanged(f_textedit->textColor());
-
-    // paragraph formatting
-
-    m_paragraphItems    << tr("Standard")
-                        << tr("Heading 1")
-                        << tr("Heading 2")
-                        << tr("Heading 3")
-                        << tr("Heading 4")
-                        << tr("Monospace");
-    f_paragraph->addItems(m_paragraphItems);
-
-    connect(f_paragraph, SIGNAL(activated(int)),
-            this, SLOT(textStyle(int)));
 
     // undo & redo
 
@@ -219,52 +206,6 @@ void MRichTextEdit::textLink(bool checked) {
     mergeFormatOnWordOrSelection(fmt);
 }
 
-void MRichTextEdit::textStyle(int index) {
-    QTextCursor cursor = f_textedit->textCursor();
-    cursor.beginEditBlock();
-
-    // standard
-    if (!cursor.hasSelection()) {
-        cursor.select(QTextCursor::BlockUnderCursor);
-        }
-    QTextCharFormat fmt;
-    cursor.setCharFormat(fmt);
-    f_textedit->setCurrentCharFormat(fmt);
-
-    if (index == ParagraphHeading1
-            || index == ParagraphHeading2
-            || index == ParagraphHeading3
-            || index == ParagraphHeading4 ) {
-        if (index == ParagraphHeading1) {
-            fmt.setFontPointSize(m_fontsize_h1);
-            }
-        if (index == ParagraphHeading2) {
-            fmt.setFontPointSize(m_fontsize_h2);
-            }
-        if (index == ParagraphHeading3) {
-            fmt.setFontPointSize(m_fontsize_h3);
-            }
-        if (index == ParagraphHeading4) {
-            fmt.setFontPointSize(m_fontsize_h4);
-            }
-        if (index == ParagraphHeading2 || index == ParagraphHeading4) {
-            fmt.setFontItalic(true);
-            }
-
-        fmt.setFontWeight(QFont::Bold);
-        }
-    if (index == ParagraphMonospace) {
-        fmt = cursor.charFormat();
-        fmt.setFontFamily("Monospace");
-        fmt.setFontStyleHint(QFont::Monospace);
-        fmt.setFontFixedPitch(true);
-        }
-    cursor.setCharFormat(fmt);
-    f_textedit->setCurrentCharFormat(fmt);
-
-    cursor.endEditBlock();
-}
-
 void MRichTextEdit::textBgColor() {
     QColor col = QColorDialog::getColor(f_textedit->textBackgroundColor(), this);
     QTextCursor cursor = f_textedit->textCursor();
@@ -319,29 +260,6 @@ void MRichTextEdit::slotCursorPositionChanged() {
     m_lastBlockList = l;
 }
 
-void MRichTextEdit::fontChanged(const QFont &f) {
-    f_fontsize->setCurrentIndex(f_fontsize->findText(QString::number(f.pointSize())));
-    f_bold->setChecked(f.bold());
-    f_italic->setChecked(f.italic());
-    f_underline->setChecked(f.underline());
-    f_strikeout->setChecked(f.strikeOut());
-    if (f.pointSize() == m_fontsize_h1) {
-        f_paragraph->setCurrentIndex(ParagraphHeading1);
-      } else if (f.pointSize() == m_fontsize_h2) {
-        f_paragraph->setCurrentIndex(ParagraphHeading2);
-      } else if (f.pointSize() == m_fontsize_h3) {
-        f_paragraph->setCurrentIndex(ParagraphHeading3);
-      } else if (f.pointSize() == m_fontsize_h4) {
-        f_paragraph->setCurrentIndex(ParagraphHeading4);
-      } else {
-        if (f.fixedPitch() && f.family() == "Monospace") {
-            f_paragraph->setCurrentIndex(ParagraphMonospace);
-          } else {
-            f_paragraph->setCurrentIndex(ParagraphStandard);
-            }
-        }
-}
-
 void MRichTextEdit::bgColorChanged(const QColor &c) {
     QPixmap pix(16, 16);
     if (c.isValid()) {
@@ -353,7 +271,6 @@ void MRichTextEdit::bgColorChanged(const QColor &c) {
 }
 
 void MRichTextEdit::slotCurrentCharFormatChanged(const QTextCharFormat &format) {
-    fontChanged(format.font());
     bgColorChanged((format.background().isOpaque()) ? format.background().color() : QColor());
     f_link->setChecked(format.isAnchor());
 }
