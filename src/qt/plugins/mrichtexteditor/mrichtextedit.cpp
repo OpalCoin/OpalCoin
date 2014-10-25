@@ -120,15 +120,7 @@ MRichTextEdit::MRichTextEdit(QWidget *parent) : QWidget(parent) {
     connect(f_underline, SIGNAL(clicked()), this, SLOT(textUnderline()));
     connect(f_strikeout, SIGNAL(clicked()), this, SLOT(textStrikeout()));
 
-    // lists
-
-    f_list_bullet->setShortcut(Qt::CTRL + Qt::Key_Minus);
-    f_list_ordered->setShortcut(Qt::CTRL + Qt::Key_Equal);
-
-    connect(f_list_bullet, SIGNAL(clicked(bool)), this, SLOT(listBullet(bool)));
-    connect(f_list_ordered, SIGNAL(clicked(bool)), this, SLOT(listOrdered(bool)));
-
-    // indentation
+    // indent
 
     f_indent_dec->setShortcut(Qt::CTRL + Qt::Key_Comma);
     f_indent_inc->setShortcut(Qt::CTRL + Qt::Key_Period);
@@ -290,20 +282,6 @@ void MRichTextEdit::textBgColor() {
     bgColorChanged(col);
 }
 
-void MRichTextEdit::listBullet(bool checked) {
-    if (checked) {
-        f_list_ordered->setChecked(false);
-        }
-    list(checked, QTextListFormat::ListDisc);
-}
-
-void MRichTextEdit::listOrdered(bool checked) {
-    if (checked) {
-        f_list_bullet->setChecked(false);
-        }
-    list(checked, QTextListFormat::ListDecimal);
-}
-
 void MRichTextEdit::list(bool checked, QTextListFormat::Style style) {
     QTextCursor cursor = f_textedit->textCursor();
     cursor.beginEditBlock();
@@ -339,22 +317,6 @@ void MRichTextEdit::slotCursorPositionChanged() {
         return;
         }
     m_lastBlockList = l;
-    if (l) {
-        QTextListFormat lfmt = l->format();
-        if (lfmt.style() == QTextListFormat::ListDisc) {
-            f_list_bullet->setChecked(true);
-            f_list_ordered->setChecked(false);
-          } else if (lfmt.style() == QTextListFormat::ListDecimal) {
-            f_list_bullet->setChecked(false);
-            f_list_ordered->setChecked(true);
-          } else {
-            f_list_bullet->setChecked(false);
-            f_list_ordered->setChecked(false);
-            }
-      } else {
-        f_list_bullet->setChecked(false);
-        f_list_ordered->setChecked(false);
-        }
 }
 
 void MRichTextEdit::fontChanged(const QFont &f) {
@@ -378,22 +340,6 @@ void MRichTextEdit::fontChanged(const QFont &f) {
             f_paragraph->setCurrentIndex(ParagraphStandard);
             }
         }
-    if (f_textedit->textCursor().currentList()) {
-        QTextListFormat lfmt = f_textedit->textCursor().currentList()->format();
-        if (lfmt.style() == QTextListFormat::ListDisc) {
-            f_list_bullet->setChecked(true);
-            f_list_ordered->setChecked(false);
-          } else if (lfmt.style() == QTextListFormat::ListDecimal) {
-            f_list_bullet->setChecked(false);
-            f_list_ordered->setChecked(true);
-          } else {
-            f_list_bullet->setChecked(false);
-            f_list_ordered->setChecked(false);
-            }
-      } else {
-        f_list_bullet->setChecked(false);
-        f_list_ordered->setChecked(false);
-      }
 }
 
 void MRichTextEdit::bgColorChanged(const QColor &c) {
