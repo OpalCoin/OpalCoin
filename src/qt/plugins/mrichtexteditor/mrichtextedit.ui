@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<?xml version="1.0" encoding="UTF-8"?> <ui version="4.0">
  <class>MRichTextEdit</class>
  <widget class="QWidget" name="MRichTextEdit">
   <property name="geometry">
@@ -333,59 +332,15 @@
        </widget>
       </item>
       <item>
-       <widget class="QToolButton" name="f_list_bullet">
-        <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string>Bullet list (CTRL+-)</string>
-        </property>
-        <property name="text">
-         <string>Bullet list</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="f_list_ordered">
-        <property name="focusPolicy">
-         <enum>Qt::ClickFocus</enum>
-        </property>
-        <property name="toolTip">
-         <string>Ordered list (CTRL+=)</string>
-        </property>
-        <property name="text">
-         <string>Ordered list</string>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>16</width>
-          <height>16</height>
-         </size>
-        </property>
-        <property name="checkable">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QToolButton" name="f_indent_dec">
         <property name="focusPolicy">
          <enum>Qt::ClickFocus</enum>
         </property>
         <property name="toolTip">
-         <string>Decrease indentation (CTRL+,)</string>
+         <string>Decrease indent (CTRL+,)</string>
         </property>
         <property name="text">
-         <string>Decrease indentation</string>
+         <string>Decrease indent</string>
         </property>
         <property name="icon">
          <iconset theme="format-indent-less">
@@ -406,10 +361,10 @@
          <enum>Qt::ClickFocus</enum>
         </property>
         <property name="toolTip">
-         <string>Increase indentation (CTRL+.)</string>
+         <string>Increase indent (CTRL+.)</string>
         </property>
         <property name="text">
-         <string>Increase indentation</string>
+         <string>Increase indent</string>
         </property>
         <property name="icon">
          <iconset theme="format-indent-more">

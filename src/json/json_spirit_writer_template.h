@@ -91,7 +91,7 @@ namespace json_spirit
     }
 
     // this class generates the JSON text,
-    // it keeps track of the indentation level etc.
+    // it keeps track of the indent level etc.
     //
     template< class Value_type, class Ostream_type >
     class Generator
@@ -107,7 +107,7 @@ namespace json_spirit
 
         Generator( const Value_type& value, Ostream_type& os, bool pretty )
         :   os_( os )
-        ,   indentation_level_( 0 )
+        ,   indent_level_( 0 )
         ,   pretty_( pretty )
         {
             output( value );
@@ -178,7 +178,7 @@ namespace json_spirit
         {
             os_ << start_char; new_line();
 
-            ++indentation_level_;
+            ++indent_level_;
             
             for( typename T::const_iterator i = t.begin(); i != t.end(); ++i )
             {
@@ -194,7 +194,7 @@ namespace json_spirit
                 new_line();
             }
 
-            --indentation_level_;
+            --indent_level_;
 
             indent(); os_ << end_char;
         }
@@ -203,7 +203,7 @@ namespace json_spirit
         {
             if( !pretty_ ) return;
 
-            for( int i = 0; i < indentation_level_; ++i )
+            for( int i = 0; i < indent_level_; ++i )
             { 
                 os_ << "    ";
             }
@@ -222,7 +222,7 @@ namespace json_spirit
         Generator& operator=( const Generator& ); // to prevent "assignment operator could not be generated" warning
 
         Ostream_type& os_;
-        int indentation_level_;
+        int indent_level_;
         bool pretty_;
     };
 
