@@ -57,8 +57,6 @@ class MRichTextEdit : public QWidget, protected Ui::MRichTextEdit {
     void textLink(bool checked);
     void textStyle(int index);
     void textBgColor();
-    void listBullet(bool checked);
-    void listOrdered(bool checked);
     void slotCurrentCharFormatChanged(const QTextCharFormat &format);
     void slotCursorPositionChanged();
     void slotClipboardDataChanged();
