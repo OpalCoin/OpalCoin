@@ -286,7 +286,6 @@ void MessagePage::selectionChanged()
         QModelIndexList addressFromColumn = table->selectionModel()->selectedRows(MessageModel::FromAddress);
         QModelIndexList addressToColumn   = table->selectionModel()->selectedRows(MessageModel::ToAddress);
         QModelIndexList typeColumn        = table->selectionModel()->selectedRows(MessageModel::Type);
-        QModelIndexList typeColumn        = table->selectionModel()->selectedRows(MessageModel::TypeInt);
 
         int type;
 
@@ -310,10 +309,7 @@ void MessagePage::selectionChanged()
 
         QString filter = replyToAddress;
 
-        proxyModel->sort(MessageModel::ReceivedDateTime);
         //QString filter = replyFromAddress;
-        proxyModel->setFilterRole(MessageModel::FilterAddressRole);
-        proxyModel->setFilterFixedString(filter);
         ui->messageDetails->show();
         ui->listConversation->setCurrentIndex(model->proxyModel->index(0, 0, QModelIndex()));
     }
