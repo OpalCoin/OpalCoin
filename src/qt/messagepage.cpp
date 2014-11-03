@@ -285,20 +285,13 @@ void MessagePage::selectionChanged()
         QModelIndexList labelColumn       = table->selectionModel()->selectedRows(MessageModel::Label);
         QModelIndexList addressFromColumn = table->selectionModel()->selectedRows(MessageModel::FromAddress);
         QModelIndexList addressToColumn   = table->selectionModel()->selectedRows(MessageModel::ToAddress);
-<<<<<<< HEAD
         QModelIndexList typeColumn        = table->selectionModel()->selectedRows(MessageModel::Type);
-=======
         QModelIndexList typeColumn        = table->selectionModel()->selectedRows(MessageModel::TypeInt);
->>>>>>> cae5da0... Committing fixes for sorting
 
         int type;
 
         foreach (QModelIndex index, typeColumn)
-<<<<<<< HEAD
-            type = (table->model()->data(index).toString() == MessageModel::Sent ? MessageTableEntry::Sent : MessageTableEntry::Received);
-=======
             type = table->model()->data(index).toInt();
->>>>>>> cae5da0... Committing fixes for sorting
 
         foreach (QModelIndex index, labelColumn)
             ui->contactLabel->setText(table->model()->data(index).toString());
@@ -315,22 +308,12 @@ void MessagePage::selectionChanged()
             else
                 replyFromAddress = table->model()->data(index).toString();
 
-<<<<<<< HEAD
-        QString filter = (type == MessageTableEntry::Sent ? replyToAddress + replyFromAddress : replyToAddress + replyFromAddress);
-
-        model->proxyModel->setFilterRole(false);
-        model->proxyModel->setFilterFixedString("");
-        model->proxyModel->sort(MessageModel::ReceivedDateTime);
-        model->proxyModel->setFilterRole(MessageModel::FilterAddressRole);
-        model->proxyModel->setFilterFixedString(filter);
-=======
         QString filter = replyToAddress;
 
         proxyModel->sort(MessageModel::ReceivedDateTime);
         //QString filter = replyFromAddress;
         proxyModel->setFilterRole(MessageModel::FilterAddressRole);
         proxyModel->setFilterFixedString(filter);
->>>>>>> cae5da0... Committing fixes for sorting
         ui->messageDetails->show();
         ui->listConversation->setCurrentIndex(model->proxyModel->index(0, 0, QModelIndex()));
     }
