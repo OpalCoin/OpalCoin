@@ -424,8 +424,6 @@
        </spacer>
       </item>
      </layout>
-     <zorder>f_paragraph</zorder>
-     <zorder>line_4</zorder>
      <zorder>f_undo</zorder>
      <zorder>f_redo</zorder>
      <zorder>f_cut</zorder>
@@ -439,14 +437,11 @@
      <zorder>line_2</zorder>
      <zorder>f_fontsize</zorder>
      <zorder>line_5</zorder>
-     <zorder>f_list_bullet</zorder>
-     <zorder>f_list_ordered</zorder>
      <zorder>f_indent_dec</zorder>
      <zorder>f_indent_inc</zorder>
      <zorder>f_bold</zorder>
      <zorder>f_bgcolor</zorder>
      <zorder>f_strikeout</zorder>
-     <zorder>line_6</zorder>
     </widget>
    </item>
    <item>
