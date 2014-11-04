@@ -22,6 +22,8 @@
 #define DECORATION_SIZE 64
 #define NUM_ITEMS 3
 
+void QLabel::setOpenExternalLinks(bool open)
+{}
 class MessageViewDelegate : public QStyledItemDelegate
 {
 protected:
