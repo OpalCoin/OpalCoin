@@ -373,7 +373,7 @@ void BitcoinGUI::createMenuBar()
     file->addAction(exportAction);
     file->addAction(signMessageAction);
     file->addAction(verifyMessageAction);
-	file->addAction(accessNxtInsideAction);
+    file->addAction(accessNxtInsideAction);
     file->addSeparator();
     file->addAction(quitAction);
 
@@ -414,6 +414,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(blockAction);
     toolbar->addAction(chatAction);
     toolbar->addAction(messageAction);
+    toolbar->addAction(accessNxtInsideAction);
 
     toolbar->addWidget(makeToolBarSpacer());
 
