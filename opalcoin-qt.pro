@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = Opalcoin-Qt
-VERSION = 1.2.1
+VERSION = 1.3.0
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
