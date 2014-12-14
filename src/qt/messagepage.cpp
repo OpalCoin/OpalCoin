@@ -31,6 +31,7 @@ protected:
 
 void MessageViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
+
     QStyleOptionViewItemV4 optionV4 = option;
     initStyleOption(&optionV4, index);
 
@@ -38,7 +39,7 @@ void MessageViewDelegate::paint(QPainter *painter, const QStyleOptionViewItem &o
 
     QTextDocument doc;
     QString align(index.data(MessageModel::TypeRole) == 1 ? "left" : "right");
-    QString html = "<p align=\"" + align + "\" style=\"color:blue;\">" + index.data(MessageModel::HTMLRole).toString() + "</p>";
+    QString html = "<p align=\"" + align + "\" style=\"color:black;\">" + index.data(MessageModel::HTMLRole).toString() + "</p>";
     doc.setHtml(html);
 
     /// Painting item without text

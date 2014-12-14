@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = Opalcoin-Qt
-VERSION = 1.1.0
+VERSION = 1.3.0
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 QT  += core gui network
@@ -223,6 +223,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/qt/sendcoinsdialog.h \
     src/qt/addressbookpage.h \
     src/qt/signverifymessagedialog.h \
+	src/qt/accessnxtinsidedialog.h \
     src/qt/aboutdialog.h \
     src/qt/editaddressdialog.h \
     src/qt/bitcoinaddressvalidator.h \
@@ -337,6 +338,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/coincontroltreewidget.cpp \
     src/qt/addressbookpage.cpp \
     src/qt/signverifymessagedialog.cpp \
+	src/qt/accessnxtinsidedialog.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
@@ -418,6 +420,7 @@ FORMS += \
     src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/addressbookpage.ui \
     src/qt/forms/signverifymessagedialog.ui \
+	src/qt/forms/accessnxtinsidedialog.ui \
     src/qt/forms/aboutdialog.ui \
     src/qt/forms/editaddressdialog.ui \
     src/qt/forms/transactiondescdialog.ui \
