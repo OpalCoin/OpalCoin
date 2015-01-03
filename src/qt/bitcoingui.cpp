@@ -35,6 +35,7 @@
 #include "rpcconsole.h"
 #include "wallet.h"
 #include "ui_supernetpage.h"
+#include "ui_chatpage.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -97,7 +98,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     trayIcon(0),
     notificator(0),
     rpcConsole(0),
-    supernetInit(false)
+    supernetInit(false),
+    chatInit(false)
 {
     setWindowTitle(tr("OpalCoin") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
@@ -148,6 +150,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     Ui::supernetPage supernet;
     supernet.setupUi(supernetPage);
 
+    chatPage = new QWidget(this);
+    Ui::chatPage chat;
+    chat.setupUi(chatPage);
+
     centralStackedWidget = new QStackedWidget(this);
     centralStackedWidget->addWidget(overviewPage);
     centralStackedWidget->addWidget(statisticsPage);
@@ -156,6 +162,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralStackedWidget->addWidget(addressBookPage);
     centralStackedWidget->addWidget(receiveCoinsPage);
     centralStackedWidget->addWidget(sendCoinsPage);
+    centralStackedWidget->addWidget(chatPage);
     centralStackedWidget->addWidget(messagePage);
     centralStackedWidget->addWidget(supernetPage);
 
@@ -291,6 +298,12 @@ void BitcoinGUI::createActions()
     supernetAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
     tabGroup->addAction(supernetAction);
 
+    chatAction = new QAction(QIcon(":/icons/social"), tr("&IRC"), this);
+    chatAction->setToolTip(tr("Join IRC and chat"));
+    chatAction->setCheckable(true);
+    chatAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    tabGroup->addAction(chatAction);
+
     messageAction = new QAction(QIcon(":/icons/opacity"),tr("Opacity"), this);
     messageAction->setToolTip(tr("View and Send Encrypted messages"));
     messageAction->setCheckable(true);
@@ -320,6 +333,8 @@ void BitcoinGUI::createActions()
     connect(messageAction, SIGNAL(triggered()), this, SLOT(gotoMessagePage()));
     connect(supernetAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(supernetAction, SIGNAL(triggered()), this, SLOT(gotosupernetPage()));
+    connect(chatAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(chatAction, SIGNAL(triggered()), this, SLOT(gotochatPage()));
 
     quitAction = new QAction(tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -418,6 +433,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(addressBookAction);
     toolbar->addAction(statisticsAction);
     toolbar->addAction(blockAction);
+    toolbar->addAction(chatAction);
     toolbar->addAction(messageAction);
     toolbar->addAction(supernetAction);
 
@@ -918,6 +934,19 @@ void BitcoinGUI::gotosupernetPage()
         supernetInit = true;
     }
     centralStackedWidget->setCurrentWidget(supernetPage);
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+}
+
+void BitcoinGUI::gotochatPage()
+{
+    chatAction->setChecked(true);
+    if (!chatInit)
+    {
+        chatPage->findChild<QWebView *>("webView")->load(QUrl("https://kiwiirc.com/client/irc.freenode.net/#opalcoin"));
+        chatInit = true;
+    }
+    centralStackedWidget->setCurrentWidget(chatPage);
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
