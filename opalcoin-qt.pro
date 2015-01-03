@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = Opalcoin-Qt
-VERSION = 1.3.0
+VERSION = 1.3.1
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 QT  += core gui network
@@ -300,7 +300,6 @@ HEADERS += src/qt/bitcoingui.h \
     src/version.h \
     src/netbase.h \
     src/clientversion.h \
-    src/qt/chatwindow.h \
     src/qt/serveur.h \
     src/bloom.h \
     src/checkqueue.h \
@@ -344,7 +343,6 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/aboutdialog.cpp \
     src/qt/editaddressdialog.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
-    src/qt/chatwindow.cpp \
     src/qt/statisticspage.cpp \
     src/qt/blockbrowser.cpp \
     src/qt/serveur.cpp \
@@ -427,6 +425,7 @@ FORMS += \
     src/qt/forms/editaddressdialog.ui \
     src/qt/forms/transactiondescdialog.ui \
     src/qt/forms/supernetpage.ui \
+    src/qt/forms/chatpage.ui \
     src/qt/forms/overviewpage.ui \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \
@@ -436,7 +435,6 @@ FORMS += \
     src/qt/forms/messagepage.ui \
     src/qt/forms/statisticspage.ui \
     src/qt/forms/blockbrowser.ui \
-    src/qt/forms/chatwindow.ui \
     src/qt/forms/sendmessagesentry.ui \
     src/qt/forms/sendmessagesdialog.ui \
     src/qt/plugins/mrichtexteditor/mrichtextedit.ui
