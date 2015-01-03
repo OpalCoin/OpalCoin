@@ -27,7 +27,6 @@
 #include "overviewpage.h"
 #include "statisticspage.h"
 #include "blockbrowser.h"
-#include "chatwindow.h"
 #include "bitcoinunits.h"
 #include "guiconstants.h"
 #include "askpassphrasedialog.h"
@@ -126,7 +125,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     // Create tabs
     overviewPage = new OverviewPage();
     statisticsPage = new StatisticsPage(this);
-    chatWindow = new ChatWindow(this);
     blockBrowser = new BlockBrowser(this);
 
     transactionsPage = new QWidget(this);
@@ -153,7 +151,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralStackedWidget = new QStackedWidget(this);
     centralStackedWidget->addWidget(overviewPage);
     centralStackedWidget->addWidget(statisticsPage);
-    centralStackedWidget->addWidget(chatWindow);
     centralStackedWidget->addWidget(blockBrowser);
     centralStackedWidget->addWidget(transactionsPage);
     centralStackedWidget->addWidget(addressBookPage);
@@ -264,11 +261,6 @@ void BitcoinGUI::createActions()
    statisticsAction->setCheckable(true);
    tabGroup->addAction(statisticsAction);
 
-    chatAction = new QAction(QIcon(":/icons/social"), tr("&IRC"), this);
-    chatAction->setToolTip(tr("View chat"));
-    chatAction->setCheckable(true);
-    tabGroup->addAction(chatAction);
-
     receiveCoinsAction = new QAction(QIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
     receiveCoinsAction->setToolTip(tr("Show the list of addresses for receiving payments"));
     receiveCoinsAction->setCheckable(true);
@@ -294,7 +286,7 @@ void BitcoinGUI::createActions()
     tabGroup->addAction(addressBookAction);
 
     supernetAction = new QAction(QIcon(":/icons/supernet"), tr("&SuperNET"), this);
-    supernetAction->setToolTip(tr("Join the supernet and chat"));
+    supernetAction->setToolTip(tr("Join the supernet"));
     supernetAction->setCheckable(true);
     supernetAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
     tabGroup->addAction(supernetAction);
@@ -316,7 +308,6 @@ void BitcoinGUI::createActions()
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
     connect(statisticsAction, SIGNAL(triggered()), this, SLOT(gotoStatisticsPage()));
-    connect(chatAction, SIGNAL(triggered()), this, SLOT(gotoChatPage()));
     connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(receiveCoinsAction, SIGNAL(triggered()), this, SLOT(gotoReceiveCoinsPage()));
     connect(sendCoinsAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
@@ -427,7 +418,6 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(addressBookAction);
     toolbar->addAction(statisticsAction);
     toolbar->addAction(blockAction);
-    toolbar->addAction(chatAction);
     toolbar->addAction(messageAction);
     toolbar->addAction(supernetAction);
 
@@ -505,7 +495,6 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         sendCoinsPage->setModel(walletModel);
         signVerifyMessageDialog->setModel(walletModel);
         statisticsPage->setModel(clientModel);
-        chatWindow->setModel(clientModel);
         blockBrowser->setModel(clientModel);
 		accessNxtInsideDialog->setModel(walletModel);
 
@@ -872,12 +861,6 @@ void BitcoinGUI::gotoStatisticsPage()
     statisticsAction->setChecked(true);
     centralStackedWidget->setCurrentWidget(statisticsPage);
 
-}
-
-void BitcoinGUI::gotoChatPage()
-{
-    chatAction->setChecked(true);
-    centralStackedWidget->setCurrentWidget(chatWindow);
 }
 
 void BitcoinGUI::gotoHistoryPage()
