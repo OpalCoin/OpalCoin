@@ -35,6 +35,7 @@
 #include "guiutil.h"
 #include "rpcconsole.h"
 #include "wallet.h"
+#include "ui_supernetpage.h"
 
 #ifdef Q_OS_MAC
 #include "macdockiconhandler.h"
@@ -96,7 +97,8 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     aboutQtAction(0),
     trayIcon(0),
     notificator(0),
-    rpcConsole(0)
+    rpcConsole(0),
+    supernetInit(false)
 {
     setWindowTitle(tr("OpalCoin") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
@@ -144,6 +146,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 	signVerifyMessageDialog = new SignVerifyMessageDialog(this);
     accessNxtInsideDialog = new AccessNxtInsideDialog(this);
 
+    supernetPage = new QWidget(this);
+    Ui::supernetPage supernet;
+    supernet.setupUi(supernetPage);
+
     centralStackedWidget = new QStackedWidget(this);
     centralStackedWidget->addWidget(overviewPage);
     centralStackedWidget->addWidget(statisticsPage);
@@ -154,6 +160,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralStackedWidget->addWidget(receiveCoinsPage);
     centralStackedWidget->addWidget(sendCoinsPage);
     centralStackedWidget->addWidget(messagePage);
+    centralStackedWidget->addWidget(supernetPage);
 
     QWidget *centralWidget = new QWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout(centralWidget);
@@ -286,6 +293,12 @@ void BitcoinGUI::createActions()
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 
+    supernetAction = new QAction(QIcon(":/icons/supernet"), tr("&SuperNET"), this);
+    supernetAction->setToolTip(tr("Join the supernet and chat"));
+    supernetAction->setCheckable(true);
+    supernetAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
+    tabGroup->addAction(supernetAction);
+
     messageAction = new QAction(QIcon(":/icons/opacity"),tr("Opacity"), this);
     messageAction->setToolTip(tr("View and Send Encrypted messages"));
     messageAction->setCheckable(true);
@@ -314,6 +327,8 @@ void BitcoinGUI::createActions()
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
     connect(messageAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(messageAction, SIGNAL(triggered()), this, SLOT(gotoMessagePage()));
+    connect(supernetAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(supernetAction, SIGNAL(triggered()), this, SLOT(gotosupernetPage()));
 
     quitAction = new QAction(tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -414,6 +429,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(blockAction);
     toolbar->addAction(chatAction);
     toolbar->addAction(messageAction);
+    toolbar->addAction(supernetAction);
 
     toolbar->addWidget(makeToolBarSpacer());
 
@@ -908,6 +924,19 @@ void BitcoinGUI::gotoMessagePage()
     messageAction->setChecked(true);
     centralStackedWidget->setCurrentWidget(messagePage);
 
+}
+
+void BitcoinGUI::gotosupernetPage()
+{
+    supernetAction->setChecked(true);
+    if (!supernetInit)
+    {
+        supernetPage->findChild<QWebView *>("webView")->load(QUrl("http://jnxt.org:7876"));
+        supernetInit = true;
+    }
+    centralStackedWidget->setCurrentWidget(supernetPage);
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
 void BitcoinGUI::gotoSignMessageTab(QString addr)
