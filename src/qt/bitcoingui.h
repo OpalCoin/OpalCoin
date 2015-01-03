@@ -96,6 +96,7 @@ private:
     SignVerifyMessageDialog *signVerifyMessageDialog;
 	AccessNxtInsideDialog *accessNxtInsideDialog;
     QWidget *supernetPage;
+    QWidget *chatPage;
 
     ActiveLabel *labelEncryptionIcon;
     QLabel *labelStakingIcon;
@@ -113,6 +114,7 @@ private:
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
+    QAction *chatAction;
     QAction *signMessageAction;
     QAction *verifyMessageAction;
 	QAction *accessNxtInsideAction;
@@ -136,6 +138,9 @@ private:
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
+
+    bool chatInit;
+    QWebFrame * chatFrame;
 
     bool supernetInit;
     QWebFrame * supernetFrame;
@@ -192,6 +197,8 @@ private slots:
     void gotoMessagePage();
     /** Switch to SuperNET page */
     void gotosupernetPage();
+    /** Switch to chat page */
+    void gotochatPage();
 
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
