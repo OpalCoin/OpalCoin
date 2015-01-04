@@ -2,6 +2,10 @@
 <!DOCTYPE plist SYSTEM "file://localhost/System/Library/DTDs/PropertyList.dtd">
 <plist version="0.9">
 <dict>
+        <key>NSPrincipalClass</key>
+        <string>NSApplication</string>
+        <key>NSHighResolutionCapable</key>
+        <true/>
 	<key>CFBundleIconFile</key>
 	<string>opalcoin.icns</string>
 	<key>CFBundlePackageType</key>
