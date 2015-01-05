@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>623</width>
+    <width>626</width>
     <height>505</height>
    </rect>
   </property>
@@ -41,9 +41,9 @@ font-family:'Open Sans,sans-serif';</string>
      <widget class="QPushButton" name="startButton">
       <property name="geometry">
        <rect>
-        <x>42</x>
+        <x>32</x>
         <y>210</y>
-        <width>130</width>
+        <width>151</width>
         <height>60</height>
        </rect>
       </property>
@@ -277,6 +277,8 @@ font-family:'Open Sans,sans-serif';</string>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../bitcoin.qrc"/>
+ </resources>
  <connections/>
 </ui>
