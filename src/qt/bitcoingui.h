@@ -14,6 +14,7 @@ class TransactionView;
 class OverviewPage;
 class StatisticsPage;
 class BlockBrowser;
+class ChatWindow;
 class AddressBookPage;
 class MessagePage;
 class SendCoinsDialog;
@@ -89,6 +90,7 @@ private:
     OverviewPage *overviewPage;
 	StatisticsPage *statisticsPage;
 	BlockBrowser *blockBrowser;
+	ChatWindow *chatWindow;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     MessagePage *messagePage;
@@ -98,7 +100,6 @@ private:
     tradingDialog   *tradingDialogPage;
 	AccessNxtInsideDialog *accessNxtInsideDialog;
     QWidget *supernetPage;
-    QWidget *chatPage;
 
     ActiveLabel *labelEncryptionIcon;
     QLabel *labelStakingIcon;
@@ -111,12 +112,12 @@ private:
     QAction *overviewAction;
     QAction *statisticsAction;
     QAction *blockAction;
+    QAction *chatAction;
     QAction *messageAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
-    QAction *chatAction;
     QAction *signMessageAction;
     QAction *verifyMessageAction;
 	QAction *accessNxtInsideAction;
@@ -141,9 +142,6 @@ private:
     RPCConsole *rpcConsole;
 
     QMovie *syncIconMovie;
-
-    bool chatInit;
-    QWebFrame * chatFrame;
 
     bool supernetInit;
     QWebFrame * supernetFrame;
@@ -188,6 +186,8 @@ private slots:
 	void gotoStatisticsPage();
 	/** Switch to block explorer*/
     void gotoBlockBrowser();
+	/** Switch to Chat page */
+	void gotoChatPage();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
@@ -200,8 +200,6 @@ private slots:
     void gotoMessagePage();
     /** Switch to SuperNET page */
     void gotosupernetPage();
-    /** Switch to chat page */
-    void gotochatPage();
 
     /** Switch to trading page */
     void gotoTradingPage();

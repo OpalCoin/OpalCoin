@@ -15,6 +15,7 @@
 * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA*/
 #include <QScrollBar>
 #include "serveur.h"
+#include "chatwindow.h"
         QStringList users;
         bool delist = true;
 Serveur::Serveur()
