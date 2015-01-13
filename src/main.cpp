@@ -3399,8 +3399,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
         if (!(sProblem.empty())) {
             printf("net", "pong %s %s: %s, %x expected, %x received, %u bytes\n",
-                pfrom->addr.ToString(),
-                pfrom->cleanSubVer,
+                pfrom->addr.ToString().c_str(),
+                pfrom->strSubVer.c_str(),
                 sProblem,
                 pfrom->nPingNonceSent,
                 nonce,
