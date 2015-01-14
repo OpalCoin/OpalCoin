@@ -7,6 +7,7 @@
 #include "checkpoints.h"
 #include "db.h"
 #include "txdb.h"
+#include "util.h"
 #include "net.h"
 #include "init.h"
 #include "ui_interface.h"
@@ -3397,14 +3398,14 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             sProblem = "Short payload";
         }
 
-        if (!(sProblem.empty())) {
-            LogPrint("net", "pong peer=%d %s: %s, %x expected, %x received, %u bytes\n",
-                pfrom->id,
-                pfrom->cleanSubVer,
-                sProblem,
-                pfrom->nPingNonceSent,
-                nonce,
-                nAvail);
+         if (!(sProblem.empty())) {
+            printf("net", "pong peer=%s %s: %s, %"PRIx64" expected, %"PRIx64" received, %zu bytes\n"
+               , pfrom->addr.ToString().c_str()
+                , pfrom->strSubVer.c_str()
+                , sProblem.c_str()
+                , pfrom->nPingNonceSent
+                , nonce
+                , nAvail);
         }
         if (bPingFinished) {
             pfrom->nPingNonceSent = 0;
