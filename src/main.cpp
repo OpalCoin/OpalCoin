@@ -3369,7 +3369,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             // Only process pong message if there is an outstanding ping (old ping without nonce should never pong)
             if (pfrom->nPingNonceSent != 0) {
                 if (nonce == pfrom->nPingNonceSent) {
-                   // Matching pong received, this ping is no longer outstanding
+                    // Matching pong received, this ping is no longer outstanding
                     bPingFinished = true;
                     int64_t pingUsecTime = pingUsecEnd - pfrom->nPingUsecStart;
                     if (pingUsecTime > 0) {
@@ -3398,19 +3398,18 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         }
 
         if (!(sProblem.empty())) {
-            printf("pong %s %s: %s, %"PRIx64" expected, %"PRIx64" received, %zu bytes\n"
-               , pfrom->addr.ToString().c_str()
-                , pfrom->strSubVer.c_str()
-                , sProblem.c_str()
-                , pfrom->nPingNonceSent
-                , nonce
-                , nAvail);
+            LogPrint("net", "pong peer=%d %s: %s, %x expected, %x received, %u bytes\n",
+                pfrom->id,
+                pfrom->cleanSubVer,
+                sProblem,
+                pfrom->nPingNonceSent,
+                nonce,
+                nAvail);
         }
         if (bPingFinished) {
             pfrom->nPingNonceSent = 0;
         }
-   }
-
+    }
 
     else if (strCommand == "alert")
     {
