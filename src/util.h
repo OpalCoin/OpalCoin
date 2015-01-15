@@ -121,6 +121,10 @@ inline void MilliSleep(int64_t n)
  * X is the number of the "format string" parameter, and Y is the number of the first variadic parameter.
  * Parameters count from 1.
  */
+int LogPrintStr(const std::string &str);
+
+#define LogPrintf(...) LogPrint(NULL, __VA_ARGS__)
+
 #ifdef __GNUC__
 #define ATTR_WARN_PRINTF(X,Y) __attribute__((format(printf,X,Y)))
 #else
