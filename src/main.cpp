@@ -3398,16 +3398,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             sProblem = "Short payload";
         }
 
-<<<<<<< HEAD
-        if (!(sProblem.empty())) {
-            printf("net", "pong %s %s: %s, %x expected, %x received, %u bytes\n",
-                pfrom->addr.ToString().c_str(),
-                pfrom->strSubVer.c_str(),
-                sProblem.c_str(),
-                pfrom->nPingNonceSent,
-                nonce,
-                nAvail);
-=======
          if (!(sProblem.empty())) {
             printf("net", "pong peer=%s %s: %s, %"PRIx64" expected, %"PRIx64" received, %zu bytes\n"
                , pfrom->addr.ToString().c_str()
@@ -3416,7 +3406,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 , pfrom->nPingNonceSent
                 , nonce
                 , nAvail);
->>>>>>> d00cde512602d940794d647b12176f9b5e5e9f37
         }
         if (bPingFinished) {
             pfrom->nPingNonceSent = 0;
