@@ -58,6 +58,13 @@ void SendCoinsEntry::on_addressBookButton_clicked()
     }
 }
 
+void SendCoinsEntry::on_donateButton_clicked()
+{
+    ui->payTo->setText("oPALAKHWJGkS1ta1X6cPGFzegNCxWd8XzN");
+    ui->addAsLabel->setText("Dev Fund");
+    ui->payAmount->setFocus();
+}
+
 void SendCoinsEntry::on_payTo_textChanged(const QString &address)
 {
     if(!model)

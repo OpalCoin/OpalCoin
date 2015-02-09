@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
-    <height>342</height>
+    <width>738</width>
+    <height>426</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,6 +49,9 @@
      </property>
      <property name="sortingEnabled">
       <bool>true</bool>
+     </property>
+     <property name="QLabel::setOpenExternalLinks" stdset="0">
+      <string>true</string>
      </property>
      <attribute name="verticalHeaderVisible">
       <bool>false</bool>

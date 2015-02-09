@@ -6,7 +6,7 @@ install:
 language: cpp
  
 before_install:
-  - sudo apt-get install libssl-dev libdb-dev libdb++-dev  libminiupnpc-dev libminiupnpc8 libboost-all-dev build-essential -y
+  - sudo apt-get install libssl-dev libdb-dev libdb++-dev  libminiupnpc-dev libminiupnpc8 libboost-all-dev build-essential libboost-chrono-dev -y
 
 branches:
   only:

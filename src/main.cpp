@@ -7,6 +7,7 @@
 #include "checkpoints.h"
 #include "db.h"
 #include "txdb.h"
+#include "util.h"
 #include "net.h"
 #include "init.h"
 #include "ui_interface.h"
@@ -3160,9 +3161,10 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
                 pindex = pindex->pnext;
         }
 
+        // we must use CBlocks, as CBlockHeaders won't include the 0x00 nTx count at the end
         vector<CBlock> vHeaders;
         int nLimit = 2000;
-        printf("getheaders %d to %s\n", (pindex ? pindex->nHeight : -1), hashStop.ToString().substr(0,20).c_str());
+        printf("net", "getheaders %d to %s\n", (pindex ? pindex->nHeight : -1), hashStop.ToString().substr(0,20).c_str());
         for (; pindex; pindex = pindex->pnext)
         {
             vHeaders.push_back(pindex->GetBlockHeader());
@@ -3171,7 +3173,6 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         }
         pfrom->PushMessage("headers", vHeaders);
     }
-
 
     else if (strCommand == "tx")
     {
@@ -3357,7 +3358,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
     else if (strCommand == "pong")
     {
-        int64_t pingUsecEnd = nTimeReceived;
+        int64_t pingUsecEnd = GetTimeMicros();
         uint64_t nonce = 0;
         size_t nAvail = vRecv.in_avail();
         bool bPingFinished = false;
@@ -3369,7 +3370,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             // Only process pong message if there is an outstanding ping (old ping without nonce should never pong)
             if (pfrom->nPingNonceSent != 0) {
                 if (nonce == pfrom->nPingNonceSent) {
-                   // Matching pong received, this ping is no longer outstanding
+                    // Matching pong received, this ping is no longer outstanding
                     bPingFinished = true;
                     int64_t pingUsecTime = pingUsecEnd - pfrom->nPingUsecStart;
                     if (pingUsecTime > 0) {
@@ -3397,8 +3398,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
             sProblem = "Short payload";
         }
 
-        if (!(sProblem.empty())) {
-            printf("pong %s %s: %s, %"PRIx64" expected, %"PRIx64" received, %zu bytes\n"
+         if (!(sProblem.empty())) {
+            printf("net", "pong peer=%s %s: %s, %"PRIx64" expected, %"PRIx64" received, %zu bytes\n"
                , pfrom->addr.ToString().c_str()
                 , pfrom->strSubVer.c_str()
                 , sProblem.c_str()
@@ -3409,8 +3410,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         if (bPingFinished) {
             pfrom->nPingNonceSent = 0;
         }
-   }
-
+    }
 
     else if (strCommand == "alert")
     {

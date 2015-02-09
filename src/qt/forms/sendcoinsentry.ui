@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>729</width>
-    <height>136</height>
+    <height>155</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,7 @@
     </layout>
    </item>
    <item row="5" column="0">
-    <widget class="QLabel" name="label">
+    <widget class="QLabel" name="label1">
      <property name="text">
       <string>N&amp;arration:</string>
      </property>
@@ -84,17 +84,14 @@
    </item>
    <item row="5" column="1">
     <widget class="QValidatedLineEdit" name="narration">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="toolTip">
-        <string>Enter a short note to send with payment (max 24 characters)</string>
-       </property>
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="toolTip">
+      <string>Enter a short note to send with payment (max 24 characters)</string>
+     </property>
     </widget>
-    
    </item>
-   
-
    <item row="4" column="0">
     <widget class="QLabel" name="label_4">
      <property name="text">
@@ -120,6 +117,20 @@
        </property>
        <property name="maxLength">
         <number>34</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QToolButton" name="donateButton">
+       <property name="toolTip">
+        <string>Donate to the dev fund</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="../bitcoin.qrc">
+         <normaloff>:/icons/heart</normaloff>:/icons/heart</iconset>
        </property>
       </widget>
      </item>
