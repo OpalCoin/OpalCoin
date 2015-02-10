@@ -2,8 +2,6 @@
 #define SENDCOINSENTRY_H
 
 #include <QFrame>
-#include <regex>
-#include <regex.h>
 
 namespace Ui {
     class SendCoinsEntry;

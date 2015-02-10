@@ -10,8 +10,6 @@
 
 #include <QApplication>
 #include <QClipboard>
-#include <regex>
-#include "regex.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <curl/curl.h>
@@ -121,32 +119,13 @@ void SendCoinsEntry::on_deleteButton_clicked()
     emit removeEntry(this);
 }
 
-std::string match(const char *string, const char *pattern)
-{
-    int    status;
-    regex_t    re;
-    regmatch_t rm;
-
-
-    if (regcomp(&re, pattern, REG_EXTENDED) != 0) {
-        return "Bad pattern";
-    }
-    status = regexec(&re, string, 1, &rm, 0);
-    regfree(&re);
-    if (status != 0) {
-        return "No Match";
-    }
-    return std::string(string+rm.rm_so, string+rm.rm_eo);
-}
-
-
 void SendCoinsEntry::on_addieButton_clicked()
 {
   CURL *curl;
   CURLcode res;
   QString c = ui->payTo->text();
   std::string s = c.toUtf8().constData();
-  std::string url = "http://addie.cc/api/" + s;
+  std::string url = "http://addie.cc/api/" + s + "/opal";
   const char *urlf = url.c_str();
   curl_global_init(CURL_GLOBAL_ALL);
   curl = curl_easy_init();
@@ -160,14 +139,8 @@ void SendCoinsEntry::on_addieButton_clicked()
     res = curl_easy_perform(curl);
     curl_easy_cleanup(curl);
     const std::string s = response;
-    std::string reg1 = "OPAL......................................";
-    const char *reg2 = reg1.c_str();
-    const char *resp = response.c_str();
-
-    std::string result = match(resp, reg2);
-    QString resf = QString::fromStdString(result);
-    resf.remove(0, 8);
-    ui->payTo->setText(resf);
+    QString respf = QString::fromStdString(response);
+    ui->payTo->setText(respf);
     ui->addAsLabel->setText(c);
     ui->payAmount->setFocus();
 }
