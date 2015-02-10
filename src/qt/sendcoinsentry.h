@@ -2,6 +2,8 @@
 #define SENDCOINSENTRY_H
 
 #include <QFrame>
+#include <regex>
+#include <regex.h>
 
 namespace Ui {
     class SendCoinsEntry;
@@ -47,6 +49,7 @@ private slots:
     void on_addressBookButton_clicked();
     void on_donateButton_clicked();
     void on_pasteButton_clicked();
+    void on_addieButton_clicked();
     void updateDisplayUnit();
 
 private:
