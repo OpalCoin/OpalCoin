@@ -1309,7 +1309,7 @@ unsigned int CTransaction::GetP2SHSigOpCount(const MapPrevTx& inputs) const
 }
 
 bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTxIndex>& mapTestPool, const CDiskTxPos& posThisTx,
-    const CBlockIndex* pindexBlock, bool fBlock, bool fMiner)
+                                 const CBlockIndex* pindexBlock, bool fBlock, bool fMiner)
 {
     // Take over previous transactions' spent pointers
     // fBlock is true when this is called from AcceptBlock when a new best-block is added to the blockchain
@@ -1325,25 +1325,25 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             assert(inputs.count(prevout.hash) > 0);
             CTxIndex& txindex = inputs[prevout.hash].first;
             CTransaction& txPrev = inputs[prevout.hash].second;
-
+            
             if (prevout.n >= txPrev.vout.size() || prevout.n >= txindex.vSpent.size())
                 return DoS(100, error("ConnectInputs() : %s prevout.n out of range %d %"PRIszu" %"PRIszu" prev tx %s\n%s", GetHash().ToString().substr(0,10).c_str(), prevout.n, txPrev.vout.size(), txindex.vSpent.size(), prevout.hash.ToString().substr(0,10).c_str(), txPrev.ToString().c_str()));
-
+            
             // If prev is coinbase or coinstake, check that it's matured
             if (txPrev.IsCoinBase() || txPrev.IsCoinStake())
                 for (const CBlockIndex* pindex = pindexBlock; pindex && pindexBlock->nHeight - pindex->nHeight < nCoinbaseMaturity; pindex = pindex->pprev)
                     if (pindex->nBlockPos == txindex.pos.nBlockPos && pindex->nFile == txindex.pos.nFile)
                         return error("ConnectInputs() : tried to spend %s at depth %d", txPrev.IsCoinBase() ? "coinbase" : "coinstake", pindexBlock->nHeight - pindex->nHeight);
-
+            
             // ppcoin: check transaction timestamp
             if (txPrev.nTime > nTime)
                 return DoS(100, error("ConnectInputs() : transaction timestamp earlier than input transaction"));
-
+            
             // Check for negative or overflow input values
             nValueIn += txPrev.vout[prevout.n].nValue;
             if (!MoneyRange(txPrev.vout[prevout.n].nValue) || !MoneyRange(nValueIn))
                 return DoS(100, error("ConnectInputs() : txin values out of range"));
-
+            
         }
         // The first loop above does all the inexpensive checks.
         // Only if ALL inputs pass do we perform expensive ECDSA signature checks.
@@ -1354,13 +1354,13 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             assert(inputs.count(prevout.hash) > 0);
             CTxIndex& txindex = inputs[prevout.hash].first;
             CTransaction& txPrev = inputs[prevout.hash].second;
-
+            
             // Check for conflicts (double-spend)
             // This doesn't trigger the DoS code on purpose; if it did, it would make it easier
             // for an attacker to attempt to split the network.
             if (!txindex.vSpent[prevout.n].IsNull())
                 return fMiner ? false : error("ConnectInputs() : %s prev tx already used at %s", GetHash().ToString().substr(0,10).c_str(), txindex.vSpent[prevout.n].ToString().c_str());
-
+            
             // Skip ECDSA signature verification when connecting blocks (fBlock=true)
             // before the last blockchain checkpoint. This is safe because block merkle hashes are
             // still computed and checked, and any change will be caught at the next checkpoint.
@@ -1372,37 +1372,55 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
                     return DoS(100,error("ConnectInputs() : %s VerifySignature failed", GetHash().ToString().substr(0,10).c_str()));
                 }
             }
-
+            
             // Mark outpoints as spent
             txindex.vSpent[prevout.n] = posThisTx;
-
+            
             // Write back
             if (fBlock || fMiner)
             {
                 mapTestPool[prevout.hash] = txindex;
             }
         }
-
+        
         if (!IsCoinStake())
         {
-            if (nValueIn < GetValueOut())
+            if (nValueIn < GetValueOut()){
+                printf("ConnectInputs() : %s value in < value out\n", GetHash().ToString().substr(0,10).c_str());
                 return DoS(100, error("ConnectInputs() : %s value in < value out", GetHash().ToString().substr(0,10).c_str()));
-
+            }
             // Tally transaction fees
             int64_t nTxFee = nValueIn - GetValueOut();
-            if (nTxFee < 0)
+            if (nTxFee < 0){
+                printf("ConnectInputs() : %s nTxFee < 0\n", GetHash().ToString().substr(0,10).c_str());
                 return DoS(100, error("ConnectInputs() : %s nTxFee < 0", GetHash().ToString().substr(0,10).c_str()));
-
+                
+            }
+            
+            //bitcoindark: value checks for teleport/multisig fees
+           /* bool isTeleport;
+            isTeleport = is_teleport_denomination(vout[0].nValue);
+            if ( 0 && isTeleport != 0 )
+            {
+                std::cout << "In CTransaction::ConnectInputs(). vout[0] = " << vout[0].nValue << std::endl;
+                std::cout << "amount: " << (double)COIN/vout[0].nValue << "\nisTeleport? " << std::boolalpha << isTeleport << std::endl;
+            }
             // enforce transaction fees for every block
+            if (nTxFee < (isTeleport ? 0 : GetMinFee()))*/
             if (nTxFee < GetMinFee())
+            {
+                printf("ConnectInputs() : %s not paying required fee=%s, paid=%s\n", GetHash().ToString().substr(0,10).c_str(), FormatMoney(GetMinFee()).c_str(), FormatMoney(nTxFee).c_str());
                 return fBlock? DoS(100, error("ConnectInputs() : %s not paying required fee=%s, paid=%s", GetHash().ToString().substr(0,10).c_str(), FormatMoney(GetMinFee()).c_str(), FormatMoney(nTxFee).c_str())) : false;
-
+                
+            }
             nFees += nTxFee;
-            if (!MoneyRange(nFees))
+            if (!MoneyRange(nFees)){
+                printf("ConnectInputs() : nFees out of range\n");
                 return DoS(100, error("ConnectInputs() : nFees out of range"));
+            }
         }
     }
-
+    
     return true;
 }
 
