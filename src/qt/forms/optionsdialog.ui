@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>540</width>
+    <width>707</width>
     <height>380</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
       <enum>QTabWidget::North</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="tabMain">
       <attribute name="title">
@@ -128,7 +128,7 @@
           <string>Automatically start Opalcoin after logging in to the system.</string>
          </property>
          <property name="text">
-          <string>&amp;Start Opalcoin on system login</string>
+          <string>&amp;Start Opalcoin Core on system login</string>
          </property>
         </widget>
        </item>
