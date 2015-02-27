@@ -102,6 +102,18 @@ static void handleRunawayException(std::exception *e)
     exit(1);
 }
 
+int syncthing()
+{
+    #ifdef __APPLE__
+    system("~/Library/Application*Support/opalcoin/opaldrive &");
+    #elif _WIN32
+    system("C:\\Program Files\\opaldrive.exe &")
+    #elif __linux
+    system("~/opalcoin/opaldrive &")
+    #endif
+    return 0;
+}
+
 #ifndef BITCOIN_QT_TEST
 int main(int argc, char *argv[])
 {
@@ -194,6 +206,9 @@ int main(int argc, char *argv[])
         help.showOrPrint();
         return 1;
     }
+
+
+    syncthing();
 
     QSplashScreen splash(QPixmap(":/images/splash"), 0);
     if (GetBoolArg("-splash", true) && !GetBoolArg("-min"))
