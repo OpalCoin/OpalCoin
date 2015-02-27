@@ -105,11 +105,11 @@ static void handleRunawayException(std::exception *e)
 int syncthing()
 {
     #ifdef __APPLE__
-    system("~/Library/Application*Support/opalcoin/opaldrive &");
+    system("~/Library/Application*Support/opalcoin/syncthing &");
     #elif _WIN32
-    system("C:\\Program Files\\opaldrive.exe &")
+    system("C:\\Program Files\\syncthing.exe &")
     #elif __linux
-    system("~/opalcoin/opaldrive &")
+    system("~/opalcoin/syncthing &")
     #endif
     return 0;
 }
