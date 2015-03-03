@@ -111,7 +111,6 @@ int syncthing()
     #elif __linux
     system("~/opalcoin/syncthing &")
     #endif
-    return 0;
 }
 
 #ifndef BITCOIN_QT_TEST
