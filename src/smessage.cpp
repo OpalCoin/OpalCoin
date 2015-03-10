@@ -1947,7 +1947,7 @@ static bool ScanBlock(CBlock& block, CTxDB& txdb, SecMsgDB& addrpkdb,
     // -- should have LOCK(cs_smsg) where db is opened
     BOOST_FOREACH(CTransaction& tx, block.vtx)
     {
-        if (!tx.IsStandard())
+        if (!IsStandardTx(tx))
             continue; // leave out coinbase and others
         
         /*
