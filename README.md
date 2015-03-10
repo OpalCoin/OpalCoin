@@ -1,7 +1,5 @@
 ##OPAL
 
-[![tip for next commit](https://tip4commit.com/projects/43119.svg)](https://tip4commit.com/github/OpalCoin/OpalCoin)
-
 Opal is a re-brand, and entire re-release of OnyxCoin V2.
 
 Opal – X13 CryptoCurrency
