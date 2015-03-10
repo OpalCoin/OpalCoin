@@ -98,9 +98,9 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     trayIcon(0),
     notificator(0),
     rpcConsole(0),
+    prevBlocks(0),
     chatInit(false),
-    supernetInit(false),
-    prevBlocks(0)
+    supernetInit(false)
 {
     setWindowTitle(tr("OpalCoin") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
