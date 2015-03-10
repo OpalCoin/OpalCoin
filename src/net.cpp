@@ -1238,7 +1238,6 @@ void ThreadDNSAddressSeed()
         }
     }
 
->>>>>>> cd04e76... Port Thread* methods to boost::thread_group
     int found = 0;
 
     if (!fTestNet)
