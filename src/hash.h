@@ -113,4 +113,6 @@ inline uint160 Hash160(const std::vector<unsigned char>& vch)
     return hash2;
 }
 
+unsigned int MurmurHash3(unsigned int nHashSeed, const std::vector<unsigned char>& vDataToHash);
+
 #endif
