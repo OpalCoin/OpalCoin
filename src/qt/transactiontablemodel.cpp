@@ -17,6 +17,7 @@
 #include <QIcon>
 #include <QDateTime>
 #include <QtAlgorithms>
+#include <QTimer>
 
 // Amount column is right-aligned it contains numbers
 static int column_alignments[] = {
