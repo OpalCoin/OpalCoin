@@ -638,7 +638,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CTransaction &tx,
     }
     }
 
-    if (fCheckInputs)
+    if (pool.exists(hash))
     {
         CTxDB txdb("r");
 
