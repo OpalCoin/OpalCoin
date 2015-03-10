@@ -2245,7 +2245,7 @@ Value scanforstealthtxns(const Array& params, bool fHelp)
         
         BOOST_FOREACH(CTransaction& tx, block.vtx)
         {
-            if (!tx.IsStandard())
+            if (!IsStandardTx(tx))
                 continue; // leave out coinbase and others
             nTransactions++;
             
