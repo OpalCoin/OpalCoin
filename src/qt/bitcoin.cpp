@@ -106,7 +106,7 @@ int syncthing()
     #elif _WIN32
     system("C:\\Program Files\\syncthing.exe &");
     #elif __linux
-    system("~/opalcoin/syncthing &");
+    system("~/.opalcoin/syncthing &");
     #endif
 }
 
