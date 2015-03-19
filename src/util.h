@@ -233,7 +233,9 @@ void runCommand(std::string strCommand);
 
 
 
-
+#ifdef WIN32 && !def PRId64
+#define PRId64 "I64d"
+#endif
 
 
 

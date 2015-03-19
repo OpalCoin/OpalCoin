@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = Opalcoin-Qt
+TARGET = Opal-Qt
 VERSION = 1.3.2
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 DEFINES += BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
@@ -15,7 +15,25 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
 }
-
+win32 {
+BOOST_LIB_SUFFIX=-mgw49-mt-s-1_55
+BOOST_INCLUDE_PATH=C:/deps/boost_1_55_0
+BOOST_LIB_PATH=C:/deps/boost_1_55_0/stage/lib
+BDB_INCLUDE_PATH=C:/deps/db-4.8.30.NC/build_unix
+BDB_LIB_PATH=C:/deps/db-4.8.30.NC/build_unix
+OPENSSL_INCLUDE_PATH=C:/deps/openssl-1.0.1j/include
+OPENSSL_LIB_PATH=C:/deps/openssl-1.0.1j
+MINIUPNPC_INCLUDE_PATH=C:/deps
+LIBPNG_INCLUDE_PATH=C:/deps/libpng-1.6.12
+LIBPNG_LIB_PATH=C:/deps/libpng-1.6.12/.libs
+MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
+QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
+QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.4/.libs
+PTHREAD_LIB_PATH=c:/MinGW/lib
+CURL_INCLUDE_PATH=C:\deps\curl-7.32.0\include
+CURL_LIB_PATH=C:\deps\curl-7.32.0\lib
+}
+!win32 {
 BOOST_INCLUDE_PATH=/opt/local/include/boost
 BOOST_LIB_PATH=/opt/local/lib
 BDB_INCLUDE_PATH=/opt/local/include/db48
@@ -28,8 +46,7 @@ MINIUPNPC_LIB_PATH=/opt/local/lib
 
 QRENCODE_INCLUDE_PATH=/opt/local/include
 QRENCODE_LIB_PATH=/opt/local/lib
-
-
+}
 # for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
 # for boost thread win32 with _win32 sufix
@@ -112,9 +129,10 @@ contains(USE_UPNP, -) {
     count(USE_UPNP, 0) {
         USE_UPNP=1
     }
-    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB
+    DEFINES += USE_UPNP=$$USE_UPNP STATICLIB MINIUPNP_STATICLIB
     INCLUDEPATH += $$MINIUPNPC_INCLUDE_PATH
     LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+	win32:LIBS += -liphlpapi
 }
 
 # use: qmake "USE_DBUS=1" or qmake "USE_DBUS=0"
@@ -467,7 +485,7 @@ OTHER_FILES += \
 # platform specific defaults, if not overridden on command line
 isEmpty(BOOST_LIB_SUFFIX) {
     macx:BOOST_LIB_SUFFIX = -mt
-    windows:BOOST_LIB_SUFFIX = -mgw48-mt-s-1_550
+    windows:BOOST_LIB_SUFFIX = -mgw49-mt-s-1_550
 }
 
 isEmpty(BOOST_THREAD_LIB_SUFFIX) {
