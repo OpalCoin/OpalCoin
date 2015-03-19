@@ -12,7 +12,6 @@
 #include <QClipboard>
 #include <stdio.h>
 #include <stdlib.h>
-#include <curl/curl.h>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -118,35 +117,6 @@ void SendCoinsEntry::on_deleteButton_clicked()
 {
     emit removeEntry(this);
 }
-
-void SendCoinsEntry::on_addieButton_clicked()
-{
-  CURL *curl;
-  CURLcode res;
-  QString c = ui->payTo->text();
-  std::string s = c.toUtf8().constData();
-  std::string url = "http://addie.cc/api/" + s + "/opal";
-  const char *urlf = url.c_str();
-  curl_global_init(CURL_GLOBAL_ALL);
-  curl = curl_easy_init();
-  if(curl) {
-    curl_easy_setopt(curl, CURLOPT_URL, urlf);
-
-    std::string response;
-    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_to_string);
-    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
- 
-    res = curl_easy_perform(curl);
-    curl_easy_cleanup(curl);
-    const std::string s = response;
-    QString respf = QString::fromStdString(response);
-    ui->payTo->setText(respf);
-    ui->addAsLabel->setText(c);
-    ui->payAmount->setFocus();
-}
-  curl_global_cleanup();
-}
-
 
 bool SendCoinsEntry::validate()
 {

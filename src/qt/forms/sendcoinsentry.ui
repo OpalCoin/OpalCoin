@@ -121,20 +121,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="addieButton">
-       <property name="toolTip">
-        <string>Resolve alias</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="icon">
-        <iconset resource="../bitcoin.qrc">
-         <normaloff>:/icons/name</normaloff>:/icons/name</iconset>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QToolButton" name="donateButton">
        <property name="toolTip">
         <string>Donate to the dev fund</string>
