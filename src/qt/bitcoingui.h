@@ -13,7 +13,6 @@ class MessageModel;
 class TransactionView;
 class OverviewPage;
 class StatisticsPage;
-class BlockBrowser;
 class AddressBookPage;
 class MessagePage;
 class SendCoinsDialog;
@@ -87,7 +86,6 @@ private:
 
     OverviewPage *overviewPage;
 	StatisticsPage *statisticsPage;
-	BlockBrowser *blockBrowser;
     QWidget *transactionsPage;
     AddressBookPage *addressBookPage;
     MessagePage *messagePage;
@@ -185,8 +183,6 @@ private slots:
     void gotoOverviewPage();
 	/** Switch to Statistics page */
 	void gotoStatisticsPage();
-	/** Switch to block explorer*/
-    void gotoBlockBrowser();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
