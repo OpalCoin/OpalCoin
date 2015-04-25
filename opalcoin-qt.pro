@@ -16,21 +16,6 @@ greaterThan(QT_MAJOR_VERSION, 4) {
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
 }
 
-BOOST_INCLUDE_PATH=/opt/local/include/boost
-BOOST_LIB_PATH=/opt/local/lib
-BDB_INCLUDE_PATH=/opt/local/include/db48
-BDB_LIB_PATH=/opt/local/lib/db48
-OPENSSL_INCLUDE_PATH=/opt/local/include/openssl
-OPENSSL_LIB_PATH=/opt/local/lib
-
-MINIUPNPC_INCLUDE_PATH=/opt/local/include/miniupnpc
-MINIUPNPC_LIB_PATH=/opt/local/lib
-
-QRENCODE_INCLUDE_PATH=/opt/local/include
-QRENCODE_LIB_PATH=/opt/local/lib
-
-
-# for boost 1.37, add -mt to the boost libraries
 # use: qmake BOOST_LIB_SUFFIX=-mt
 # for boost thread win32 with _win32 sufix
 # use: BOOST_THREAD_LIB_SUFFIX=_win32-...
@@ -44,11 +29,10 @@ OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
 
-build_macosx64 {
     QMAKE_TARGET_BUNDLE_PREFIX = co.opalcoin
     BOOST_LIB_SUFFIX=-mt
-    BOOST_INCLUDE_PATH=/usr/local/Cellar/boost/1.55.0_2/include
-    BOOST_LIB_PATH=/usr/local/Cellar/boost/1.55.0_2/lib
+    BOOST_INCLUDE_PATH=/usr/local/Cellar/boost/1.57.0/include
+    BOOST_LIB_PATH=/usr/local/Cellar/boost/1.57.0/lib
 
     BDB_INCLUDE_PATH=/usr/local/opt/berkeley-db4/include
     BDB_LIB_PATH=/usr/local/Cellar/berkeley-db4/4.8.30/lib
@@ -66,7 +50,6 @@ build_macosx64 {
     QMAKE_CXXFLAGS += -arch x86_64 -stdlib=libc++
     QMAKE_CFLAGS += -arch x86_64
     QMAKE_LFLAGS += -arch x86_64 -stdlib=libc++
-}
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
