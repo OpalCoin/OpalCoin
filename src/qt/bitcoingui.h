@@ -4,7 +4,6 @@
 #include <QMainWindow>
 #include <QSystemTrayIcon>
 #include <QLabel>
-#include <QWebFrame>
 
 class TransactionTableModel;
 class ClientModel;
@@ -18,7 +17,6 @@ class AddressBookPage;
 class MessagePage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
-class AccessNxtInsideDialog;
 class Notificator;
 class RPCConsole;
 
@@ -30,7 +28,6 @@ class QAbstractItemModel;
 class QModelIndex;
 class QProgressBar;
 class QStackedWidget;
-class QUrl;
 QT_END_NAMESPACE
 
 class ActiveLabel : public QLabel
@@ -94,9 +91,6 @@ private:
     AddressBookPage *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
     SignVerifyMessageDialog *signVerifyMessageDialog;
-	AccessNxtInsideDialog *accessNxtInsideDialog;
-    QWidget *supernetPage;
-    QWidget *chatPage;
 
     ActiveLabel *labelEncryptionIcon;
     QLabel *labelStakingIcon;
@@ -114,11 +108,8 @@ private:
     QAction *quitAction;
     QAction *sendCoinsAction;
     QAction *addressBookAction;
-    QAction *chatAction;
     QAction *signMessageAction;
     QAction *verifyMessageAction;
-	QAction *accessNxtInsideAction;
-    QAction *supernetAction;
     QAction *aboutAction;
     QAction *receiveCoinsAction;
     QAction *optionsAction;
@@ -140,12 +131,6 @@ private:
     QMovie *syncIconMovie;
     /** Keep track of previous number of blocks, to detect progress */
     int prevBlocks;
-
-    bool chatInit;
-    QWebFrame * chatFrame;
-
-    bool supernetInit;
-    QWebFrame * supernetFrame;
 
     /** Create the main UI actions. */
     void createActions();
@@ -197,17 +182,10 @@ private slots:
     void gotoSendCoinsPage();
     /** Switch to Opacity page */
     void gotoMessagePage();
-    /** Switch to SuperNET page */
-    void gotosupernetPage();
-    /** Switch to chat page */
-    void gotochatPage();
-
     /** Show Sign/Verify Message dialog and switch to sign message tab */
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
-	/** Show Access Nxt dialog and switch to access nxt tab */
-	void gotoAccessNxtInsideTab(QString addr = "");
 
     /** Show configuration dialog */
     void optionsClicked();

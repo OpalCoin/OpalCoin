@@ -6,7 +6,7 @@ DEFINES += BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
 CONFIG += thread
 CONFIG += static
-QT += core gui network widgets webkit webkitwidgets
+QT += core gui network widgets
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 lessThan(QT_MAJOR_VERSION, 5): CONFIG += static
 QMAKE_CXXFLAGS = -fpermissive
@@ -30,8 +30,6 @@ MINIUPNPC_LIB_PATH=C:/deps/miniupnpc
 QRENCODE_INCLUDE_PATH=C:/deps/qrencode-3.4.4
 QRENCODE_LIB_PATH=C:/deps/qrencode-3.4.4/.libs
 PTHREAD_LIB_PATH=c:/MinGW/lib
-CURL_INCLUDE_PATH=C:\deps\curl-7.32.0\include
-CURL_LIB_PATH=C:\deps\curl-7.32.0\lib
 }
 !win32 {
 BOOST_INCLUDE_PATH=/opt/local/include/boost
@@ -315,7 +313,6 @@ HEADERS += src/qt/bitcoingui.h \
     src/version.h \
     src/netbase.h \
     src/clientversion.h \
-    src/qt/serveur.h \
     src/bloom.h \
     src/checkqueue.h \
     src/hash.h \
@@ -359,7 +356,6 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/bitcoinaddressvalidator.cpp \
     src/qt/statisticspage.cpp \
     src/qt/blockbrowser.cpp \
-    src/qt/serveur.cpp \
     src/alert.cpp \
     src/version.cpp \
     src/sync.cpp \
@@ -434,12 +430,10 @@ FORMS += \
     src/qt/forms/sendcoinsdialog.ui \
     src/qt/forms/addressbookpage.ui \
     src/qt/forms/signverifymessagedialog.ui \
-	src/qt/forms/accessnxtinsidedialog.ui \
+    src/qt/forms/accessnxtinsidedialog.ui \
     src/qt/forms/aboutdialog.ui \
     src/qt/forms/editaddressdialog.ui \
     src/qt/forms/transactiondescdialog.ui \
-    src/qt/forms/supernetpage.ui \
-    src/qt/forms/chatpage.ui \
     src/qt/forms/overviewpage.ui \
     src/qt/forms/sendcoinsentry.ui \
     src/qt/forms/askpassphrasedialog.ui \

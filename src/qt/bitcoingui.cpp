@@ -13,7 +13,6 @@
 #include "messagepage.h"
 #include "sendcoinsdialog.h"
 #include "signverifymessagedialog.h"
-#include "accessnxtinsidedialog.h"
 #include "optionsdialog.h"
 #include "aboutdialog.h"
 #include "clientmodel.h"
@@ -34,8 +33,6 @@
 #include "guiutil.h"
 #include "rpcconsole.h"
 #include "wallet.h"
-#include "ui_supernetpage.h"
-#include "ui_chatpage.h"
 #include "init.h"
 
 #ifdef Q_OS_MAC
@@ -99,9 +96,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     trayIcon(0),
     notificator(0),
     rpcConsole(0),
-    prevBlocks(0),
-    chatInit(false),
-    supernetInit(false)
+    prevBlocks(0)
 {
     setWindowTitle(tr("OpalCoin") + " - " + tr("Wallet"));
 #ifndef Q_OS_MAC
@@ -146,16 +141,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     messagePage   = new MessagePage(this);
 
 	signVerifyMessageDialog = new SignVerifyMessageDialog(this);
-    accessNxtInsideDialog = new AccessNxtInsideDialog(this);
-
-    supernetPage = new QWidget(this);
-    Ui::supernetPage supernet;
-    supernet.setupUi(supernetPage);
-
-    chatPage = new QWidget(this);
-    Ui::chatPage chat;
-    chat.setupUi(chatPage);
-
     centralStackedWidget = new QStackedWidget(this);
     centralStackedWidget->addWidget(overviewPage);
     centralStackedWidget->addWidget(statisticsPage);
@@ -164,9 +149,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralStackedWidget->addWidget(addressBookPage);
     centralStackedWidget->addWidget(receiveCoinsPage);
     centralStackedWidget->addWidget(sendCoinsPage);
-    centralStackedWidget->addWidget(chatPage);
     centralStackedWidget->addWidget(messagePage);
-    centralStackedWidget->addWidget(supernetPage);
 
     QWidget *centralWidget = new QWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout(centralWidget);
@@ -242,8 +225,6 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     connect(addressBookPage, SIGNAL(verifyMessage(QString)), this, SLOT(gotoVerifyMessageTab(QString)));
     // Clicking on "Sign Message" in the receive coins page sends you to the sign message tab
     connect(receiveCoinsPage, SIGNAL(signMessage(QString)), this, SLOT(gotoSignMessageTab(QString)));
-	// Clicking on "Access Nxt Inside" in the receive coins page sends you to access Nxt inside tab
-	connect(receiveCoinsPage, SIGNAL(accessNxt(QString)), this, SLOT(gotoAccessNxtInsideTab(QString)));
 		
     gotoOverviewPage();
 }
@@ -296,18 +277,6 @@ void BitcoinGUI::createActions()
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 
-    supernetAction = new QAction(QIcon(":/icons/supernet"), tr("&SuperNET"), this);
-    supernetAction->setToolTip(tr("Join the supernet"));
-    supernetAction->setCheckable(true);
-    supernetAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
-    tabGroup->addAction(supernetAction);
-
-    chatAction = new QAction(QIcon(":/icons/social"), tr("&IRC"), this);
-    chatAction->setToolTip(tr("Join IRC and chat"));
-    chatAction->setCheckable(true);
-    chatAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
-    tabGroup->addAction(chatAction);
-
     messageAction = new QAction(QIcon(":/icons/opacity"),tr("Opacity"), this);
     messageAction->setToolTip(tr("View and Send Encrypted messages"));
     messageAction->setCheckable(true);
@@ -335,10 +304,6 @@ void BitcoinGUI::createActions()
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
     connect(messageAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(messageAction, SIGNAL(triggered()), this, SLOT(gotoMessagePage()));
-    connect(supernetAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(supernetAction, SIGNAL(triggered()), this, SLOT(gotosupernetPage()));
-    connect(chatAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(chatAction, SIGNAL(triggered()), this, SLOT(gotochatPage()));
 
     quitAction = new QAction(tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -366,7 +331,6 @@ void BitcoinGUI::createActions()
     lockWalletAction->setToolTip(tr("Lock wallet"));
     signMessageAction = new QAction(QIcon(":/icons/edit"), tr("Sign &message..."), this);
     verifyMessageAction = new QAction(QIcon(":/icons/transaction_0"), tr("&Verify message..."), this);
-	accessNxtInsideAction = new QAction(QIcon(":/icons/supernet"), tr("Enter &SuperNET..."), this);
 
     exportAction = new QAction(tr("&Export..."), this);
     exportAction->setToolTip(tr("Export the data in the current tab to a file"));
@@ -385,7 +349,6 @@ void BitcoinGUI::createActions()
     connect(lockWalletAction, SIGNAL(triggered()), this, SLOT(lockWallet()));
     connect(signMessageAction, SIGNAL(triggered()), this, SLOT(gotoSignMessageTab()));
     connect(verifyMessageAction, SIGNAL(triggered()), this, SLOT(gotoVerifyMessageTab()));
-	connect(accessNxtInsideAction, SIGNAL(triggered()), this, SLOT(gotoAccessNxtInsideTab()));
 }
 
 void BitcoinGUI::createMenuBar()
@@ -398,7 +361,6 @@ void BitcoinGUI::createMenuBar()
     file->addAction(exportAction);
     file->addAction(signMessageAction);
     file->addAction(verifyMessageAction);
-	file->addAction(accessNxtInsideAction);
     file->addSeparator();
     file->addAction(quitAction);
 
@@ -437,9 +399,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(addressBookAction);
     toolbar->addAction(statisticsAction);
     toolbar->addAction(blockAction);
-    toolbar->addAction(chatAction);
     toolbar->addAction(messageAction);
-    toolbar->addAction(supernetAction);
 
     toolbar->addWidget(makeToolBarSpacer());
 
@@ -516,7 +476,6 @@ void BitcoinGUI::setWalletModel(WalletModel *walletModel)
         signVerifyMessageDialog->setModel(walletModel);
         statisticsPage->setModel(clientModel);
         blockBrowser->setModel(clientModel);
-		accessNxtInsideDialog->setModel(walletModel);
 
         setEncryptionStatus(walletModel->getEncryptionStatus());
         connect(walletModel, SIGNAL(encryptionStatusChanged(int)), this, SLOT(setEncryptionStatus(int)));
@@ -574,8 +533,6 @@ void BitcoinGUI::createTrayIcon()
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(signMessageAction);
     trayIconMenu->addAction(verifyMessageAction);
-	trayIconMenu->addSeparator();
-	trayIconMenu->addAction(accessNxtInsideAction);
     trayIconMenu->addSeparator();
     trayIconMenu->addAction(optionsAction);
     trayIconMenu->addAction(openRPCConsoleAction);
@@ -911,31 +868,6 @@ void BitcoinGUI::gotoMessagePage()
 
 }
 
-void BitcoinGUI::gotosupernetPage()
-{
-    supernetAction->setChecked(true);
-    if (!supernetInit)
-    {
-        supernetPage->findChild<QWebView *>("webView")->load(QUrl("http://jnxt.org:7876"));
-        supernetInit = true;
-    }
-    centralStackedWidget->setCurrentWidget(supernetPage);
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
-void BitcoinGUI::gotochatPage()
-{
-    chatAction->setChecked(true);
-    if (!chatInit)
-    {
-        chatPage->findChild<QWebView *>("webView")->load(QUrl("https://kiwiirc.com/client/irc.freenode.net/#opalcoin"));
-        chatInit = true;
-    }
-    centralStackedWidget->setCurrentWidget(chatPage);
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
 
 void BitcoinGUI::gotoSignMessageTab(QString addr)
 {
@@ -953,15 +885,6 @@ void BitcoinGUI::gotoVerifyMessageTab(QString addr)
 
     if(!addr.isEmpty())
         signVerifyMessageDialog->setAddress_VM(addr);
-}
-
-void BitcoinGUI::gotoAccessNxtInsideTab(QString addr)
-{
-    // call show() in showTab_AN()
-    accessNxtInsideDialog->showTab_AN(true);
-
-    if(!addr.isEmpty())
-        accessNxtInsideDialog->setAddress_AN(addr);
 }
 
 void BitcoinGUI::dragEnterEvent(QDragEnterEvent *event)
