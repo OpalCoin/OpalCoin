@@ -41,7 +41,7 @@ UI_DIR = build
     OPENSSL_LIB_PATH=/usr/local/opt/openssl/lib
 
     MINIUPNPC_INCLUDE_PATH=/usr/local/opt/miniupnpc/include
-    MINIUPNPC_LIB_PATH=/usr/local/Cellar/miniupnpc/1.8.20131007/lib
+    MINIUPNPC_LIB_PATH=/usr/local/Cellar/miniupnpc/1.9.20141027/lib
 
     QRENCODE_INCLUDE_PATH=/usr/local/opt/qrencode/include
     QRENCODE_LIB_PATH=/usr/local/opt/qrencode/lib
