@@ -46,9 +46,6 @@ UI_DIR = build
     QRENCODE_LIB_PATH=/usr/local/opt/qrencode/lib
 
     DEFINES += IS_ARCH_64
-    QMAKE_CXXFLAGS += -arch x86_64 -stdlib=libc++
-    QMAKE_CFLAGS += -arch x86_64
-    QMAKE_LFLAGS += -arch x86_64 -stdlib=libc++
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
