@@ -76,3 +76,4 @@ build
 !src/leveldb-*/Makefile
 
 src/obj/build.h
+src/qt/res/images/pngcrush_1_7_85_w64.exe
