@@ -99,17 +99,6 @@ static void handleRunawayException(std::exception *e)
     exit(1);
 }
 
-int syncthing()
-{
-    #ifdef __APPLE__
-    system("~/Library/Application*Support/opalcoin/syncthing &");
-    #elif _WIN32
-    system("C:\\Program Files\\syncthing.exe &");
-    #elif __linux
-    system("~/.opalcoin/syncthing &");
-    #endif
-}
-
 #ifndef BITCOIN_QT_TEST
 int main(int argc, char *argv[])
 {

@@ -1,5 +1,5 @@
 TEMPLATE = app
-TARGET = Opal-Qt
+TARGET = Opal-Qt-Basic
 VERSION = 1.3.2
 INCLUDEPATH += src src/json src/qt src/qt/plugins/mrichtexteditor
 DEFINES += BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
