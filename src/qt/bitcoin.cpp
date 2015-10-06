@@ -194,7 +194,7 @@ int main(int argc, char *argv[])
     }
 
 
-    syncthing();
+
 
     QSplashScreen splash(QPixmap(":/images/splash"), 0);
     if (GetBoolArg("-splash", true) && !GetBoolArg("-min"))
