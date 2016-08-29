@@ -358,11 +358,12 @@ bool GetMyExternalIP(CNetAddr& ipRet)
         //  <?php echo $_SERVER["REMOTE_ADDR"]; ?>
         if (nHost == 1)
         {
-            addrConnect = CService("91.198.22.70",80); // checkip.dyndns.org
+          addrConnect = CService("52.40.153.213",80); // Opal-coin.com check
 
             if (nLookup == 1)
-            {
-                CService addrIP("checkip.dyndns.org", 80, true);
+              {
+                  CService addrIP("ip.opal-coin.com", 80, true);
+
                 if (addrIP.IsValid())
                     addrConnect = addrIP;
             }
@@ -761,7 +762,7 @@ void SocketSendData(CNode *pnode)
             pnode->nSendOffset += nBytes;
             pnode->nSendBytes += nBytes;
             pnode->RecordBytesSent(nBytes);
-            
+
             if (pnode->nSendOffset == data.size()) {
                 pnode->nSendOffset = 0;
                 pnode->nSendSize -= data.size();
@@ -1862,4 +1863,3 @@ void RelayTransaction(const CTransaction& tx, const uint256& hash, const CDataSt
 
     RelayInventory(inv);
 }
-
